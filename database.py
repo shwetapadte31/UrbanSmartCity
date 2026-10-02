@@ -1,30 +1,13 @@
+import os
 import psycopg2
 
 
 def get_db_connection():
+    database_url = os.getenv("DATABASE_URL")
 
-    connection = psycopg2.connect(
-        host="localhost",
-        database="urban_smartcity",
-        user="postgres",
-        password="31blossom",
-        port="5432"
-    )
+    if not database_url:
+        raise Exception("DATABASE_URL is not set.")
+
+    connection = psycopg2.connect(database_url)
 
     return connection
-
-
-if __name__ == "__main__":
-
-    try:
-
-        connection = get_db_connection()
-
-        print("PostgreSQL connected successfully!")
-
-        connection.close()
-
-    except Exception as error:
-
-        print("Database connection failed:")
-        print(error)
