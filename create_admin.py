@@ -1,11 +1,22 @@
+import os
 from database import get_db_connection
 from werkzeug.security import generate_password_hash
 
 
 def create_admin():
+
     name = "System Administrator"
-    email = "admin@urbansmartcity.com"
-    password = "Admin@123"
+
+    email = os.getenv(
+        "ADMIN_EMAIL",
+        "admin@urbansmartcity.com"
+    )
+
+    password = os.getenv("ADMIN_PASSWORD")
+
+    if not password:
+        print("ADMIN_PASSWORD is not set.")
+        return
 
     password_hash = generate_password_hash(password)
 
@@ -13,10 +24,10 @@ def create_admin():
     cursor = None
 
     try:
+
         connection = get_db_connection()
         cursor = connection.cursor()
 
-        # Check whether admin already exists
         cursor.execute("""
             SELECT id
             FROM users
@@ -48,9 +59,7 @@ def create_admin():
 
         connection.commit()
 
-        print("Admin account created successfully!")
-        print("Email:", email)
-        print("Password:", password)
+        print("Admin account created successfully.")
 
     except Exception as error:
 

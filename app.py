@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
-
+from initialize_database import initialize_database
 from database import get_db_connection
 
 from admin_routes import admin_bp
@@ -2411,9 +2411,12 @@ def internal_server_error(error):
 # ============================================================
 # RUN APPLICATION
 # ============================================================
-
 if __name__ == "__main__":
 
-    app.run(
-        debug=True
-    )
+    try:
+        initialize_database()
+    except Exception as error:
+        print("Database initialization error:")
+        print(error)
+
+    app.run(debug=True)
