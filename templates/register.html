@@ -1,0 +1,451 @@
+{% extends "base.html" %}
+
+{% block title %}Create Account | Urban Smart City{% endblock %}
+
+{% block content %}
+
+<section class="register-section">
+
+    <div class="register-container">
+
+        <!-- LEFT SIDE -->
+        <div class="register-intro">
+
+            <span class="section-label">
+                CIVIC INTELLIGENCE PLATFORM
+            </span>
+
+            <h1>
+                Create your
+                <span>Urban Smart City</span>
+                account.
+            </h1>
+
+            <p>
+                Join the civic intelligence platform to report
+                urban problems, track resolutions, and contribute
+                to a smarter city.
+            </p>
+
+            <div class="register-benefits">
+
+                <div class="register-benefit">
+
+                    <div class="benefit-icon">
+                        ✓
+                    </div>
+
+                    <div>
+                        <strong>Report civic problems</strong>
+
+                        <span>
+                            Submit issues with location,
+                            description and supporting images.
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="register-benefit">
+
+                    <div class="benefit-icon">
+                        ✓
+                    </div>
+
+                    <div>
+                        <strong>Track your reports</strong>
+
+                        <span>
+                            Follow the progress of submitted
+                            civic problems.
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="register-benefit">
+
+                    <div class="benefit-icon">
+                        ✓
+                    </div>
+
+                    <div>
+                        <strong>AI-powered civic intelligence</strong>
+
+                        <span>
+                            Reports are prepared for intelligent
+                            classification and municipal analysis.
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- REGISTRATION CARD -->
+        <div class="register-card">
+
+            <div class="register-card-header">
+
+                <div class="register-icon">
+                    U
+                </div>
+
+                <div>
+
+                    <h2>Create account</h2>
+
+                    <p>
+                        Set up your Urban Smart City account
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form id="registerForm" novalidate>
+
+                <!-- FULL NAME -->
+                <div class="form-group">
+
+                    <label for="registerName">
+                        Full name
+                        <span class="required-mark">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="registerName"
+                        name="name"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        required
+                    >
+
+                    <small
+                        class="field-error"
+                        id="nameError">
+                    </small>
+
+                </div>
+
+
+                <!-- EMAIL -->
+                <div class="form-group">
+
+                    <label for="registerEmail">
+                        Email address
+                        <span class="required-mark">*</span>
+                    </label>
+
+                    <input
+                        type="email"
+                        id="registerEmail"
+                        name="email"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                    <small
+                        class="field-error"
+                        id="emailError">
+                    </small>
+
+                </div>
+
+
+                <!-- ACCOUNT TYPE -->
+                <div class="form-group">
+
+                    <label for="accountType">
+                        Account type
+                        <span class="required-mark">*</span>
+                    </label>
+
+                    <select
+                        id="accountType"
+                        name="role"
+                        required
+                    >
+
+                        <option value="">
+                            Select account type
+                        </option>
+
+                        <option value="citizen">
+                            Citizen
+                        </option>
+
+                        <option value="municipality_officer">
+                            Municipality Officer
+                        </option>
+
+                    </select>
+
+                    <small class="field-help">
+                        Citizen accounts are available immediately.
+                        Municipality Officer accounts require
+                        administrator verification.
+                    </small>
+
+                </div>
+
+
+                <!-- OFFICER VERIFICATION -->
+                <div
+                    class="officer-verification"
+                    id="officerVerification"
+                >
+
+                    <div class="verification-header">
+
+                        <div class="verification-icon">
+                            !
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Municipality Officer Verification
+                            </strong>
+
+                            <span>
+                                Officer accounts require administrator
+                                approval before municipal dashboard access.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- OFFICIAL EMAIL -->
+                    <div class="form-group">
+
+                        <label for="officialEmail">
+                            Official municipal email
+                            <span class="required-mark">*</span>
+                        </label>
+
+                        <input
+                            type="email"
+                            id="officialEmail"
+                            name="official_email"
+                            placeholder="Enter your official municipal email"
+                            autocomplete="email"
+                        >
+
+                        <small
+                            class="field-error"
+                            id="officialEmailError">
+                        </small>
+
+                    </div>
+
+
+                    <!-- OFFICER ID -->
+                    <div class="form-group">
+
+                        <label for="officerId">
+                            Officer / Employee ID
+                            <span class="required-mark">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="officerId"
+                            name="officer_id"
+                            placeholder="Enter your official ID"
+                        >
+
+                        <small
+                            class="field-error"
+                            id="officerIdError">
+                        </small>
+
+                    </div>
+
+
+                    <!-- REASON -->
+                    <div class="form-group">
+
+                        <label for="verificationReason">
+                            Reason for municipal access
+                            <span class="required-mark">*</span>
+                        </label>
+
+                        <textarea
+                            id="verificationReason"
+                            name="verification_reason"
+                            rows="3"
+                            placeholder="Briefly explain why you require access to the municipal command dashboard."
+                        ></textarea>
+
+                        <small
+                            class="field-error"
+                            id="verificationReasonError">
+                        </small>
+
+                    </div>
+
+
+                    <!-- VERIFICATION NOTICE -->
+                    <div class="verification-notice">
+
+                        <span>🔐</span>
+
+                        <p>
+                            Your officer account will remain pending
+                            until an administrator verifies your details.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+                <div class="form-group">
+
+                    <label for="registerPassword">
+                        Password
+                        <span class="required-mark">*</span>
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="registerPassword"
+                            name="password"
+                            placeholder="Create a password"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="passwordToggle"
+                            aria-label="Show password"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+
+                    <div class="password-strength">
+
+                        <div
+                            class="strength-bar"
+                            id="strengthBar">
+                        </div>
+
+                        <span id="strengthText">
+                            Password strength
+                        </span>
+
+                    </div>
+
+
+                    <small
+                        class="field-error"
+                        id="passwordError">
+                    </small>
+
+                </div>
+
+
+                <!-- CONFIRM PASSWORD -->
+                <div class="form-group">
+
+                    <label for="confirmPassword">
+                        Confirm password
+                        <span class="required-mark">*</span>
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirm_password"
+                        placeholder="Re-enter your password"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <small
+                        class="field-error"
+                        id="confirmPasswordError">
+                    </small>
+
+                </div>
+
+
+                <!-- TERMS -->
+                <label class="terms-option">
+
+                    <input
+                        type="checkbox"
+                        id="terms"
+                        required
+                    >
+
+                    <span>
+                        I understand that this account will be used
+                        for the Urban Smart City platform.
+                    </span>
+
+                </label>
+
+
+                <!-- SUBMIT -->
+                <button
+                    type="submit"
+                    class="register-button"
+                    id="registerButton"
+                >
+                    Create Account
+                    <span>→</span>
+                </button>
+
+
+                <!-- MESSAGE -->
+                <div
+                    id="registerMessage"
+                    class="register-message"
+                    aria-live="polite">
+                </div>
+
+            </form>
+
+
+            <!-- LOGIN LINK -->
+            <div class="login-divider">
+                <span>already registered?</span>
+            </div>
+
+            <p class="register-login-text">
+
+                Have an account?
+
+                <a href="/login">
+                    Sign in
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

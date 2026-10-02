@@ -1,0 +1,555 @@
+{% extends "base.html" %}
+
+{% block title %}Urban Smart City | Civic Intelligence Platform{% endblock %}
+
+{% block content %}
+
+<!-- =====================================================
+     HERO SECTION
+===================================================== -->
+
+<section class="hero-section">
+
+    <div class="container hero-content">
+
+        <div class="hero-text">
+
+            <div class="hero-badge">
+                AI-POWERED CIVIC INTELLIGENCE
+            </div>
+
+            <h1>
+                Building smarter cities
+                <span>through better civic intelligence.</span>
+            </h1>
+
+            <p>
+                Urban Smart City transforms citizen-reported civic problems
+                into structured, analyzed and actionable information for
+                better municipal monitoring and decision-making.
+            </p>
+
+            <div class="hero-actions">
+
+                <a
+                    href="{{ url_for('report') }}"
+                    class="primary-button"
+                >
+                    Report a Civic Issue
+                </a>
+
+                <a
+                    href="{{ url_for('municipal_dashboard') }}"
+                    class="secondary-button"
+                >
+                    Launch Command Dashboard
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CITY INTELLIGENCE PREVIEW
+        ================================================== -->
+
+        <div class="city-preview">
+
+            <div class="preview-header">
+
+                <div>
+
+                    <span class="preview-label">
+                        CITY INTELLIGENCE
+                    </span>
+
+                    <h3>
+                        Today's City Status
+                    </h3>
+
+                </div>
+
+                <span class="live-indicator">
+
+                    <span></span>
+
+                    LIVE
+
+                </span>
+
+            </div>
+
+
+            <div class="status-grid">
+
+                <div class="status-card">
+
+                    <span>
+                        Total Active
+                    </span>
+
+                    <strong>
+                        248
+                    </strong>
+
+                </div>
+
+
+                <div class="status-card">
+
+                    <span>
+                        Critical
+                    </span>
+
+                    <strong>
+                        18
+                    </strong>
+
+                </div>
+
+
+                <div class="status-card">
+
+                    <span>
+                        Reported Today
+                    </span>
+
+                    <strong>
+                        37
+                    </strong>
+
+                </div>
+
+
+                <div class="status-card">
+
+                    <span>
+                        Resolved Today
+                    </span>
+
+                    <strong>
+                        29
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="intelligence-bar">
+
+                <div>
+
+                    <span>
+                        City Intelligence Status
+                    </span>
+
+                    <strong>
+                        Monitoring Active
+                    </strong>
+
+                </div>
+
+
+                <div class="signal">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ABOUT SECTION
+===================================================== -->
+
+<section
+    class="overview-section"
+    id="about"
+>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>
+                ABOUT THE PLATFORM
+            </span>
+
+            <h2>
+                Turning civic problems into
+                <span>urban intelligence.</span>
+            </h2>
+
+            <p>
+                Urban Smart City is an AI-powered civic intelligence platform
+                that transforms citizen-reported problems into structured,
+                analyzed and actionable information for better municipal
+                monitoring and decision-making.
+            </p>
+
+        </div>
+
+
+        <div class="workflow-grid">
+
+
+            <div class="workflow-card">
+
+                <div class="workflow-number">
+                    01
+                </div>
+
+                <h3>
+                    Citizen Reporting
+                </h3>
+
+                <p>
+                    Citizens can report potholes, garbage, water leakage,
+                    drainage, streetlight issues, road damage and other
+                    civic problems with location and images.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-card">
+
+                <div class="workflow-number">
+                    02
+                </div>
+
+                <h3>
+                    AI Analysis
+                </h3>
+
+                <p>
+                    The system analyzes reported problems and helps identify
+                    their type, severity, priority and responsible department.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-card">
+
+                <div class="workflow-number">
+                    03
+                </div>
+
+                <h3>
+                    Municipal Monitoring
+                </h3>
+
+                <p>
+                    Municipal officers can monitor complaints, manage their
+                    status and view important city intelligence.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-card">
+
+                <div class="workflow-number">
+                    04
+                </div>
+
+                <h3>
+                    Urban Intelligence
+                </h3>
+
+                <p>
+                    Historical complaint data supports heatmaps, trends,
+                    recurring-problem detection, forecasting and risk analysis.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     HOW IT WORKS
+===================================================== -->
+
+<section
+    class="overview-section"
+    id="how-it-works"
+>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>
+                HOW IT WORKS
+            </span>
+
+            <h2>
+                From citizen report to
+                <span>civic intelligence.</span>
+            </h2>
+
+            <p>
+                The platform connects citizen reporting, AI analysis,
+                municipal action and citizen verification into one
+                integrated workflow.
+            </p>
+
+        </div>
+
+
+        <div class="workflow-grid">
+
+
+            <div class="workflow-card">
+
+                <div class="workflow-number">
+                    01
+                </div>
+
+                <h3>
+                    Report
+                </h3>
+
+                <p>
+                    A citizen submits a civic problem with a description,
+                    location and optional image.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-card">
+
+                <div class="workflow-number">
+                    02
+                </div>
+
+                <h3>
+                    Analyze
+                </h3>
+
+                <p>
+                    AI analyzes the complaint and identifies its type,
+                    severity, priority and responsible department.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-card">
+
+                <div class="workflow-number">
+                    03
+                </div>
+
+                <h3>
+                    Assign & Monitor
+                </h3>
+
+                <p>
+                    Municipal officers manage complaints and monitor
+                    their progress through the resolution lifecycle.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-card">
+
+                <div class="workflow-number">
+                    04
+                </div>
+
+                <h3>
+                    Resolve
+                </h3>
+
+                <p>
+                    Officers update the complaint and submit the resolution
+                    when the civic problem has been addressed.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-card">
+
+                <div class="workflow-number">
+                    05
+                </div>
+
+                <h3>
+                    Verify & Learn
+                </h3>
+
+                <p>
+                    Citizens verify the resolution while historical data
+                    contributes to wider urban intelligence.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     INTELLIGENCE SECTION
+===================================================== -->
+
+<section class="intelligence-section">
+
+    <div class="container intelligence-content">
+
+        <div>
+
+            <span class="section-label">
+                URBAN PROBLEM INTELLIGENCE
+            </span>
+
+            <h2>
+                See the city beyond
+                individual complaints.
+            </h2>
+
+            <p>
+                Urban Smart City connects citizen reports with maps,
+                analytics, recurring-problem detection, forecasting and
+                risk prediction to provide a broader view of urban issues.
+            </p>
+
+
+            <a
+                href="#how-it-works"
+                class="text-link"
+            >
+                Explore the platform →
+            </a>
+
+        </div>
+
+
+        <div class="intelligence-points">
+
+
+            <div class="intelligence-point">
+
+                <strong>
+                    AI Classification
+                </strong>
+
+                <span>
+                    Identify type, severity and department.
+                </span>
+
+            </div>
+
+
+            <div class="intelligence-point">
+
+                <strong>
+                    City Heatmap
+                </strong>
+
+                <span>
+                    Visualize where civic problems are concentrated.
+                </span>
+
+            </div>
+
+
+            <div class="intelligence-point">
+
+                <strong>
+                    Risk Prediction
+                </strong>
+
+                <span>
+                    Identify potential future problem areas.
+                </span>
+
+            </div>
+
+
+            <div class="intelligence-point">
+
+                <strong>
+                    Decision Support
+                </strong>
+
+                <span>
+                    Turn urban data into actionable information.
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FINAL CTA
+===================================================== -->
+
+<section class="cta-section">
+
+    <div class="container">
+
+        <div class="cta-box">
+
+            <span>
+                MAKE YOUR CITY MORE INTELLIGENT
+            </span>
+
+            <h2>
+                One report can become
+                meaningful city intelligence.
+            </h2>
+
+            <p>
+                Help identify civic problems and build a clearer picture
+                of what your city needs.
+            </p>
+
+
+            <a
+                href="{{ url_for('report') }}"
+                class="primary-button"
+            >
+                Report a Civic Issue
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

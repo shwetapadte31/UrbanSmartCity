@@ -1,0 +1,2908 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    Admin Command Center | Urban Smart City
+</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        #f4f7f6;
+
+    color:
+        #1d2924;
+}
+
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.header {
+
+    min-height:
+        74px;
+
+    background:
+        white;
+
+    border-bottom:
+        1px solid #dfe7e3;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    padding:
+        0 30px;
+
+    position:
+        sticky;
+
+    top:
+        0;
+
+    z-index:
+        1000;
+}
+
+.brand {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        13px;
+}
+
+.brand-icon {
+
+    width:
+        43px;
+
+    height:
+        43px;
+
+    border-radius:
+        11px;
+
+    background:
+        #173f33;
+
+    color:
+        white;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    font-weight:
+        700;
+}
+
+.brand-name {
+
+    font-weight:
+        700;
+
+    color:
+        #173d31;
+
+    font-size:
+        18px;
+}
+
+.brand-subtitle {
+
+    color:
+        #78847f;
+
+    font-size:
+        11px;
+
+    margin-top:
+        3px;
+}
+
+.header-actions {
+
+    display:
+        flex;
+
+    gap:
+        9px;
+}
+
+.header-btn {
+
+    border:
+        1px solid #d3ded8;
+
+    background:
+        white;
+
+    color:
+        #315248;
+
+    padding:
+        9px 13px;
+
+    border-radius:
+        8px;
+
+    cursor:
+        pointer;
+
+    font-size:
+        12px;
+}
+
+.header-btn:hover {
+
+    background:
+        #f0f6f3;
+}
+
+.logout {
+
+    background:
+        #173f33;
+
+    color:
+        white;
+
+    border:
+        none;
+}
+
+
+/* ==========================================================
+   PAGE
+========================================================== */
+
+.container {
+
+    max-width:
+        1450px;
+
+    margin:
+        auto;
+
+    padding:
+        28px 30px 60px;
+}
+
+.heading {
+
+    margin-bottom:
+        23px;
+}
+
+.heading h1 {
+
+    color:
+        #173c30;
+
+    font-size:
+        28px;
+
+    margin-bottom:
+        6px;
+}
+
+.heading p {
+
+    color:
+        #74817b;
+
+    font-size:
+        13px;
+}
+
+
+/* ==========================================================
+   STATS
+========================================================== */
+
+.stats {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(6, 1fr);
+
+    gap:
+        13px;
+
+    margin-bottom:
+        20px;
+}
+
+.stat {
+
+    background:
+        white;
+
+    border:
+        1px solid #e0e8e4;
+
+    border-radius:
+        12px;
+
+    padding:
+        18px;
+
+    min-height:
+        112px;
+}
+
+.stat-label {
+
+    font-size:
+        11px;
+
+    color:
+        #78847f;
+
+    margin-bottom:
+        10px;
+}
+
+.stat-value {
+
+    font-size:
+        26px;
+
+    font-weight:
+        700;
+
+    color:
+        #173f33;
+}
+
+.stat-note {
+
+    font-size:
+        10px;
+
+    color:
+        #8a9590;
+
+    margin-top:
+        7px;
+}
+
+.pending-stat {
+
+    border-top:
+        3px solid #c58a31;
+}
+
+.critical-stat {
+
+    border-top:
+        3px solid #ae4943;
+}
+
+
+/* ==========================================================
+   SECTION
+========================================================== */
+
+.section {
+
+    background:
+        white;
+
+    border:
+        1px solid #dfe8e3;
+
+    border-radius:
+        13px;
+
+    margin-bottom:
+        20px;
+
+    overflow:
+        hidden;
+}
+
+.section-header {
+
+    padding:
+        16px 20px;
+
+    border-bottom:
+        1px solid #e5ece9;
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+}
+
+.section-title {
+
+    color:
+        #1d4034;
+
+    font-size:
+        16px;
+
+    font-weight:
+        700;
+}
+
+.section-subtitle {
+
+    color:
+        #7c8782;
+
+    font-size:
+        11px;
+
+    margin-top:
+        4px;
+}
+
+.section-body {
+
+    padding:
+        20px;
+}
+
+
+/* ==========================================================
+   VERIFICATION
+========================================================== */
+
+.verification-toolbar {
+
+    display:
+        flex;
+
+    gap:
+        10px;
+
+    margin-bottom:
+        16px;
+
+    flex-wrap:
+        wrap;
+}
+
+.search {
+
+    flex:
+        1;
+
+    min-width:
+        220px;
+
+    border:
+        1px solid #ccd8d2;
+
+    border-radius:
+        8px;
+
+    padding:
+        10px 12px;
+
+    outline:
+        none;
+
+    font-size:
+        12px;
+}
+
+.search:focus {
+
+    border-color:
+        #6d9785;
+}
+
+.filter {
+
+    border:
+        1px solid #ccd8d2;
+
+    background:
+        white;
+
+    border-radius:
+        8px;
+
+    padding:
+        10px;
+
+    font-size:
+        12px;
+}
+
+.officer-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap:
+        13px;
+}
+
+.officer-card {
+
+    border:
+        1px solid #e0e8e4;
+
+    border-radius:
+        11px;
+
+    padding:
+        16px;
+
+    background:
+        #fbfcfb;
+}
+
+.officer-top {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    gap:
+        10px;
+
+    margin-bottom:
+        12px;
+}
+
+.officer-name {
+
+    font-size:
+        14px;
+
+    font-weight:
+        700;
+
+    color:
+        #24463a;
+}
+
+.pending-badge {
+
+    background:
+        #faefd9;
+
+    color:
+        #91631e;
+
+    border-radius:
+        20px;
+
+    padding:
+        4px 8px;
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    white-space:
+        nowrap;
+}
+
+.officer-info {
+
+    font-size:
+        11px;
+
+    color:
+        #6d7973;
+
+    line-height:
+        1.7;
+
+    margin-bottom:
+        13px;
+}
+
+.reason {
+
+    background:
+        #f3f7f5;
+
+    border-left:
+        3px solid #5e8875;
+
+    padding:
+        10px;
+
+    font-size:
+        11px;
+
+    color:
+        #64736c;
+
+    line-height:
+        1.5;
+
+    margin-bottom:
+        13px;
+}
+
+.card-actions {
+
+    display:
+        flex;
+
+    gap:
+        8px;
+}
+
+.approve {
+
+    background:
+        #28664f;
+
+    color:
+        white;
+
+    border:
+        none;
+
+    border-radius:
+        7px;
+
+    padding:
+        8px 13px;
+
+    font-size:
+        11px;
+
+    cursor:
+        pointer;
+}
+
+.reject {
+
+    background:
+        white;
+
+    color:
+        #a34842;
+
+    border:
+        1px solid #e2c5c2;
+
+    border-radius:
+        7px;
+
+    padding:
+        8px 13px;
+
+    font-size:
+        11px;
+
+    cursor:
+        pointer;
+}
+
+
+/* ==========================================================
+   USER TABLE
+========================================================== */
+
+.table-wrapper {
+
+    overflow-x:
+        auto;
+}
+
+table {
+
+    width:
+        100%;
+
+    border-collapse:
+        collapse;
+}
+
+th {
+
+    background:
+        #f7faf8;
+
+    color:
+        #718079;
+
+    font-size:
+        10px;
+
+    text-align:
+        left;
+
+    padding:
+        11px 13px;
+
+    border-bottom:
+        1px solid #e1e9e5;
+
+    white-space:
+        nowrap;
+}
+
+td {
+
+    padding:
+        12px 13px;
+
+    border-bottom:
+        1px solid #edf1ef;
+
+    font-size:
+        11px;
+
+    color:
+        #4d5b55;
+}
+
+.role-badge,
+.status-badge {
+
+    display:
+        inline-block;
+
+    padding:
+        4px 8px;
+
+    border-radius:
+        20px;
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+}
+
+.role-citizen {
+
+    background:
+        #e8f1ed;
+
+    color:
+        #3d705a;
+}
+
+.role-officer {
+
+    background:
+        #e7edf4;
+
+    color:
+        #50667c;
+}
+
+.role-admin {
+
+    background:
+        #eee8f4;
+
+    color:
+        #6d557e;
+}
+
+.status-verified {
+
+    background:
+        #e3f1e8;
+
+    color:
+        #397156;
+}
+
+.status-pending {
+
+    background:
+        #faefd9;
+
+    color:
+        #94651e;
+}
+
+.status-rejected {
+
+    background:
+        #f6e3e1;
+
+    color:
+        #99423c;
+}
+
+
+/* ==========================================================
+   PLATFORM GRID
+========================================================== */
+
+.platform-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap:
+        13px;
+}
+
+.platform-card {
+
+    background:
+        #f8faf9;
+
+    border:
+        1px solid #e1e9e5;
+
+    border-radius:
+        10px;
+
+    padding:
+        15px;
+}
+
+.platform-card-title {
+
+    color:
+        #607069;
+
+    font-size:
+        11px;
+
+    margin-bottom:
+        8px;
+}
+
+.platform-card-value {
+
+    font-size:
+        23px;
+
+    font-weight:
+        700;
+
+    color:
+        #173f33;
+}
+
+
+/* ==========================================================
+   ACTIVITY
+========================================================== */
+
+.activity-item {
+
+    padding:
+        13px 0;
+
+    border-bottom:
+        1px solid #edf1ef;
+}
+
+.activity-item:last-child {
+
+    border-bottom:
+        none;
+}
+
+.activity-action {
+
+    font-size:
+        12px;
+
+    font-weight:
+        700;
+
+    color:
+        #28483d;
+}
+
+.activity-details {
+
+    font-size:
+        11px;
+
+    color:
+        #738079;
+
+    margin-top:
+        4px;
+
+    line-height:
+        1.5;
+}
+
+.activity-time {
+
+    font-size:
+        10px;
+
+    color:
+        #929c97;
+
+    margin-top:
+        4px;
+}
+
+
+/* ==========================================================
+   MODAL
+========================================================== */
+
+.modal-overlay {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    background:
+        rgba(
+            12,
+            28,
+            22,
+            0.48
+        );
+
+    z-index:
+        5000;
+
+    display:
+        none;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    padding:
+        20px;
+}
+
+.modal {
+
+    background:
+        white;
+
+    width:
+        min(500px, 100%);
+
+    border-radius:
+        14px;
+
+    box-shadow:
+        0 20px 60px rgba(
+            0,
+            0,
+            0,
+            0.22
+        );
+}
+
+.modal-header {
+
+    padding:
+        17px 20px;
+
+    border-bottom:
+        1px solid #e4ebe8;
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+}
+
+.modal-header h3 {
+
+    font-size:
+        16px;
+
+    color:
+        #183d31;
+}
+
+.close {
+
+    width:
+        31px;
+
+    height:
+        31px;
+
+    border:
+        none;
+
+    border-radius:
+        50%;
+
+    background:
+        #f0f3f1;
+
+    cursor:
+        pointer;
+}
+
+.modal-body {
+
+    padding:
+        20px;
+}
+
+.modal-body p {
+
+    font-size:
+        12px;
+
+    color:
+        #68766f;
+
+    line-height:
+        1.6;
+}
+
+.remarks {
+
+    width:
+        100%;
+
+    min-height:
+        90px;
+
+    margin-top:
+        13px;
+
+    border:
+        1px solid #ccd8d2;
+
+    border-radius:
+        8px;
+
+    padding:
+        10px;
+
+    resize:
+        vertical;
+
+    font-family:
+        inherit;
+
+    outline:
+        none;
+}
+
+.modal-footer {
+
+    padding:
+        14px 20px;
+
+    border-top:
+        1px solid #e4ebe8;
+
+    display:
+        flex;
+
+    justify-content:
+        flex-end;
+
+    gap:
+        8px;
+}
+
+.cancel-btn {
+
+    background:
+        white;
+
+    border:
+        1px solid #d3ddd8;
+
+    border-radius:
+        7px;
+
+    padding:
+        9px 14px;
+
+    cursor:
+        pointer;
+}
+
+.confirm-btn {
+
+    background:
+        #28664f;
+
+    color:
+        white;
+
+    border:
+        none;
+
+    border-radius:
+        7px;
+
+    padding:
+        9px 14px;
+
+    cursor:
+        pointer;
+}
+
+.confirm-reject {
+
+    background:
+        #a34842;
+}
+
+
+/* ==========================================================
+   EMPTY
+========================================================== */
+
+.empty {
+
+    padding:
+        28px;
+
+    text-align:
+        center;
+
+    color:
+        #7e8984;
+
+    font-size:
+        12px;
+}
+
+.toast {
+
+    position:
+        fixed;
+
+    right:
+        24px;
+
+    bottom:
+        24px;
+
+    background:
+        #173f33;
+
+    color:
+        white;
+
+    padding:
+        12px 16px;
+
+    border-radius:
+        8px;
+
+    font-size:
+        11px;
+
+    display:
+        none;
+
+    z-index:
+        9000;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 1200px) {
+
+    .stats {
+
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+    .officer-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+}
+
+@media (max-width: 800px) {
+
+    .header {
+
+        padding:
+            10px 15px;
+    }
+
+    .container {
+
+        padding:
+            20px 15px 45px;
+    }
+
+    .stats {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .platform-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .stats {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .brand-subtitle {
+
+        display:
+            none;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            AD
+        </div>
+
+        <div>
+
+            <div class="brand-name">
+                Urban Smart City
+            </div>
+
+            <div class="brand-subtitle">
+                Administrator Control Center
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-actions">
+
+        <button
+            class="header-btn"
+            onclick="refreshAdmin()"
+        >
+            Refresh
+        </button>
+
+        <button
+            class="header-btn logout"
+            onclick="logoutAdmin()"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+
+    <div class="heading">
+
+        <h1>
+            Administrator Command Center
+        </h1>
+
+        <p>
+            Platform administration, access control,
+            officer verification and system monitoring.
+        </p>
+
+    </div>
+
+
+    <!-- ======================================================
+         STATISTICS
+    ====================================================== -->
+
+    <div class="stats">
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Total Users
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalUsers"
+            >
+                —
+            </div>
+
+            <div class="stat-note">
+                Registered platform users
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Citizens
+            </div>
+
+            <div
+                class="stat-value"
+                id="citizenCount"
+            >
+                —
+            </div>
+
+            <div class="stat-note">
+                Citizen accounts
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Municipal Officers
+            </div>
+
+            <div
+                class="stat-value"
+                id="officerCount"
+            >
+                —
+            </div>
+
+            <div class="stat-note">
+                Officer accounts
+            </div>
+
+        </div>
+
+
+        <div class="stat pending-stat">
+
+            <div class="stat-label">
+                Pending Verification
+            </div>
+
+            <div
+                class="stat-value"
+                id="pendingCount"
+            >
+                —
+            </div>
+
+            <div class="stat-note">
+                Officers awaiting review
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Total Complaints
+            </div>
+
+            <div
+                class="stat-value"
+                id="complaintCount"
+            >
+                —
+            </div>
+
+            <div class="stat-note">
+                Platform reports
+            </div>
+
+        </div>
+
+
+        <div class="stat critical-stat">
+
+            <div class="stat-label">
+                Critical Complaints
+            </div>
+
+            <div
+                class="stat-value"
+                id="criticalCount"
+            >
+                —
+            </div>
+
+            <div class="stat-note">
+                Critical civic problems
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ======================================================
+         OFFICER VERIFICATION
+    ====================================================== -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <div>
+
+                <div class="section-title">
+                    Municipality Officer Verification
+                </div>
+
+                <div class="section-subtitle">
+                    Review official municipal access requests
+                    before dashboard access is granted.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="section-body">
+
+
+            <div class="verification-toolbar">
+
+                <input
+                    type="text"
+                    id="officerSearch"
+                    class="search"
+                    placeholder="Search officer name, email or officer ID..."
+                    oninput="renderOfficers()"
+                >
+
+                <select
+                    id="officerFilter"
+                    class="filter"
+                    onchange="renderOfficers()"
+                >
+
+                    <option value="pending">
+                        Pending
+                    </option>
+
+                    <option value="all">
+                        All Loaded
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div
+                id="officerGrid"
+                class="officer-grid"
+            >
+
+                <div class="empty">
+                    Loading officer requests...
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ======================================================
+         PLATFORM OVERVIEW
+    ====================================================== -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <div>
+
+                <div class="section-title">
+                    Platform Overview
+                </div>
+
+                <div class="section-subtitle">
+                    Current user and civic problem activity.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="section-body">
+
+            <div class="platform-grid">
+
+
+                <div class="platform-card">
+
+                    <div class="platform-card-title">
+                        Verified Officers
+                    </div>
+
+                    <div
+                        class="platform-card-value"
+                        id="verifiedOfficerCount"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="platform-card">
+
+                    <div class="platform-card-title">
+                        Active Complaints
+                    </div>
+
+                    <div
+                        class="platform-card-value"
+                        id="activeComplaintCount"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="platform-card">
+
+                    <div class="platform-card-title">
+                        Resolved Complaints
+                    </div>
+
+                    <div
+                        class="platform-card-value"
+                        id="resolvedComplaintCount"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="platform-card">
+
+                    <div class="platform-card-title">
+                        Complaints Today
+                    </div>
+
+                    <div
+                        class="platform-card-value"
+                        id="todayComplaintCount"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="platform-card">
+
+                    <div class="platform-card-title">
+                        Administrator Accounts
+                    </div>
+
+                    <div
+                        class="platform-card-value"
+                        id="adminCount"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="platform-card">
+
+                    <div class="platform-card-title">
+                        System Status
+                    </div>
+
+                    <div
+                        class="platform-card-value"
+                    >
+                        Operational
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ======================================================
+         USER MANAGEMENT
+    ====================================================== -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <div>
+
+                <div class="section-title">
+                    User Management
+                </div>
+
+                <div class="section-subtitle">
+                    Search and monitor registered platform accounts.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="section-body">
+
+
+            <div class="verification-toolbar">
+
+                <input
+                    type="text"
+                    id="userSearch"
+                    class="search"
+                    placeholder="Search users..."
+                    oninput="loadUsers()"
+                >
+
+
+                <select
+                    id="userRole"
+                    class="filter"
+                    onchange="loadUsers()"
+                >
+
+                    <option value="all">
+                        All Roles
+                    </option>
+
+                    <option value="citizen">
+                        Citizens
+                    </option>
+
+                    <option value="municipality_officer">
+                        Municipality Officers
+                    </option>
+
+                    <option value="admin">
+                        Administrators
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Name
+                            </th>
+
+                            <th>
+                                Email
+                            </th>
+
+                            <th>
+                                Role
+                            </th>
+
+                            <th>
+                                Verification
+                            </th>
+
+                            <th>
+                                Officer ID
+                            </th>
+
+                            <th>
+                                Created
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="userTable">
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                class="empty"
+                            >
+                                Loading users...
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ======================================================
+         ADMIN ACTIVITY
+    ====================================================== -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <div>
+
+                <div class="section-title">
+                    Administrator Activity Log
+                </div>
+
+                <div class="section-subtitle">
+                    Recorded administrative access-control actions.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="activityList"
+            class="section-body"
+        >
+
+            <div class="empty">
+                Loading activity...
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- ======================================================
+     VERIFICATION MODAL
+====================================================== -->
+
+<div
+    id="verificationModal"
+    class="modal-overlay"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h3 id="modalTitle">
+                Officer Verification
+            </h3>
+
+            <button
+                class="close"
+                onclick="closeVerificationModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <p id="modalText">
+                Review this officer request.
+            </p>
+
+
+            <textarea
+                id="verificationRemarks"
+                class="remarks"
+                placeholder="Optional administrator remarks..."
+            ></textarea>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="cancel-btn"
+                onclick="closeVerificationModal()"
+            >
+                Cancel
+            </button>
+
+            <button
+                id="confirmVerificationButton"
+                class="confirm-btn"
+                onclick="submitVerificationDecision()"
+            >
+                Confirm
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+<script>
+
+
+/* ==========================================================
+   GLOBAL VARIABLES
+========================================================== */
+
+let adminData = null;
+
+let selectedOfficerId = null;
+
+let selectedDecision = null;
+
+
+/* ==========================================================
+   INITIAL LOAD
+========================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadAdminOverview();
+
+        loadUsers();
+
+        loadActivity();
+
+    }
+);
+
+
+/* ==========================================================
+   ADMIN OVERVIEW
+========================================================== */
+
+async function loadAdminOverview() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/admin/overview"
+            );
+
+        const data =
+            await response.json();
+
+        if (!data.success) {
+
+            showToast(
+                data.message ||
+                "Unable to load admin dashboard."
+            );
+
+            return;
+
+        }
+
+        adminData =
+            data;
+
+
+        const users =
+            data.users;
+
+        const complaints =
+            data.complaints;
+
+
+        document.getElementById(
+            "totalUsers"
+        ).textContent =
+            users.total;
+
+        document.getElementById(
+            "citizenCount"
+        ).textContent =
+            users.citizens;
+
+        document.getElementById(
+            "officerCount"
+        ).textContent =
+            users.officers;
+
+        document.getElementById(
+            "pendingCount"
+        ).textContent =
+            users.pending_officers;
+
+        document.getElementById(
+            "verifiedOfficerCount"
+        ).textContent =
+            users.verified_officers;
+
+        document.getElementById(
+            "adminCount"
+        ).textContent =
+            users.admins;
+
+
+        document.getElementById(
+            "complaintCount"
+        ).textContent =
+            complaints.total;
+
+        document.getElementById(
+            "criticalCount"
+        ).textContent =
+            complaints.critical;
+
+        document.getElementById(
+            "activeComplaintCount"
+        ).textContent =
+            complaints.active;
+
+        document.getElementById(
+            "resolvedComplaintCount"
+        ).textContent =
+            complaints.resolved;
+
+        document.getElementById(
+            "todayComplaintCount"
+        ).textContent =
+            complaints.today;
+
+
+        renderOfficers();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Admin overview error:",
+            error
+        );
+
+        showToast(
+            "Unable to connect to admin service."
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   OFFICERS
+========================================================== */
+
+function renderOfficers() {
+
+    const container =
+        document.getElementById(
+            "officerGrid"
+        );
+
+    if (
+        !adminData ||
+        !adminData.pending_officers
+    ) {
+
+        container.innerHTML =
+            `
+            <div class="empty">
+                No officer data available.
+            </div>
+            `;
+
+        return;
+
+    }
+
+
+    const search =
+        document.getElementById(
+            "officerSearch"
+        ).value
+        .toLowerCase()
+        .trim();
+
+
+    const filter =
+        document.getElementById(
+            "officerFilter"
+        ).value;
+
+
+    let officers =
+        adminData.pending_officers;
+
+
+    if (search) {
+
+        officers =
+            officers.filter(
+                officer =>
+
+                    officer.name
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    officer.email
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    (
+                        officer.officer_id ||
+                        ""
+                    )
+                    .toLowerCase()
+                    .includes(search)
+            );
+
+    }
+
+
+    if (filter === "pending") {
+
+        officers =
+            officers.filter(
+                officer =>
+                    officer.verification_status ===
+                    "pending"
+            );
+
+    }
+
+
+    if (officers.length === 0) {
+
+        container.innerHTML =
+            `
+            <div class="empty">
+                No officer verification requests found.
+            </div>
+            `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        officers
+            .map(
+                officer =>
+                    `
+                    <div class="officer-card">
+
+                        <div class="officer-top">
+
+                            <div>
+
+                                <div class="officer-name">
+                                    ${escapeHtml(
+                                        officer.name
+                                    )}
+                                </div>
+
+                            </div>
+
+                            <span class="pending-badge">
+                                ${escapeHtml(
+                                    officer.verification_status
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        <div class="officer-info">
+
+                            <strong>
+                                Email:
+                            </strong>
+                            ${escapeHtml(
+                                officer.email
+                            )}
+
+                            <br>
+
+                            <strong>
+                                Officer ID:
+                            </strong>
+                            ${escapeHtml(
+                                officer.officer_id ||
+                                "Not provided"
+                            )}
+
+                            <br>
+
+                            <strong>
+                                Requested:
+                            </strong>
+                            ${escapeHtml(
+                                officer.created_at
+                            )}
+
+                        </div>
+
+
+                        <div class="reason">
+
+                            <strong>
+                                Access Reason
+                            </strong>
+
+                            <br>
+
+                            ${escapeHtml(
+                                officer.verification_reason ||
+                                "No reason provided."
+                            )}
+
+                        </div>
+
+
+                        <div class="card-actions">
+
+                            <button
+                                class="approve"
+                                onclick="openVerificationModal(
+                                    ${officer.id},
+                                    'approve'
+                                )"
+                            >
+                                Approve
+                            </button>
+
+                            <button
+                                class="reject"
+                                onclick="openVerificationModal(
+                                    ${officer.id},
+                                    'reject'
+                                )"
+                            >
+                                Reject
+                            </button>
+
+                        </div>
+
+                    </div>
+                    `
+            )
+            .join("");
+
+}
+
+
+/* ==========================================================
+   OPEN VERIFICATION MODAL
+========================================================== */
+
+function openVerificationModal(
+    officerId,
+    decision
+) {
+
+    selectedOfficerId =
+        officerId;
+
+    selectedDecision =
+        decision;
+
+
+    const modal =
+        document.getElementById(
+            "verificationModal"
+        );
+
+
+    const title =
+        document.getElementById(
+            "modalTitle"
+        );
+
+
+    const text =
+        document.getElementById(
+            "modalText"
+        );
+
+
+    const button =
+        document.getElementById(
+            "confirmVerificationButton"
+        );
+
+
+    document.getElementById(
+        "verificationRemarks"
+    ).value = "";
+
+
+    if (decision === "approve") {
+
+        title.textContent =
+            "Approve Municipality Officer";
+
+        text.textContent =
+            "Confirm that this officer should receive access to the Municipal Command Center.";
+
+        button.textContent =
+            "Approve Officer";
+
+        button.className =
+            "confirm-btn";
+
+    }
+
+    else {
+
+        title.textContent =
+            "Reject Municipality Officer";
+
+        text.textContent =
+            "Confirm that this municipality access request should be rejected.";
+
+        button.textContent =
+            "Reject Officer";
+
+        button.className =
+            "confirm-btn confirm-reject";
+
+    }
+
+
+    modal.style.display =
+        "flex";
+
+}
+
+
+/* ==========================================================
+   SUBMIT VERIFICATION
+========================================================== */
+
+async function submitVerificationDecision() {
+
+    if (
+        !selectedOfficerId ||
+        !selectedDecision
+    ) {
+
+        return;
+
+    }
+
+
+    const remarks =
+        document.getElementById(
+            "verificationRemarks"
+        ).value.trim();
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/admin/officers/${selectedOfficerId}/verification`,
+                {
+                    method:
+                        "POST",
+
+                    headers:
+                    {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            decision:
+                                selectedDecision,
+
+                            remarks:
+                                remarks
+
+                        })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            showToast(
+                data.message ||
+                "Unable to update officer."
+            );
+
+            return;
+
+        }
+
+
+        closeVerificationModal();
+
+
+        showToast(
+            data.message
+        );
+
+
+        await loadAdminOverview();
+
+        await loadUsers();
+
+        await loadActivity();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Verification error:",
+            error
+        );
+
+        showToast(
+            "Unable to process verification."
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   CLOSE MODAL
+========================================================== */
+
+function closeVerificationModal() {
+
+    document.getElementById(
+        "verificationModal"
+    ).style.display =
+        "none";
+
+    selectedOfficerId =
+        null;
+
+    selectedDecision =
+        null;
+
+}
+
+
+/* ==========================================================
+   USERS
+========================================================== */
+
+async function loadUsers() {
+
+    const tbody =
+        document.getElementById(
+            "userTable"
+        );
+
+
+    const search =
+        document.getElementById(
+            "userSearch"
+        ).value;
+
+
+    const role =
+        document.getElementById(
+            "userRole"
+        ).value;
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/admin/users?role="
+                +
+                encodeURIComponent(role)
+                +
+                "&search="
+                +
+                encodeURIComponent(search)
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            tbody.innerHTML =
+                `
+                <tr>
+                    <td
+                        colspan="6"
+                        class="empty"
+                    >
+                        Unable to load users.
+                    </td>
+                </tr>
+                `;
+
+            return;
+
+        }
+
+
+        if (
+            data.users.length === 0
+        ) {
+
+            tbody.innerHTML =
+                `
+                <tr>
+                    <td
+                        colspan="6"
+                        class="empty"
+                    >
+                        No users found.
+                    </td>
+                </tr>
+                `;
+
+            return;
+
+        }
+
+
+        tbody.innerHTML =
+            data.users
+                .map(
+                    user =>
+                        `
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    ${escapeHtml(
+                                        user.name
+                                    )}
+                                </strong>
+                            </td>
+
+                            <td>
+                                ${escapeHtml(
+                                    user.email
+                                )}
+                            </td>
+
+                            <td>
+                                ${roleBadge(
+                                    user.role
+                                )}
+                            </td>
+
+                            <td>
+                                ${statusBadge(
+                                    user.verification_status
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHtml(
+                                    user.officer_id ||
+                                    "—"
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHtml(
+                                    user.created_at
+                                )}
+                            </td>
+
+                        </tr>
+                        `
+                )
+                .join("");
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "User loading error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   ACTIVITY LOG
+========================================================== */
+
+async function loadActivity() {
+
+    const container =
+        document.getElementById(
+            "activityList"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/admin/activity"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !data.success ||
+            data.activities.length === 0
+        ) {
+
+            container.innerHTML =
+                `
+                <div class="empty">
+                    No administrator activity recorded yet.
+                </div>
+                `;
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            data.activities
+                .map(
+                    item =>
+                        `
+                        <div class="activity-item">
+
+                            <div class="activity-action">
+
+                                ${escapeHtml(
+                                    item.action
+                                )}
+
+                            </div>
+
+
+                            <div class="activity-details">
+
+                                ${escapeHtml(
+                                    item.details ||
+                                    "No additional details."
+                                )}
+
+                            </div>
+
+
+                            <div class="activity-time">
+
+                                ${escapeHtml(
+                                    item.created_at
+                                )}
+
+                                ·
+
+                                Admin:
+                                ${escapeHtml(
+                                    item.admin_name
+                                )}
+
+                            </div>
+
+                        </div>
+                        `
+                )
+                .join("");
+
+    }
+
+    catch (error) {
+
+        container.innerHTML =
+            `
+            <div class="empty">
+                Unable to load administrator activity.
+            </div>
+            `;
+
+    }
+
+}
+
+
+/* ==========================================================
+   BADGES
+========================================================== */
+
+function roleBadge(
+    role
+) {
+
+    let className =
+        "role-citizen";
+
+    let label =
+        "Citizen";
+
+
+    if (
+        role ===
+        "municipality_officer"
+    ) {
+
+        className =
+            "role-officer";
+
+        label =
+            "Municipality Officer";
+
+    }
+
+    else if (
+        role === "admin"
+    ) {
+
+        className =
+            "role-admin";
+
+        label =
+            "Administrator";
+
+    }
+
+
+    return `
+        <span class="role-badge ${className}">
+            ${label}
+        </span>
+    `;
+
+}
+
+
+function statusBadge(
+    status
+) {
+
+    let className =
+        "status-pending";
+
+
+    if (
+        status === "verified"
+    ) {
+
+        className =
+            "status-verified";
+
+    }
+
+    else if (
+        status === "rejected"
+    ) {
+
+        className =
+            "status-rejected";
+
+    }
+
+
+    return `
+        <span class="status-badge ${className}">
+            ${escapeHtml(status)}
+        </span>
+    `;
+
+}
+
+
+/* ==========================================================
+   REFRESH
+========================================================== */
+
+async function refreshAdmin() {
+
+    showToast(
+        "Refreshing administrator data..."
+    );
+
+
+    await loadAdminOverview();
+
+    await loadUsers();
+
+    await loadActivity();
+
+
+    showToast(
+        "Administrator data updated."
+    );
+
+}
+
+
+/* ==========================================================
+   LOGOUT
+========================================================== */
+
+async function logoutAdmin() {
+
+    try {
+
+        await fetch(
+            "/logout"
+        );
+
+    }
+
+    finally {
+
+        window.location.href =
+            "/login";
+
+    }
+
+}
+
+
+/* ==========================================================
+   TOAST
+========================================================== */
+
+function showToast(
+    message
+) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.style.display =
+        "block";
+
+
+    setTimeout(
+        function() {
+
+            toast.style.display =
+                "none";
+
+        },
+        3000
+    );
+
+}
+
+
+/* ==========================================================
+   ESCAPE HTML
+========================================================== */
+
+function escapeHtml(
+    value
+) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+    }
+
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* ==========================================================
+   OUTSIDE MODAL CLICK
+========================================================== */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const modal =
+            document.getElementById(
+                "verificationModal"
+            );
+
+
+        if (
+            event.target === modal
+        ) {
+
+            closeVerificationModal();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

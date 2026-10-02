@@ -1,0 +1,4213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        City Intelligence | Urban Smart City
+    </title>
+
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+
+    <!-- Leaflet -->
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
+
+    <!-- Chart.js -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/chart.js">
+    </script>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            background:
+                #f4f7f6;
+
+            color:
+                #1f2933;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+        }
+
+
+        /* ==================================================
+           HEADER
+        ================================================== */
+
+        .intelligence-header {
+
+            background:
+                #ffffff;
+
+            border-bottom:
+                1px solid #e1e7e5;
+
+            padding:
+                18px 30px;
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            gap:
+                20px;
+
+        }
+
+
+        .header-left {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                15px;
+
+        }
+
+
+        .header-icon {
+
+            width:
+                48px;
+
+            height:
+                48px;
+
+            border-radius:
+                12px;
+
+            background:
+                #e8f3ef;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                23px;
+
+        }
+
+
+        .header-title h1 {
+
+            margin:
+                0;
+
+            font-size:
+                23px;
+
+        }
+
+
+        .header-title p {
+
+            margin:
+                4px 0 0;
+
+            color:
+                #718096;
+
+            font-size:
+                13px;
+
+        }
+
+
+        .header-actions {
+
+            display:
+                flex;
+
+            gap:
+                9px;
+
+            flex-wrap:
+                wrap;
+
+        }
+
+
+        .header-btn {
+
+            border:
+                1px solid #d7dfdc;
+
+            background:
+                #ffffff;
+
+            padding:
+                9px 14px;
+
+            border-radius:
+                8px;
+
+            cursor:
+                pointer;
+
+            font-weight:
+                600;
+
+        }
+
+
+        .header-btn:hover {
+
+            background:
+                #f1f5f3;
+
+        }
+
+
+        .logout-btn {
+
+            color:
+                #b42318;
+
+        }
+
+
+        /* ==================================================
+           MAIN
+        ================================================== */
+
+        .intelligence-container {
+
+            max-width:
+                1500px;
+
+            margin:
+                auto;
+
+            padding:
+                25px 30px 45px;
+
+        }
+
+
+        /* ==================================================
+           SECTION
+        ================================================== */
+
+        .section-heading {
+
+            margin:
+                0 0 8px;
+
+            font-size:
+                18px;
+
+        }
+
+
+        .section-description {
+
+            margin:
+                0 0 18px;
+
+            color:
+                #718096;
+
+            font-size:
+                13px;
+
+        }
+
+
+        /* ==================================================
+           STATUS
+        ================================================== */
+
+        .status-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(6, minmax(0, 1fr));
+
+            gap:
+                13px;
+
+            margin-bottom:
+                25px;
+
+        }
+
+
+        .status-card {
+
+            background:
+                #ffffff;
+
+            border:
+                1px solid #e1e7e5;
+
+            border-radius:
+                13px;
+
+            padding:
+                18px;
+
+            box-shadow:
+                0 3px 12px rgba(
+                    0,
+                    0,
+                    0,
+                    0.03
+                );
+
+        }
+
+
+        .status-label {
+
+            color:
+                #718096;
+
+            font-size:
+                12px;
+
+            margin-bottom:
+                9px;
+
+        }
+
+
+        .status-value {
+
+            font-size:
+                27px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        /* ==================================================
+           MAP SECTION
+        ================================================== */
+
+        .map-card {
+
+            background:
+                #ffffff;
+
+            border:
+                1px solid #e1e7e5;
+
+            border-radius:
+                14px;
+
+            padding:
+                20px;
+
+            margin-bottom:
+                25px;
+
+            box-shadow:
+                0 3px 12px rgba(
+                    0,
+                    0,
+                    0,
+                    0.03
+                );
+
+        }
+
+
+        .map-header {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            gap:
+                15px;
+
+            margin-bottom:
+                15px;
+
+            flex-wrap:
+                wrap;
+
+        }
+
+
+        .map-header h2 {
+
+            margin:
+                0;
+
+            font-size:
+                18px;
+
+        }
+
+
+        .map-header p {
+
+            margin:
+                4px 0 0;
+
+            color:
+                #718096;
+
+            font-size:
+                12px;
+
+        }
+
+
+        .map-controls {
+
+            display:
+                flex;
+
+            gap:
+                8px;
+
+            flex-wrap:
+                wrap;
+
+        }
+
+
+        .map-select {
+
+            padding:
+                9px 11px;
+
+            border:
+                1px solid #d7dfdc;
+
+            border-radius:
+                8px;
+
+            background:
+                #ffffff;
+
+            font-size:
+                13px;
+
+        }
+
+
+        .map-button {
+
+            padding:
+                9px 12px;
+
+            border:
+                1px solid #d7dfdc;
+
+            border-radius:
+                8px;
+
+            background:
+                #f7faf8;
+
+            cursor:
+                pointer;
+
+            font-weight:
+                600;
+
+        }
+
+
+        .map-button:hover {
+
+            background:
+                #edf3f0;
+
+        }
+
+
+        #cityIntelligenceMap {
+
+            height:
+                520px;
+
+            width:
+                100%;
+
+            border-radius:
+                12px;
+
+            overflow:
+                hidden;
+
+            border:
+                1px solid #dfe7e3;
+
+        }
+
+
+        /* ==================================================
+           MAP LEGEND
+        ================================================== */
+
+        .map-legend {
+
+            margin-top:
+                12px;
+
+            display:
+                flex;
+
+            gap:
+                18px;
+
+            flex-wrap:
+                wrap;
+
+            font-size:
+                12px;
+
+            color:
+                #59636e;
+
+        }
+
+
+        .legend-item {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                6px;
+
+        }
+
+
+        .legend-dot {
+
+            width:
+                11px;
+
+            height:
+                11px;
+
+            border-radius:
+                50%;
+
+            border:
+                2px solid #ffffff;
+
+            box-shadow:
+                0 1px 3px rgba(
+                    0,
+                    0,
+                    0,
+                    0.25
+                );
+
+        }
+
+
+        .legend-critical {
+            background: #b42318;
+        }
+
+
+        .legend-high {
+            background: #e67e22;
+        }
+
+
+        .legend-medium {
+            background: #d39b00;
+        }
+
+
+        .legend-low {
+            background: #3c8c61;
+        }
+
+
+        .legend-recurring {
+
+            background:
+                #7654a5;
+
+        }
+
+
+        .legend-risk {
+
+            background:
+                #244f7a;
+
+        }
+
+
+        /* ==================================================
+           SCORE
+        ================================================== */
+
+        .score-section {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 2fr;
+
+            gap:
+                18px;
+
+            margin-bottom:
+                25px;
+
+        }
+
+
+        .score-card,
+        .score-breakdown {
+
+            background:
+                #ffffff;
+
+            border:
+                1px solid #e1e7e5;
+
+            border-radius:
+                14px;
+
+            padding:
+                22px;
+
+        }
+
+
+        .score-number {
+
+            font-size:
+                52px;
+
+            font-weight:
+                700;
+
+            margin:
+                12px 0 3px;
+
+        }
+
+
+        .score-label {
+
+            color:
+                #718096;
+
+            font-size:
+                13px;
+
+        }
+
+
+        .score-row {
+
+            margin-bottom:
+                16px;
+
+        }
+
+
+        .score-row-header {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            margin-bottom:
+                6px;
+
+            font-size:
+                13px;
+
+        }
+
+
+        .progress {
+
+            height:
+                8px;
+
+            background:
+                #edf1ef;
+
+            border-radius:
+                10px;
+
+            overflow:
+                hidden;
+
+        }
+
+
+        .progress-fill {
+
+            height:
+                100%;
+
+            background:
+                #4f7f6d;
+
+            border-radius:
+                10px;
+
+        }
+
+
+        /* ==================================================
+           ANALYTICS
+        ================================================== */
+
+        .analytics-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                2fr 1fr;
+
+            gap:
+                18px;
+
+            margin-bottom:
+                25px;
+
+        }
+
+
+        .analytics-card {
+
+            background:
+                #ffffff;
+
+            border:
+                1px solid #e1e7e5;
+
+            border-radius:
+                14px;
+
+            padding:
+                20px;
+
+        }
+
+
+        .card-header {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            gap:
+                10px;
+
+            margin-bottom:
+                15px;
+
+        }
+
+
+        .card-header h3 {
+
+            margin:
+                0;
+
+            font-size:
+                16px;
+
+        }
+
+
+        .card-header span {
+
+            color:
+                #718096;
+
+            font-size:
+                12px;
+
+        }
+
+
+        .chart-wrapper {
+
+            height:
+                270px;
+
+            position:
+                relative;
+
+        }
+
+
+        /* ==================================================
+           INTELLIGENCE GRID
+        ================================================== */
+
+        .intelligence-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap:
+                18px;
+
+        }
+
+
+        .intelligence-card {
+
+            background:
+                #ffffff;
+
+            border:
+                1px solid #e1e7e5;
+
+            border-radius:
+                14px;
+
+            padding:
+                20px;
+
+            min-width:
+                0;
+
+        }
+
+
+        /* ==================================================
+           TABLE
+        ================================================== */
+
+        .data-table-wrapper {
+
+            overflow-x:
+                auto;
+
+        }
+
+
+        .data-table {
+
+            width:
+                100%;
+
+            border-collapse:
+                collapse;
+
+        }
+
+
+        .data-table th {
+
+            text-align:
+                left;
+
+            padding:
+                10px;
+
+            font-size:
+                11px;
+
+            color:
+                #718096;
+
+            background:
+                #f8faf9;
+
+            border-bottom:
+                1px solid #e5ebe8;
+
+        }
+
+
+        .data-table td {
+
+            padding:
+                11px 10px;
+
+            font-size:
+                12px;
+
+            border-bottom:
+                1px solid #edf1ef;
+
+            vertical-align:
+                top;
+
+        }
+
+
+        .data-table tr:last-child td {
+
+            border-bottom:
+                none;
+
+        }
+
+
+        /* ==================================================
+           BADGES
+        ================================================== */
+
+        .badge {
+
+            display:
+                inline-flex;
+
+            padding:
+                4px 8px;
+
+            border-radius:
+                20px;
+
+            font-size:
+                10px;
+
+            font-weight:
+                700;
+
+            white-space:
+                nowrap;
+
+        }
+
+
+        .badge-critical {
+
+            background:
+                #fff0ef;
+
+            color:
+                #b42318;
+
+        }
+
+
+        .badge-high {
+
+            background:
+                #fff3e8;
+
+            color:
+                #b85c00;
+
+        }
+
+
+        .badge-medium {
+
+            background:
+                #fff8e4;
+
+            color:
+                #8b6500;
+
+        }
+
+
+        .badge-low {
+
+            background:
+                #edf8f2;
+
+            color:
+                #28734a;
+
+        }
+
+
+        /* ==================================================
+           RECOMMENDATIONS
+        ================================================== */
+
+        .recommendation-list {
+
+            display:
+                grid;
+
+            gap:
+                10px;
+
+        }
+
+
+        .recommendation-item {
+
+            padding:
+                13px;
+
+            background:
+                #f7faf8;
+
+            border:
+                1px solid #e3ebe7;
+
+            border-radius:
+                10px;
+
+        }
+
+
+        .recommendation-title {
+
+            font-weight:
+                700;
+
+            margin-bottom:
+                6px;
+
+            font-size:
+                13px;
+
+        }
+
+
+        .recommendation-text {
+
+            color:
+                #59636e;
+
+            font-size:
+                12px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        /* ==================================================
+           EMPTY / LOADING
+        ================================================== */
+
+        .loading {
+
+            padding:
+                50px;
+
+            text-align:
+                center;
+
+            color:
+                #718096;
+
+        }
+
+
+        .empty-state {
+
+            padding:
+                30px 12px;
+
+            text-align:
+                center;
+
+            color:
+                #7a8591;
+
+            font-size:
+                13px;
+
+        }
+
+
+        .error-state {
+
+            padding:
+                25px;
+
+            background:
+                #fff5f4;
+
+            border:
+                1px solid #f1c7c2;
+
+            border-radius:
+                10px;
+
+            color:
+                #a12820;
+
+            text-align:
+                center;
+
+        }
+
+
+        /* ==================================================
+           RESPONSIVE
+        ================================================== */
+
+        @media (max-width: 1150px) {
+
+            .status-grid {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+
+            }
+
+            .analytics-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+            .score-section {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .intelligence-header {
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+
+            }
+
+            .intelligence-container {
+
+                padding:
+                    18px;
+
+            }
+
+            .intelligence-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+            #cityIntelligenceMap {
+
+                height:
+                    430px;
+
+            }
+
+        }
+
+
+        @media (max-width: 520px) {
+
+            .status-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+            .status-value {
+
+                font-size:
+                    23px;
+
+            }
+
+            #cityIntelligenceMap {
+
+                height:
+                    380px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="intelligence-header">
+
+    <div class="header-left">
+
+        <div class="header-icon">
+            🧠
+        </div>
+
+        <div class="header-title">
+
+            <h1>
+                City Intelligence
+            </h1>
+
+            <p>
+                AI-powered urban analytics and municipal decision support
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-actions">
+
+        <button
+            class="header-btn"
+            onclick="loadIntelligence()">
+
+            ↻ Refresh
+
+        </button>
+
+
+        <button
+            class="header-btn"
+            onclick="window.location.href='/municipal-dashboard'">
+
+            Dashboard
+
+        </button>
+
+
+        <button
+            class="header-btn logout-btn"
+            onclick="logoutUser()">
+
+            Logout
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="intelligence-container">
+
+
+    <div
+        id="loadingState"
+        class="loading">
+
+        Loading city intelligence...
+
+    </div>
+
+
+    <div
+        id="errorState"
+        class="error-state"
+        style="display:none;">
+
+        Unable to load city intelligence.
+
+    </div>
+
+
+    <div
+        id="intelligenceContent"
+        style="display:none;">
+
+
+        <!-- ============================================
+             CITY STATUS
+        ============================================= -->
+
+        <h2 class="section-heading">
+            Today's City Status
+        </h2>
+
+        <p class="section-description">
+            Current overview of reported civic problems and municipal activity.
+        </p>
+
+
+        <div class="status-grid">
+
+
+            <div class="status-card">
+
+                <div class="status-label">
+                    Total Problems
+                </div>
+
+                <div
+                    id="totalProblems"
+                    class="status-value">
+
+                    0
+
+                </div>
+
+            </div>
+
+
+            <div class="status-card">
+
+                <div class="status-label">
+                    Active Problems
+                </div>
+
+                <div
+                    id="activeProblems"
+                    class="status-value">
+
+                    0
+
+                </div>
+
+            </div>
+
+
+            <div class="status-card">
+
+                <div class="status-label">
+                    Critical Problems
+                </div>
+
+                <div
+                    id="criticalProblems"
+                    class="status-value">
+
+                    0
+
+                </div>
+
+            </div>
+
+
+            <div class="status-card">
+
+                <div class="status-label">
+                    Reported Today
+                </div>
+
+                <div
+                    id="todayProblems"
+                    class="status-value">
+
+                    0
+
+                </div>
+
+            </div>
+
+
+            <div class="status-card">
+
+                <div class="status-label">
+                    Resolved Today
+                </div>
+
+                <div
+                    id="resolvedToday"
+                    class="status-value">
+
+                    0
+
+                </div>
+
+            </div>
+
+
+            <div class="status-card">
+
+                <div class="status-label">
+                    In Process
+                </div>
+
+                <div
+                    id="inProcess"
+                    class="status-value">
+
+                    0
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ============================================
+             MAP
+        ============================================= -->
+
+        <section class="map-card">
+
+
+            <div class="map-header">
+
+                <div>
+
+                    <h2>
+                        🗺️ Urban Problem Intelligence Map
+                    </h2>
+
+                    <p>
+                        Geographic view of citizen reports, recurring problems and predicted risk areas.
+                    </p>
+
+                </div>
+
+
+                <div class="map-controls">
+
+
+                    <select
+                        id="mapProblemFilter"
+                        class="map-select"
+                        onchange="applyMapFilters()">
+
+                        <option value="all">
+                            All Problems
+                        </option>
+
+                    </select>
+
+
+                    <select
+                        id="mapStatusFilter"
+                        class="map-select"
+                        onchange="applyMapFilters()">
+
+                        <option value="all">
+                            All Statuses
+                        </option>
+
+                        <option value="Reported">
+                            Reported
+                        </option>
+
+                        <option value="Assigned">
+                            Assigned
+                        </option>
+
+                        <option value="In Process">
+                            In Process
+                        </option>
+
+                        <option value="Resolution Submitted">
+                            Resolution Submitted
+                        </option>
+
+                        <option value="Resolved">
+                            Resolved
+                        </option>
+
+                    </select>
+
+
+                    <button
+                        class="map-button"
+                        onclick="showAllComplaints()">
+
+                        All
+
+                    </button>
+
+
+                    <button
+                        class="map-button"
+                        onclick="showHighPriority()">
+
+                        High Priority
+
+                    </button>
+
+
+                    <button
+                        class="map-button"
+                        onclick="showRiskAreas()">
+
+                        Risk Areas
+
+                    </button>
+
+
+                    <button
+                        class="map-button"
+                        onclick="resetMapView()">
+
+                        Reset
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="cityIntelligenceMap">
+
+            </div>
+
+
+            <div class="map-legend">
+
+
+                <div class="legend-item">
+
+                    <span
+                        class="legend-dot legend-critical">
+                    </span>
+
+                    Critical
+
+                </div>
+
+
+                <div class="legend-item">
+
+                    <span
+                        class="legend-dot legend-high">
+                    </span>
+
+                    High
+
+                </div>
+
+
+                <div class="legend-item">
+
+                    <span
+                        class="legend-dot legend-medium">
+                    </span>
+
+                    Medium
+
+                </div>
+
+
+                <div class="legend-item">
+
+                    <span
+                        class="legend-dot legend-low">
+                    </span>
+
+                    Low
+
+                </div>
+
+
+                <div class="legend-item">
+
+                    <span
+                        class="legend-dot legend-recurring">
+                    </span>
+
+                    Recurring Area
+
+                </div>
+
+
+                <div class="legend-item">
+
+                    <span
+                        class="legend-dot legend-risk">
+                    </span>
+
+                    Predicted Risk
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================================
+             SCORE
+        ============================================= -->
+
+        <div class="score-section">
+
+
+            <div class="score-card">
+
+                <h2 class="section-heading">
+                    Urban Improvement Score
+                </h2>
+
+                <div
+                    id="urbanScore"
+                    class="score-number">
+
+                    0
+
+                </div>
+
+                <div class="score-label">
+
+                    Overall city performance indicator
+
+                </div>
+
+            </div>
+
+
+            <div class="score-breakdown">
+
+                <h3>
+                    Score Breakdown
+                </h3>
+
+
+                <div class="score-row">
+
+                    <div class="score-row-header">
+
+                        <span>
+                            Resolution Performance
+                        </span>
+
+                        <strong id="resolutionScore">
+                            0%
+                        </strong>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div
+                            id="resolutionProgress"
+                            class="progress-fill"
+                            style="width:0%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="score-row">
+
+                    <div class="score-row-header">
+
+                        <span>
+                            Safety Score
+                        </span>
+
+                        <strong id="safetyScore">
+                            0%
+                        </strong>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div
+                            id="safetyProgress"
+                            class="progress-fill"
+                            style="width:0%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="score-row">
+
+                    <div class="score-row-header">
+
+                        <span>
+                            Priority Management
+                        </span>
+
+                        <strong id="priorityScore">
+                            0%
+                        </strong>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div
+                            id="priorityProgress"
+                            class="progress-fill"
+                            style="width:0%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ============================================
+             CHARTS
+        ============================================= -->
+
+        <div class="analytics-grid">
+
+
+            <div class="analytics-card">
+
+                <div class="card-header">
+
+                    <h3>
+                        Complaint Trend
+                    </h3>
+
+                    <span>
+                        Last 30 days
+                    </span>
+
+                </div>
+
+                <div class="chart-wrapper">
+
+                    <canvas
+                        id="trendChart">
+                    </canvas>
+
+                </div>
+
+            </div>
+
+
+            <div class="analytics-card">
+
+                <div class="card-header">
+
+                    <h3>
+                        Problem Categories
+                    </h3>
+
+                    <span>
+                        Last 30 days
+                    </span>
+
+                </div>
+
+                <div class="chart-wrapper">
+
+                    <canvas
+                        id="categoryChart">
+                    </canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ============================================
+             INTELLIGENCE CARDS
+        ============================================= -->
+
+        <div class="intelligence-grid">
+
+
+            <div class="intelligence-card">
+
+                <div class="card-header">
+
+                    <h3>
+                        ⚠️ Risk Prediction
+                    </h3>
+
+                    <span>
+                        Historical pattern analysis
+                    </span>
+
+                </div>
+
+
+                <div id="riskContainer">
+
+                    <div class="empty-state">
+
+                        No risk areas detected.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="intelligence-card">
+
+                <div class="card-header">
+
+                    <h3>
+                        🔁 Recurring Problems
+                    </h3>
+
+                    <span>
+                        Repeated civic issues
+                    </span>
+
+                </div>
+
+
+                <div id="recurringContainer">
+
+                    <div class="empty-state">
+
+                        No recurring problems detected.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="intelligence-card">
+
+                <div class="card-header">
+
+                    <h3>
+                        🏢 Department Performance
+                    </h3>
+
+                    <span>
+                        Resolution analysis
+                    </span>
+
+                </div>
+
+
+                <div id="departmentContainer">
+
+                    <div class="empty-state">
+
+                        No department data available.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="intelligence-card">
+
+                <div class="card-header">
+
+                    <h3>
+                        💡 AI Recommended Actions
+                    </h3>
+
+                    <span>
+                        Based on civic problem patterns
+                    </span>
+
+                </div>
+
+
+                <div id="recommendationContainer">
+
+                    <div class="empty-state">
+
+                        No recommendations available.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+<script>
+
+let cityMap = null;
+
+let mapMarkers = [];
+
+let recurringMarkers = [];
+
+let riskMarkers = [];
+
+let allMapComplaints = [];
+
+let allRecurring = [];
+
+let allRisks = [];
+
+let trendChart = null;
+
+let categoryChart = null;
+
+
+/* ============================================================
+   LOAD COMPLETE INTELLIGENCE
+============================================================ */
+
+async function loadIntelligence() {
+
+    const loading =
+        document.getElementById(
+            "loadingState"
+        );
+
+    const content =
+        document.getElementById(
+            "intelligenceContent"
+        );
+
+    const error =
+        document.getElementById(
+            "errorState"
+        );
+
+
+    loading.style.display =
+        "block";
+
+    content.style.display =
+        "none";
+
+    error.style.display =
+        "none";
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/intelligence/summary"
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok ||
+            !result.success) {
+
+            throw new Error(
+                result.message ||
+                "Unable to load intelligence."
+            );
+
+        }
+
+
+        const data =
+            result.data;
+
+
+        renderCityStatus(
+            data.city_status
+        );
+
+
+        renderScore(
+            data.urban_improvement
+        );
+
+
+        renderTrends(
+            data.trends
+        );
+
+
+        renderRisk(
+            data.risk_predictions
+        );
+
+
+        renderRecurring(
+            data.recurring_problems
+        );
+
+
+        renderDepartments(
+            data.department_performance
+        );
+
+
+        await renderRecommendations(
+            data.trends.categories
+        );
+
+
+        initializeMap();
+
+
+        allMapComplaints =
+            data.map_data || [];
+
+
+        allRecurring =
+            data.recurring_problems || [];
+
+
+        allRisks =
+            data.risk_predictions || [];
+
+
+        populateProblemFilter();
+
+        renderMap();
+
+
+        loading.style.display =
+            "none";
+
+        content.style.display =
+            "block";
+
+
+    } catch (errorObject) {
+
+        console.error(
+            errorObject
+        );
+
+        loading.style.display =
+            "none";
+
+        error.style.display =
+            "block";
+
+    }
+
+}
+
+
+/* ============================================================
+   CITY STATUS
+============================================================ */
+
+function renderCityStatus(status) {
+
+    document.getElementById(
+        "totalProblems"
+    ).textContent =
+        status.total || 0;
+
+
+    document.getElementById(
+        "activeProblems"
+    ).textContent =
+        status.active || 0;
+
+
+    document.getElementById(
+        "criticalProblems"
+    ).textContent =
+        status.critical || 0;
+
+
+    document.getElementById(
+        "todayProblems"
+    ).textContent =
+        status.today || 0;
+
+
+    document.getElementById(
+        "resolvedToday"
+    ).textContent =
+        status.resolved_today || 0;
+
+
+    document.getElementById(
+        "inProcess"
+    ).textContent =
+        status.in_process || 0;
+
+}
+
+
+/* ============================================================
+   SCORE
+============================================================ */
+
+function renderScore(score) {
+
+    const overall =
+        Number(score.score || 0);
+
+    const resolution =
+        Number(
+            score.resolution_score || 0
+        );
+
+    const safety =
+        Number(
+            score.safety_score || 0
+        );
+
+    const priority =
+        Number(
+            score.priority_score || 0
+        );
+
+
+    document.getElementById(
+        "urbanScore"
+    ).textContent =
+        overall.toFixed(1);
+
+
+    document.getElementById(
+        "resolutionScore"
+    ).textContent =
+        resolution.toFixed(1) + "%";
+
+
+    document.getElementById(
+        "safetyScore"
+    ).textContent =
+        safety.toFixed(1) + "%";
+
+
+    document.getElementById(
+        "priorityScore"
+    ).textContent =
+        priority.toFixed(1) + "%";
+
+
+    document.getElementById(
+        "resolutionProgress"
+    ).style.width =
+        Math.min(
+            resolution,
+            100
+        ) + "%";
+
+
+    document.getElementById(
+        "safetyProgress"
+    ).style.width =
+        Math.min(
+            safety,
+            100
+        ) + "%";
+
+
+    document.getElementById(
+        "priorityProgress"
+    ).style.width =
+        Math.min(
+            priority,
+            100
+        ) + "%";
+
+}
+
+
+/* ============================================================
+   CHARTS
+============================================================ */
+
+function renderTrends(trends) {
+
+    const daily =
+        trends.daily || [];
+
+    const categories =
+        trends.categories || [];
+
+
+    const trendCanvas =
+        document.getElementById(
+            "trendChart"
+        );
+
+
+    if (trendChart) {
+
+        trendChart.destroy();
+
+    }
+
+
+    trendChart =
+        new Chart(
+            trendCanvas,
+            {
+
+                type:
+                    "line",
+
+                data: {
+
+                    labels:
+                        daily.map(
+                            item =>
+                                item.date
+                        ),
+
+                    datasets: [
+
+                        {
+
+                            label:
+                                "Complaints",
+
+                            data:
+                                daily.map(
+                                    item =>
+                                        item.count
+                                ),
+
+                            tension:
+                                0.3,
+
+                            fill:
+                                false,
+
+                            borderWidth:
+                                2
+
+                        }
+
+                    ]
+
+                },
+
+                options: {
+
+                    responsive:
+                        true,
+
+                    maintainAspectRatio:
+                        false,
+
+                    plugins: {
+
+                        legend: {
+
+                            display:
+                                false
+
+                        }
+
+                    },
+
+                    scales: {
+
+                        y: {
+
+                            beginAtZero:
+                                true,
+
+                            ticks: {
+
+                                precision:
+                                    0
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+
+    const categoryCanvas =
+        document.getElementById(
+            "categoryChart"
+        );
+
+
+    if (categoryChart) {
+
+        categoryChart.destroy();
+
+    }
+
+
+    categoryChart =
+        new Chart(
+            categoryCanvas,
+            {
+
+                type:
+                    "bar",
+
+                data: {
+
+                    labels:
+                        categories.map(
+                            item =>
+                                item.problem_type
+                        ),
+
+                    datasets: [
+
+                        {
+
+                            label:
+                                "Complaints",
+
+                            data:
+                                categories.map(
+                                    item =>
+                                        item.count
+                                ),
+
+                            borderWidth:
+                                1
+
+                        }
+
+                    ]
+
+                },
+
+                options: {
+
+                    responsive:
+                        true,
+
+                    maintainAspectRatio:
+                        false,
+
+                    plugins: {
+
+                        legend: {
+
+                            display:
+                                false
+
+                        }
+
+                    },
+
+                    scales: {
+
+                        y: {
+
+                            beginAtZero:
+                                true,
+
+                            ticks: {
+
+                                precision:
+                                    0
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+}
+
+
+/* ============================================================
+   MAP INITIALIZATION
+============================================================ */
+
+function initializeMap() {
+
+    if (cityMap) {
+
+        return;
+
+    }
+
+
+    cityMap =
+        L.map(
+            "cityIntelligenceMap"
+        );
+
+
+    L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+
+            maxZoom:
+                19,
+
+            attribution:
+                "&copy; OpenStreetMap contributors"
+
+        }
+    ).addTo(cityMap);
+
+
+    /*
+       Default center is Pune.
+       It is only used before complaint
+       coordinates are available.
+    */
+
+    cityMap.setView(
+        [18.5204, 73.8567],
+        12
+    );
+
+}
+
+
+/* ============================================================
+   MAP FILTER
+============================================================ */
+
+function populateProblemFilter() {
+
+    const select =
+        document.getElementById(
+            "mapProblemFilter"
+        );
+
+
+    const existing =
+        new Set();
+
+
+    allMapComplaints.forEach(
+        complaint => {
+
+            if (
+                complaint.problem_type
+            ) {
+
+                existing.add(
+                    complaint.problem_type
+                );
+
+            }
+
+        }
+    );
+
+
+    select.innerHTML = `
+
+        <option value="all">
+            All Problems
+        </option>
+
+    `;
+
+
+    Array.from(existing)
+        .sort()
+        .forEach(
+            problemType => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    problemType;
+
+                option.textContent =
+                    problemType;
+
+                select.appendChild(
+                    option
+                );
+
+            }
+        );
+
+}
+
+
+/* ============================================================
+   RENDER MAP
+============================================================ */
+
+function renderMap() {
+
+    clearMapLayers();
+
+
+    const problemFilter =
+        document.getElementById(
+            "mapProblemFilter"
+        ).value;
+
+
+    const statusFilter =
+        document.getElementById(
+            "mapStatusFilter"
+        ).value;
+
+
+    const filtered =
+        allMapComplaints.filter(
+            complaint => {
+
+                const problemMatch =
+                    problemFilter === "all"
+                    ||
+                    complaint.problem_type
+                    === problemFilter;
+
+
+                const statusMatch =
+                    statusFilter === "all"
+                    ||
+                    complaint.status
+                    === statusFilter;
+
+
+                return (
+                    problemMatch
+                    &&
+                    statusMatch
+                );
+
+            }
+        );
+
+
+    filtered.forEach(
+        complaint => {
+
+            if (
+                complaint.latitude === null
+                ||
+                complaint.longitude === null
+            ) {
+
+                return;
+
+            }
+
+
+            const marker =
+                L.circleMarker(
+                    [
+                        complaint.latitude,
+                        complaint.longitude
+                    ],
+                    {
+
+                        radius:
+                            getMarkerRadius(
+                                complaint
+                            ),
+
+                        color:
+                            "#ffffff",
+
+                        weight:
+                            2,
+
+                        fillColor:
+                            getPriorityColor(
+                                complaint
+                            ),
+
+                        fillOpacity:
+                            0.85
+
+                    }
+                );
+
+
+            marker.bindPopup(
+                buildComplaintPopup(
+                    complaint
+                )
+            );
+
+
+            marker.addTo(
+                cityMap
+            );
+
+
+            mapMarkers.push(
+                marker
+            );
+
+        }
+    );
+
+
+    renderRecurringAreas();
+
+    renderRiskAreas();
+
+
+    fitMapToComplaints(
+        filtered
+    );
+
+}
+
+
+/* ============================================================
+   RECURRING AREAS
+============================================================ */
+
+function renderRecurringAreas() {
+
+    allRecurring.forEach(
+        item => {
+
+            if (
+                item.latitude === null
+                ||
+                item.longitude === null
+            ) {
+
+                return;
+
+            }
+
+
+            const circle =
+                L.circle(
+                    [
+                        item.latitude,
+                        item.longitude
+                    ],
+                    {
+
+                        radius:
+                            getRecurringRadius(
+                                item.complaint_count
+                            ),
+
+                        color:
+                            "#7654a5",
+
+                        fillColor:
+                            "#7654a5",
+
+                        fillOpacity:
+                            0.10,
+
+                        weight:
+                            2,
+
+                        dashArray:
+                            "6 5"
+
+                    }
+                );
+
+
+            circle.bindPopup(`
+
+                <div style="
+                    min-width:210px;
+                    font-family:Arial;
+                ">
+
+                    <strong>
+                        Recurring Problem Area
+                    </strong>
+
+                    <br><br>
+
+                    <b>Problem:</b>
+                    ${escapeHTML(
+                        item.problem_type
+                    )}
+
+                    <br>
+
+                    <b>Reports:</b>
+                    ${item.complaint_count}
+
+                    <br>
+
+                    <b>Location:</b>
+                    ${escapeHTML(
+                        item.address
+                    )}
+
+                </div>
+
+            `);
+
+
+            circle.addTo(
+                cityMap
+            );
+
+
+            recurringMarkers.push(
+                circle
+            );
+
+        }
+    );
+
+}
+
+
+/* ============================================================
+   RISK AREAS
+============================================================ */
+
+function renderRiskAreas() {
+
+    allRisks.forEach(
+        item => {
+
+            if (
+                item.latitude === null
+                ||
+                item.longitude === null
+            ) {
+
+                return;
+
+            }
+
+
+            const circle =
+                L.circle(
+                    [
+                        item.latitude,
+                        item.longitude
+                    ],
+                    {
+
+                        radius:
+                            getRiskRadius(
+                                item.risk_score
+                            ),
+
+                        color:
+                            "#244f7a",
+
+                        fillColor:
+                            "#244f7a",
+
+                        fillOpacity:
+                            0.07,
+
+                        weight:
+                            2,
+
+                        dashArray:
+                            "4 6"
+
+                    }
+                );
+
+
+            circle.bindPopup(`
+
+                <div style="
+                    min-width:210px;
+                    font-family:Arial;
+                ">
+
+                    <strong>
+                        Predicted Risk Area
+                    </strong>
+
+                    <br><br>
+
+                    <b>Problem:</b>
+                    ${escapeHTML(
+                        item.problem_type
+                    )}
+
+                    <br>
+
+                    <b>Reports:</b>
+                    ${item.complaint_count}
+
+                    <br>
+
+                    <b>Risk:</b>
+                    ${escapeHTML(
+                        item.risk_level
+                    )}
+
+                    <br>
+
+                    <b>Risk Score:</b>
+                    ${item.risk_score}
+
+                </div>
+
+            `);
+
+
+            circle.addTo(
+                cityMap
+            );
+
+
+            riskMarkers.push(
+                circle
+            );
+
+        }
+    );
+
+}
+
+
+/* ============================================================
+   POPUP
+============================================================ */
+
+function buildComplaintPopup(
+    complaint
+) {
+
+    return `
+
+        <div style="
+            min-width:235px;
+            font-family:Arial;
+            line-height:1.5;
+        ">
+
+            <strong style="
+                font-size:14px;
+            ">
+
+                ${escapeHTML(
+                    complaint.complaint_number
+                )}
+
+            </strong>
+
+            <br><br>
+
+
+            <b>Problem:</b>
+            ${escapeHTML(
+                complaint.problem_type
+            )}
+
+            <br>
+
+
+            <b>Severity:</b>
+            ${escapeHTML(
+                complaint.severity ||
+                "Not classified"
+            )}
+
+            <br>
+
+
+            <b>Priority:</b>
+            ${escapeHTML(
+                complaint.priority ||
+                "Not classified"
+            )}
+
+            <br>
+
+
+            <b>Status:</b>
+            ${escapeHTML(
+                complaint.status
+            )}
+
+            <br>
+
+
+            <b>Department:</b>
+            ${escapeHTML(
+                complaint.department
+            )}
+
+            <br>
+
+
+            <b>Location:</b>
+            ${escapeHTML(
+                complaint.address
+            )}
+
+            <br><br>
+
+
+            <button
+                onclick="
+                    openComplaintFromMap(
+                        ${complaint.id}
+                    )
+                "
+                style="
+                    width:100%;
+                    padding:8px;
+                    border:1px solid #d7dfdc;
+                    border-radius:7px;
+                    background:#f7faf8;
+                    cursor:pointer;
+                    font-weight:600;
+                ">
+
+                View Complaint
+
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+/* ============================================================
+   OPEN COMPLAINT
+============================================================ */
+
+function openComplaintFromMap(
+    complaintId
+) {
+
+    window.location.href =
+        "/municipal-dashboard?complaint="
+        +
+        complaintId;
+
+}
+
+
+/* ============================================================
+   FILTER
+============================================================ */
+
+function applyMapFilters() {
+
+    renderMap();
+
+}
+
+
+/* ============================================================
+   SHOW ALL
+============================================================ */
+
+function showAllComplaints() {
+
+    document.getElementById(
+        "mapProblemFilter"
+    ).value = "all";
+
+
+    document.getElementById(
+        "mapStatusFilter"
+    ).value = "all";
+
+
+    clearMapLayers();
+
+
+    const filtered =
+        allMapComplaints;
+
+
+    filtered.forEach(
+        complaint => {
+
+            if (
+                complaint.latitude === null
+                ||
+                complaint.longitude === null
+            ) {
+
+                return;
+
+            }
+
+
+            const marker =
+                L.circleMarker(
+                    [
+                        complaint.latitude,
+                        complaint.longitude
+                    ],
+                    {
+
+                        radius:
+                            getMarkerRadius(
+                                complaint
+                            ),
+
+                        color:
+                            "#ffffff",
+
+                        weight:
+                            2,
+
+                        fillColor:
+                            getPriorityColor(
+                                complaint
+                            ),
+
+                        fillOpacity:
+                            0.85
+
+                    }
+                );
+
+
+            marker.bindPopup(
+                buildComplaintPopup(
+                    complaint
+                )
+            );
+
+
+            marker.addTo(
+                cityMap
+            );
+
+
+            mapMarkers.push(
+                marker
+            );
+
+        }
+    );
+
+
+    renderRecurringAreas();
+
+    renderRiskAreas();
+
+
+    fitMapToComplaints(
+        filtered
+    );
+
+}
+
+
+/* ============================================================
+   HIGH PRIORITY
+============================================================ */
+
+function showHighPriority() {
+
+    document.getElementById(
+        "mapProblemFilter"
+    ).value = "all";
+
+
+    document.getElementById(
+        "mapStatusFilter"
+    ).value = "all";
+
+
+    clearMapLayers();
+
+
+    const filtered =
+        allMapComplaints.filter(
+            complaint =>
+
+                complaint.priority === "High"
+                ||
+                complaint.priority === "Critical"
+
+        );
+
+
+    filtered.forEach(
+        complaint => {
+
+            if (
+                complaint.latitude === null
+                ||
+                complaint.longitude === null
+            ) {
+
+                return;
+
+            }
+
+
+            const marker =
+                L.circleMarker(
+                    [
+                        complaint.latitude,
+                        complaint.longitude
+                    ],
+                    {
+
+                        radius:
+                            9,
+
+                        color:
+                            "#ffffff",
+
+                        weight:
+                            2,
+
+                        fillColor:
+                            getPriorityColor(
+                                complaint
+                            ),
+
+                        fillOpacity:
+                            0.9
+
+                    }
+                );
+
+
+            marker.bindPopup(
+                buildComplaintPopup(
+                    complaint
+                )
+            );
+
+
+            marker.addTo(
+                cityMap
+            );
+
+
+            mapMarkers.push(
+                marker
+            );
+
+        }
+    );
+
+
+    fitMapToComplaints(
+        filtered
+    );
+
+}
+
+
+/* ============================================================
+   RISK AREAS
+============================================================ */
+
+function showRiskAreas() {
+
+    clearMapLayers();
+
+
+    allRisks.forEach(
+        item => {
+
+            if (
+                item.latitude === null
+                ||
+                item.longitude === null
+            ) {
+
+                return;
+
+            }
+
+
+            const circle =
+                L.circle(
+                    [
+                        item.latitude,
+                        item.longitude
+                    ],
+                    {
+
+                        radius:
+                            getRiskRadius(
+                                item.risk_score
+                            ),
+
+                        color:
+                            "#244f7a",
+
+                        fillColor:
+                            "#244f7a",
+
+                        fillOpacity:
+                            0.15,
+
+                        weight:
+                            3
+
+                    }
+                );
+
+
+            circle.bindPopup(`
+
+                <div style="
+                    min-width:210px;
+                    font-family:Arial;
+                ">
+
+                    <strong>
+                        Predicted Risk Area
+                    </strong>
+
+                    <br><br>
+
+                    <b>Problem:</b>
+                    ${escapeHTML(
+                        item.problem_type
+                    )}
+
+                    <br>
+
+                    <b>Reports:</b>
+                    ${item.complaint_count}
+
+                    <br>
+
+                    <b>Risk Level:</b>
+                    ${escapeHTML(
+                        item.risk_level
+                    )}
+
+                    <br>
+
+                    <b>Risk Score:</b>
+                    ${item.risk_score}
+
+                </div>
+
+            `);
+
+
+            circle.addTo(
+                cityMap
+            );
+
+
+            riskMarkers.push(
+                circle
+            );
+
+        }
+    );
+
+
+    const coordinates =
+        allRisks
+            .filter(
+                item =>
+                    item.latitude !== null
+                    &&
+                    item.longitude !== null
+            )
+            .map(
+                item => [
+                    item.latitude,
+                    item.longitude
+                ]
+            );
+
+
+    if (coordinates.length > 0) {
+
+        cityMap.fitBounds(
+            coordinates,
+            {
+                padding:
+                    [35, 35]
+            }
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   RESET
+============================================================ */
+
+function resetMapView() {
+
+    document.getElementById(
+        "mapProblemFilter"
+    ).value = "all";
+
+
+    document.getElementById(
+        "mapStatusFilter"
+    ).value = "all";
+
+
+    renderMap();
+
+}
+
+
+/* ============================================================
+   CLEAR MAP
+============================================================ */
+
+function clearMapLayers() {
+
+    mapMarkers.forEach(
+        marker =>
+            cityMap.removeLayer(
+                marker
+            )
+    );
+
+
+    recurringMarkers.forEach(
+        marker =>
+            cityMap.removeLayer(
+                marker
+            )
+    );
+
+
+    riskMarkers.forEach(
+        marker =>
+            cityMap.removeLayer(
+                marker
+            )
+    );
+
+
+    mapMarkers = [];
+
+    recurringMarkers = [];
+
+    riskMarkers = [];
+
+}
+
+
+/* ============================================================
+   MAP FIT
+============================================================ */
+
+function fitMapToComplaints(
+    complaints
+) {
+
+    const coordinates =
+        complaints
+            .filter(
+                complaint =>
+                    complaint.latitude !== null
+                    &&
+                    complaint.longitude !== null
+            )
+            .map(
+                complaint => [
+                    complaint.latitude,
+                    complaint.longitude
+                ]
+            );
+
+
+    if (
+        coordinates.length === 0
+    ) {
+
+        cityMap.setView(
+            [
+                18.5204,
+                73.8567
+            ],
+            12
+        );
+
+        return;
+
+    }
+
+
+    if (
+        coordinates.length === 1
+    ) {
+
+        cityMap.setView(
+            coordinates[0],
+            15
+        );
+
+        return;
+
+    }
+
+
+    cityMap.fitBounds(
+        coordinates,
+        {
+            padding:
+                [35, 35]
+        }
+    );
+
+}
+
+
+/* ============================================================
+   MARKER SIZE
+============================================================ */
+
+function getMarkerRadius(
+    complaint
+) {
+
+    if (
+        complaint.priority === "Critical"
+        ||
+        complaint.severity === "Critical"
+    ) {
+
+        return 10;
+
+    }
+
+
+    if (
+        complaint.priority === "High"
+        ||
+        complaint.severity === "High"
+    ) {
+
+        return 8;
+
+    }
+
+
+    return 6;
+
+}
+
+
+/* ============================================================
+   PRIORITY COLOR
+============================================================ */
+
+function getPriorityColor(
+    complaint
+) {
+
+    if (
+        complaint.priority === "Critical"
+        ||
+        complaint.severity === "Critical"
+    ) {
+
+        return "#b42318";
+
+    }
+
+
+    if (
+        complaint.priority === "High"
+        ||
+        complaint.severity === "High"
+    ) {
+
+        return "#e67e22";
+
+    }
+
+
+    if (
+        complaint.priority === "Medium"
+        ||
+        complaint.severity === "Medium"
+    ) {
+
+        return "#d39b00";
+
+    }
+
+
+    return "#3c8c61";
+
+}
+
+
+/* ============================================================
+   RECURRING RADIUS
+============================================================ */
+
+function getRecurringRadius(
+    count
+) {
+
+    if (count >= 8) {
+
+        return 450;
+
+    }
+
+
+    if (count >= 5) {
+
+        return 300;
+
+    }
+
+
+    return 180;
+
+}
+
+
+/* ============================================================
+   RISK RADIUS
+============================================================ */
+
+function getRiskRadius(
+    score
+) {
+
+    if (score >= 90) {
+
+        return 500;
+
+    }
+
+
+    if (score >= 65) {
+
+        return 350;
+
+    }
+
+
+    return 220;
+
+}
+
+
+/* ============================================================
+   RISK TABLE
+============================================================ */
+
+function renderRisk(predictions) {
+
+    const container =
+        document.getElementById(
+            "riskContainer"
+        );
+
+
+    if (
+        !predictions ||
+        predictions.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+                No risk areas detected.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML = `
+
+        <div class="data-table-wrapper">
+
+            <table class="data-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Location
+                        </th>
+
+                        <th>
+                            Problem
+                        </th>
+
+                        <th>
+                            Reports
+                        </th>
+
+                        <th>
+                            Risk
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    ${
+                        predictions
+                            .slice(0, 8)
+                            .map(
+                                item => `
+
+                                <tr>
+
+                                    <td>
+                                        ${escapeHTML(
+                                            item.address
+                                        )}
+                                    </td>
+
+                                    <td>
+                                        ${escapeHTML(
+                                            item.problem_type
+                                        )}
+                                    </td>
+
+                                    <td>
+                                        ${item.complaint_count}
+                                    </td>
+
+                                    <td>
+
+                                        <span class="
+                                            badge
+                                            ${getRiskClass(
+                                                item.risk_level
+                                            )}
+                                        ">
+
+                                            ${escapeHTML(
+                                                item.risk_level
+                                            )}
+
+                                        </span>
+
+                                    </td>
+
+                                </tr>
+
+                            `
+                            )
+                            .join("")
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    `;
+
+}
+
+
+/* ============================================================
+   RECURRING TABLE
+============================================================ */
+
+function renderRecurring(
+    recurring
+) {
+
+    const container =
+        document.getElementById(
+            "recurringContainer"
+        );
+
+
+    if (
+        !recurring ||
+        recurring.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+                No recurring problems detected.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML = `
+
+        <div class="data-table-wrapper">
+
+            <table class="data-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Problem
+                        </th>
+
+                        <th>
+                            Location
+                        </th>
+
+                        <th>
+                            Reports
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    ${
+                        recurring
+                            .slice(0, 8)
+                            .map(
+                                item => `
+
+                                <tr>
+
+                                    <td>
+                                        ${escapeHTML(
+                                            item.problem_type
+                                        )}
+                                    </td>
+
+                                    <td>
+                                        ${escapeHTML(
+                                            item.address
+                                        )}
+                                    </td>
+
+                                    <td>
+                                        ${item.complaint_count}
+                                    </td>
+
+                                </tr>
+
+                            `
+                            )
+                            .join("")
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    `;
+
+}
+
+
+/* ============================================================
+   DEPARTMENT PERFORMANCE
+============================================================ */
+
+function renderDepartments(
+    departments
+) {
+
+    const container =
+        document.getElementById(
+            "departmentContainer"
+        );
+
+
+    if (
+        !departments ||
+        departments.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+                No department data available.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML = `
+
+        <div class="data-table-wrapper">
+
+            <table class="data-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Department
+                        </th>
+
+                        <th>
+                            Total
+                        </th>
+
+                        <th>
+                            Resolved
+                        </th>
+
+                        <th>
+                            Pending
+                        </th>
+
+                        <th>
+                            Resolution
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    ${
+                        departments
+                            .map(
+                                item => `
+
+                                <tr>
+
+                                    <td>
+                                        ${escapeHTML(
+                                            item.department
+                                        )}
+                                    </td>
+
+                                    <td>
+                                        ${item.total}
+                                    </td>
+
+                                    <td>
+                                        ${item.resolved}
+                                    </td>
+
+                                    <td>
+                                        ${item.pending}
+                                    </td>
+
+                                    <td>
+                                        ${item.resolution_rate}%
+                                    </td>
+
+                                </tr>
+
+                            `
+                            )
+                            .join("")
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    `;
+
+}
+
+
+/* ============================================================
+   RECOMMENDATIONS
+============================================================ */
+
+async function renderRecommendations(
+    categories
+) {
+
+    const container =
+        document.getElementById(
+            "recommendationContainer"
+        );
+
+
+    if (
+        !categories ||
+        categories.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+                No recommendations available.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const topCategories =
+        categories.slice(0, 5);
+
+
+    const recommendations = [];
+
+
+    for (
+        const item of topCategories
+    ) {
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/intelligence/recommendation/"
+                    +
+                    encodeURIComponent(
+                        item.problem_type
+                    )
+                );
+
+
+            const result =
+                await response.json();
+
+
+            if (result.success) {
+
+                recommendations.push({
+
+                    problem:
+                        item.problem_type,
+
+                    count:
+                        item.count,
+
+                    cause:
+                        result.recommendation.cause,
+
+                    action:
+                        result.recommendation.action
+
+                });
+
+            }
+
+        } catch (errorObject) {
+
+            console.error(
+                "Recommendation error:",
+                errorObject
+            );
+
+        }
+
+    }
+
+
+    if (
+        recommendations.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+                No recommendations available.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML = `
+
+        <div class="recommendation-list">
+
+            ${
+                recommendations
+                    .map(
+                        item => `
+
+                        <div
+                            class="recommendation-item">
+
+                            <div
+                                class="recommendation-title">
+
+                                ${escapeHTML(
+                                    item.problem
+                                )}
+
+                                ·
+
+                                ${item.count}
+                                reports
+
+                            </div>
+
+
+                            <div
+                                class="recommendation-text">
+
+                                <strong>
+                                    Possible cause:
+                                </strong>
+
+                                ${escapeHTML(
+                                    item.cause
+                                )}
+
+                                <br><br>
+
+                                <strong>
+                                    Recommended action:
+                                </strong>
+
+                                ${escapeHTML(
+                                    item.action
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    `
+                    )
+                    .join("")
+            }
+
+        </div>
+
+    `;
+
+}
+
+
+/* ============================================================
+   BADGE HELPERS
+============================================================ */
+
+function getRiskClass(
+    level
+) {
+
+    if (
+        level === "High"
+    ) {
+
+        return "badge-critical";
+
+    }
+
+
+    if (
+        level === "Medium"
+    ) {
+
+        return "badge-medium";
+
+    }
+
+
+    return "badge-low";
+
+}
+
+
+/* ============================================================
+   HTML ESCAPE
+============================================================ */
+
+function escapeHTML(
+    value
+) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* ============================================================
+   LOGOUT
+============================================================ */
+
+async function logoutUser() {
+
+    try {
+
+        await fetch(
+            "/logout",
+            {
+                method:
+                    "GET"
+            }
+        );
+
+    } catch (errorObject) {
+
+        console.error(
+            errorObject
+        );
+
+    }
+
+
+    window.location.href =
+        "/login";
+
+}
+
+
+/* ============================================================
+   INITIAL LOAD
+============================================================ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    loadIntelligence
+);
+
+</script>
+
+
+</body>
+
+</html>

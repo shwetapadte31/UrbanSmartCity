@@ -1,0 +1,110 @@
+TRAINING_DATA = [
+
+    # Pothole
+    ("large pothole on road", "Pothole"),
+    ("deep pothole causing accidents", "Pothole"),
+    ("road has many potholes", "Pothole"),
+    ("pothole near school", "Pothole"),
+    ("big pothole damaging vehicles", "Pothole"),
+    ("potholes making driving difficult", "Pothole"),
+    ("road full of potholes", "Pothole"),
+    ("dangerous pothole on main road", "Pothole"),
+    ("small pothole on street", "Pothole"),
+    ("multiple potholes near junction", "Pothole"),
+
+    # Road Damage
+    ("road is damaged", "Road Damage"),
+    ("broken road surface", "Road Damage"),
+    ("damaged road near market", "Road Damage"),
+    ("road surface is broken", "Road Damage"),
+    ("cracks on road", "Road Damage"),
+    ("road is badly damaged", "Road Damage"),
+    ("damaged pavement", "Road Damage"),
+    ("road needs repair", "Road Damage"),
+    ("broken pavement causing problems", "Road Damage"),
+    ("road condition is poor", "Road Damage"),
+
+    # Garbage
+    ("garbage is piling up", "Garbage"),
+    ("garbage not collected", "Garbage"),
+    ("large amount of garbage", "Garbage"),
+    ("waste dumped on road", "Garbage"),
+    ("garbage near residential area", "Garbage"),
+    ("overflowing garbage bin", "Garbage"),
+    ("trash has not been collected", "Garbage"),
+    ("garbage dumped illegally", "Garbage"),
+    ("waste accumulation", "Garbage"),
+    ("dirty garbage area", "Garbage"),
+
+    # Water Leakage
+    ("water leaking from pipeline", "Water Leakage"),
+    ("pipe is leaking", "Water Leakage"),
+    ("continuous water leakage", "Water Leakage"),
+    ("water leaking on road", "Water Leakage"),
+    ("broken water pipe", "Water Leakage"),
+    ("water coming from damaged pipe", "Water Leakage"),
+    ("pipeline leakage", "Water Leakage"),
+    ("water wastage due to leakage", "Water Leakage"),
+    ("leaking municipal pipeline", "Water Leakage"),
+    ("major water leak", "Water Leakage"),
+
+    # Drainage
+    ("drain is blocked", "Drainage"),
+    ("blocked drainage", "Drainage"),
+    ("drain overflowing", "Drainage"),
+    ("dirty drainage system", "Drainage"),
+    ("drain needs cleaning", "Drainage"),
+    ("blocked storm drain", "Drainage"),
+    ("sewer drain blocked", "Drainage"),
+    ("drain water overflowing", "Drainage"),
+    ("open drain problem", "Drainage"),
+    ("drainage system damaged", "Drainage"),
+
+    # Waterlogging
+    ("waterlogging on road", "Waterlogging"),
+    ("road flooded with water", "Waterlogging"),
+    ("water accumulated on street", "Waterlogging"),
+    ("heavy water accumulation", "Waterlogging"),
+    ("street is flooded", "Waterlogging"),
+    ("water standing on road", "Waterlogging"),
+    ("area affected by waterlogging", "Waterlogging"),
+    ("rainwater accumulated", "Waterlogging"),
+    ("flooded road after rain", "Waterlogging"),
+    ("water covering the road", "Waterlogging"),
+
+    # Streetlight
+    ("streetlight is not working", "Streetlight"),
+    ("broken street light", "Streetlight"),
+    ("street is dark at night", "Streetlight"),
+    ("streetlight not functioning", "Streetlight"),
+    ("lamp post not working", "Streetlight"),
+    ("no light on road", "Streetlight"),
+    ("damaged streetlight", "Streetlight"),
+    ("street light needs repair", "Streetlight"),
+    ("multiple streetlights not working", "Streetlight"),
+    ("dark road due to faulty light", "Streetlight"),
+
+    # Traffic
+    ("heavy traffic on road", "Traffic"),
+    ("traffic congestion", "Traffic"),
+    ("traffic jam near junction", "Traffic"),
+    ("vehicles causing traffic", "Traffic"),
+    ("road has severe traffic", "Traffic"),
+    ("traffic congestion near market", "Traffic"),
+    ("long traffic queue", "Traffic"),
+    ("traffic problem at intersection", "Traffic"),
+    ("vehicles blocking road", "Traffic"),
+    ("traffic is increasing", "Traffic"),
+
+    # Infrastructure
+    ("damaged public infrastructure", "Infrastructure"),
+    ("broken public facility", "Infrastructure"),
+    ("damaged municipal property", "Infrastructure"),
+    ("public infrastructure needs repair", "Infrastructure"),
+    ("damaged bus stop", "Infrastructure"),
+    ("broken public structure", "Infrastructure"),
+    ("municipal infrastructure damaged", "Infrastructure"),
+    ("public facility is damaged", "Infrastructure"),
+    ("damaged civic facility", "Infrastructure"),
+    ("infrastructure maintenance required", "Infrastructure")
+]

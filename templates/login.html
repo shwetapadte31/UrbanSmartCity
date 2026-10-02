@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block title %}Login | Urban Smart City{% endblock %}
+
+{% block content %}
+
+<section class="login-section">
+
+    <div class="login-container">
+
+        <!-- Login Introduction -->
+        <div class="login-intro">
+
+            <a href="/" class="back-link">
+                ← Back to Home
+            </a>
+
+            <span class="section-label">
+                CIVIC INTELLIGENCE PLATFORM
+            </span>
+
+            <h1>
+                Welcome back to
+                <span>Urban Smart City.</span>
+            </h1>
+
+            <p>
+                Sign in to report civic problems, track submitted issues,
+                or access municipal decision-support tools.
+            </p>
+
+        </div>
+
+
+        <!-- Login Card -->
+        <div class="login-card">
+
+            <div class="login-card-header">
+
+                <div class="login-icon">
+                    U
+                </div>
+
+                <div>
+                    <h2>Sign in</h2>
+                    <p>
+                        Access your Urban Smart City account
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- Login Form -->
+            <form id="loginForm" novalidate>
+
+                <!-- Email -->
+                <div class="form-group">
+
+                    <label for="email">
+                        Email address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Password -->
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="password-field">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="passwordToggle"
+                            aria-label="Show password"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Login Options -->
+                <div class="login-options">
+
+                    <label class="remember-option">
+
+                        <input
+                            type="checkbox"
+                            id="remember"
+                            name="remember"
+                        >
+
+                        <span>Remember me</span>
+
+                    </label>
+
+                    <a
+                        href="#"
+                        class="forgot-link"
+                        id="forgotPassword"
+                    >
+                        Forgot password?
+                    </a>
+
+                </div>
+
+
+                <!-- Login Button -->
+                <button
+                    type="submit"
+                    class="login-button"
+                    id="loginButton"
+                >
+                    <span class="login-button-text">
+                        Sign In
+                    </span>
+
+                    <span
+                        class="login-loading"
+                        id="loginLoading"
+                    >
+                        Signing in...
+                    </span>
+                </button>
+
+            </form>
+
+
+            <!-- Login Message -->
+            <div
+                id="loginMessage"
+                class="login-message"
+                role="alert"
+            ></div>
+
+
+            <!-- Divider -->
+            <div class="login-divider">
+                <span>or</span>
+            </div>
+
+
+            <!-- Registration -->
+            <p class="register-text">
+
+                Don't have an account?
+
+                <a href="/register">
+                    Create an account
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

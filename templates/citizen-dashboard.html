@@ -1,0 +1,3475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Citizen Dashboard | Urban Smart City</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                #f5f7f8;
+
+            color:
+                #172126;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* =================================================
+           TOP NAVIGATION
+        ================================================= */
+
+        .topbar {
+            height: 72px;
+
+            background: #ffffff;
+
+            border-bottom:
+                1px solid #e2e7e9;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding:
+                0 32px;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 12px;
+
+            background:
+                #176b5b;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 21px;
+
+            font-weight: 700;
+        }
+
+        .brand-text strong {
+            display: block;
+
+            font-size: 16px;
+        }
+
+        .brand-text span {
+            display: block;
+
+            margin-top: 3px;
+
+            font-size: 11px;
+
+            color:
+                #77858a;
+
+            letter-spacing:
+                .5px;
+        }
+
+        .nav-right {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .notification-button {
+            position: relative;
+
+            width: 42px;
+            height: 42px;
+
+            border:
+                1px solid #e0e6e8;
+
+            background: #ffffff;
+
+            border-radius: 11px;
+
+            font-size: 18px;
+        }
+
+        .notification-count {
+            position: absolute;
+
+            top: -5px;
+            right: -5px;
+
+            min-width: 19px;
+            height: 19px;
+
+            border-radius: 50%;
+
+            background:
+                #d94b4b;
+
+            color: white;
+
+            font-size: 10px;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: bold;
+        }
+
+        .user-chip {
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            padding:
+                7px 11px;
+
+            border:
+                1px solid #e0e6e8;
+
+            border-radius: 12px;
+
+            background: #ffffff;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+
+            border-radius: 50%;
+
+            background:
+                #dcefe9;
+
+            color:
+                #176b5b;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: bold;
+
+            font-size: 13px;
+        }
+
+        .user-info strong {
+            display: block;
+
+            font-size: 12px;
+        }
+
+        .user-info span {
+            display: block;
+
+            font-size: 10px;
+
+            color:
+                #7a878b;
+        }
+
+        .logout-button {
+            border: none;
+
+            background: transparent;
+
+            color:
+                #68777c;
+
+            padding:
+                8px;
+
+            font-size: 12px;
+        }
+
+        /* =================================================
+           MAIN
+        ================================================= */
+
+        .page {
+            max-width: 1380px;
+
+            margin:
+                0 auto;
+
+            padding:
+                30px 32px 60px;
+        }
+
+        .welcome {
+            display: flex;
+
+            align-items: flex-end;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-bottom: 24px;
+        }
+
+        .welcome h1 {
+            font-size: 30px;
+
+            letter-spacing:
+                -.6px;
+
+            margin-bottom: 7px;
+        }
+
+        .welcome p {
+            color:
+                #718087;
+
+            font-size: 14px;
+        }
+
+        .primary-button {
+            border: none;
+
+            background:
+                #176b5b;
+
+            color: white;
+
+            padding:
+                12px 18px;
+
+            border-radius: 10px;
+
+            font-weight: 600;
+
+            font-size: 13px;
+        }
+
+        .primary-button:hover {
+            background:
+                #125648;
+        }
+
+        /* =================================================
+           STAT CARDS
+        ================================================= */
+
+        .stats {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 16px;
+
+            margin-bottom: 18px;
+        }
+
+        .stat-card {
+            background: white;
+
+            border:
+                1px solid #e3e8ea;
+
+            border-radius: 15px;
+
+            padding: 20px;
+
+            min-height: 118px;
+
+            box-shadow:
+                0 4px 18px
+                rgba(20, 40, 45, .035);
+        }
+
+        .stat-label {
+            font-size: 12px;
+
+            color:
+                #758287;
+
+            margin-bottom: 13px;
+        }
+
+        .stat-value {
+            font-size: 29px;
+
+            font-weight: 700;
+        }
+
+        .stat-note {
+            margin-top: 5px;
+
+            font-size: 11px;
+
+            color:
+                #89959a;
+        }
+
+        /* =================================================
+           ENGAGEMENT
+        ================================================= */
+
+        .engagement {
+            display: grid;
+
+            grid-template-columns:
+                1.2fr 1fr;
+
+            gap: 16px;
+
+            margin-bottom: 24px;
+        }
+
+        .engagement-card {
+            background: white;
+
+            border:
+                1px solid #e3e8ea;
+
+            border-radius: 15px;
+
+            padding: 20px;
+
+            box-shadow:
+                0 4px 18px
+                rgba(20, 40, 45, .035);
+        }
+
+        .engagement-title {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 16px;
+        }
+
+        .engagement-title h2 {
+            font-size: 16px;
+        }
+
+        .points-number {
+            font-size: 30px;
+
+            font-weight: 700;
+
+            color:
+                #176b5b;
+        }
+
+        .points-label {
+            font-size: 11px;
+
+            color:
+                #7a878b;
+        }
+
+        .progress {
+            height: 8px;
+
+            background:
+                #e9eeee;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            margin:
+                14px 0 8px;
+        }
+
+        .progress-bar {
+            height: 100%;
+
+            width: 0%;
+
+            background:
+                #176b5b;
+
+            transition:
+                width .3s ease;
+        }
+
+        .progress-text {
+            font-size: 11px;
+
+            color:
+                #7c898d;
+        }
+
+        .reward-list {
+            display: flex;
+
+            gap: 10px;
+
+            overflow-x: auto;
+        }
+
+        .reward {
+            min-width: 145px;
+
+            border:
+                1px solid #e2e8e8;
+
+            border-radius: 11px;
+
+            padding: 13px;
+
+            background:
+                #fafcfc;
+        }
+
+        .reward-icon {
+            font-size: 21px;
+
+            margin-bottom: 7px;
+        }
+
+        .reward-name {
+            font-size: 12px;
+
+            font-weight: 700;
+
+            margin-bottom: 4px;
+        }
+
+        .reward-points {
+            font-size: 10px;
+
+            color:
+                #7a878b;
+        }
+
+        .reward-earned {
+            margin-top: 8px;
+
+            font-size: 9px;
+
+            color:
+                #176b5b;
+
+            font-weight: bold;
+        }
+
+        /* =================================================
+           CONTENT
+        ================================================= */
+
+        .content-grid {
+            display: grid;
+
+            grid-template-columns:
+                1fr 330px;
+
+            gap: 18px;
+
+            align-items: start;
+        }
+
+        .panel {
+            background: white;
+
+            border:
+                1px solid #e3e8ea;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 4px 18px
+                rgba(20, 40, 45, .035);
+        }
+
+        .panel-header {
+            padding:
+                18px 20px;
+
+            border-bottom:
+                1px solid #edf0f1;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 12px;
+        }
+
+        .panel-header h2 {
+            font-size: 16px;
+        }
+
+        .panel-header p {
+            margin-top: 4px;
+
+            color:
+                #7b888d;
+
+            font-size: 11px;
+        }
+
+        .search {
+            width: 220px;
+
+            padding:
+                10px 12px;
+
+            border:
+                1px solid #dfe6e8;
+
+            border-radius: 9px;
+
+            outline: none;
+
+            font-size: 12px;
+        }
+
+        .search:focus {
+            border-color:
+                #176b5b;
+        }
+
+        /* =================================================
+           COMPLAINT CARDS
+        ================================================= */
+
+        .complaints {
+            padding: 8px 20px 20px;
+        }
+
+        .complaint {
+            border-bottom:
+                1px solid #edf0f1;
+
+            padding:
+                17px 0;
+        }
+
+        .complaint:last-child {
+            border-bottom: none;
+        }
+
+        .complaint-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 10px;
+        }
+
+        .complaint-number {
+            color:
+                #176b5b;
+
+            font-weight: 700;
+
+            font-size: 12px;
+        }
+
+        .complaint-type {
+            font-size: 15px;
+
+            font-weight: 700;
+
+            margin-top: 4px;
+        }
+
+        .complaint-address {
+            font-size: 11px;
+
+            color:
+                #7b888d;
+
+            margin-top: 5px;
+        }
+
+        .badges {
+            display: flex;
+
+            gap: 5px;
+
+            flex-wrap: wrap;
+
+            justify-content: flex-end;
+        }
+
+        .badge {
+            padding:
+                5px 8px;
+
+            border-radius: 20px;
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+        .status {
+            background:
+                #edf4f2;
+
+            color:
+                #176b5b;
+        }
+
+        .severity {
+            background:
+                #f5f0e8;
+
+            color:
+                #8a641f;
+        }
+
+        .priority {
+            background:
+                #f7ecec;
+
+            color:
+                #a13f3f;
+        }
+
+        .complaint-meta {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-top: 13px;
+        }
+
+        .date {
+            color:
+                #879297;
+
+            font-size: 10px;
+        }
+
+        .view-button {
+            border:
+                1px solid #dbe3e4;
+
+            background: white;
+
+            padding:
+                7px 11px;
+
+            border-radius: 8px;
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            color:
+                #42545a;
+        }
+
+        .view-button:hover {
+            border-color:
+                #176b5b;
+
+            color:
+                #176b5b;
+        }
+
+        /* =================================================
+           TIMELINE
+        ================================================= */
+
+        .timeline {
+            display: flex;
+
+            align-items: center;
+
+            margin:
+                16px 0 5px;
+        }
+
+        .step {
+            display: flex;
+
+            align-items: center;
+
+            flex: 1;
+        }
+
+        .dot {
+            width: 11px;
+            height: 11px;
+
+            border-radius: 50%;
+
+            background:
+                #d8dfe1;
+
+            flex-shrink: 0;
+        }
+
+        .dot.active {
+            background:
+                #176b5b;
+        }
+
+        .line {
+            height: 2px;
+
+            flex: 1;
+
+            background:
+                #d8dfe1;
+        }
+
+        .line.active {
+            background:
+                #176b5b;
+        }
+
+        .timeline-labels {
+            display: flex;
+
+            justify-content: space-between;
+
+            font-size: 8px;
+
+            color:
+                #8a969a;
+        }
+
+        /* =================================================
+           SIDE PANEL
+        ================================================= */
+
+        .side-panel {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 16px;
+        }
+
+        .side-card {
+            background: white;
+
+            border:
+                1px solid #e3e8ea;
+
+            border-radius: 15px;
+
+            padding: 18px;
+
+            box-shadow:
+                0 4px 18px
+                rgba(20, 40, 45, .035);
+        }
+
+        .side-card h3 {
+            font-size: 14px;
+
+            margin-bottom: 14px;
+        }
+
+        .city-status-item {
+            display: flex;
+
+            justify-content: space-between;
+
+            padding:
+                10px 0;
+
+            border-bottom:
+                1px solid #edf0f1;
+        }
+
+        .city-status-item:last-child {
+            border-bottom: none;
+        }
+
+        .city-status-item span {
+            color:
+                #77858a;
+
+            font-size: 11px;
+        }
+
+        .city-status-item strong {
+            font-size: 13px;
+        }
+
+        .notification-item {
+            padding:
+                11px 0;
+
+            border-bottom:
+                1px solid #edf0f1;
+
+            cursor: pointer;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-item.unread {
+            padding-left: 9px;
+
+            border-left:
+                3px solid #176b5b;
+        }
+
+        .notification-item strong {
+            display: block;
+
+            font-size: 11px;
+
+            margin-bottom: 4px;
+        }
+
+        .notification-item p {
+            font-size: 10px;
+
+            line-height: 1.5;
+
+            color:
+                #748187;
+        }
+
+        .notification-item time {
+            display: block;
+
+            margin-top: 5px;
+
+            color:
+                #9aa4a7;
+
+            font-size: 8px;
+        }
+
+        .mark-all {
+            width: 100%;
+
+            margin-top: 12px;
+
+            border:
+                1px solid #dce4e5;
+
+            background: white;
+
+            border-radius: 8px;
+
+            padding: 8px;
+
+            font-size: 10px;
+
+            color:
+                #526267;
+        }
+
+        /* =================================================
+           EMPTY / LOADING
+        ================================================= */
+
+        .empty {
+            text-align: center;
+
+            padding:
+                45px 20px;
+
+            color:
+                #7b888d;
+        }
+
+        .empty-icon {
+            font-size: 28px;
+
+            margin-bottom: 10px;
+        }
+
+        .loading {
+            text-align: center;
+
+            padding:
+                35px;
+
+            color:
+                #7b888d;
+
+            font-size: 12px;
+        }
+
+        .error {
+            padding:
+                25px;
+
+            text-align: center;
+
+            color:
+                #a13f3f;
+
+            font-size: 12px;
+        }
+
+        /* =================================================
+           MODAL
+        ================================================= */
+
+        .modal {
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(20, 30, 33, .48);
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            z-index: 500;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-box {
+            width: min(650px, 100%);
+
+            max-height: 90vh;
+
+            overflow-y: auto;
+
+            background: white;
+
+            border-radius: 17px;
+
+            padding: 24px;
+
+            box-shadow:
+                0 20px 60px
+                rgba(0, 0, 0, .18);
+        }
+
+        .modal-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            font-size: 19px;
+        }
+
+        .close {
+            border: none;
+
+            background:
+                #f0f3f3;
+
+            width: 32px;
+            height: 32px;
+
+            border-radius: 50%;
+
+            font-size: 17px;
+        }
+
+        .detail-grid {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 13px;
+
+            margin-bottom: 20px;
+        }
+
+        .detail {
+            padding:
+                12px;
+
+            background:
+                #f7f9f9;
+
+            border-radius: 9px;
+        }
+
+        .detail label {
+            display: block;
+
+            font-size: 9px;
+
+            color:
+                #839095;
+
+            margin-bottom: 5px;
+        }
+
+        .detail strong {
+            font-size: 12px;
+        }
+
+        .description {
+            background:
+                #f7f9f9;
+
+            padding:
+                14px;
+
+            border-radius: 9px;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+
+            margin-bottom: 18px;
+        }
+
+        .verification-box {
+            background:
+                #eef7f4;
+
+            border:
+                1px solid #cce5dd;
+
+            border-radius: 12px;
+
+            padding: 16px;
+
+            margin-top: 18px;
+        }
+
+        .verification-box h3 {
+            font-size: 13px;
+
+            color:
+                #176b5b;
+
+            margin-bottom: 6px;
+        }
+
+        .verification-box p {
+            font-size: 10px;
+
+            color:
+                #58716a;
+
+            line-height: 1.5;
+
+            margin-bottom: 12px;
+        }
+
+        .verify-actions {
+            display: flex;
+
+            gap: 8px;
+        }
+
+        .verify-button {
+            border: none;
+
+            border-radius: 8px;
+
+            padding:
+                9px 13px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+        }
+
+        .verify-resolved {
+            background:
+                #176b5b;
+
+            color: white;
+        }
+
+        .verify-still {
+            background:
+                #ffffff;
+
+            color:
+                #176b5b;
+
+            border:
+                1px solid #bcd9d1;
+        }
+
+        .history {
+            margin-top: 18px;
+        }
+
+        .history h3 {
+            font-size: 13px;
+
+            margin-bottom: 12px;
+        }
+
+        .history-item {
+            display: flex;
+
+            gap: 10px;
+
+            padding:
+                10px 0;
+
+            border-bottom:
+                1px solid #edf0f1;
+        }
+
+        .history-dot {
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            background:
+                #176b5b;
+
+            margin-top: 4px;
+
+            flex-shrink: 0;
+        }
+
+        .history-item strong {
+            display: block;
+
+            font-size: 10px;
+        }
+
+        .history-item span {
+            display: block;
+
+            font-size: 9px;
+
+            color:
+                #7c898d;
+
+            margin-top: 3px;
+        }
+
+        /* =================================================
+           RESPONSIVE
+        ================================================= */
+
+        @media (max-width: 1050px) {
+
+            .stats {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .side-panel {
+                display: grid;
+
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+        }
+
+        @media (max-width: 750px) {
+
+            .topbar {
+                padding:
+                    0 16px;
+            }
+
+            .user-info,
+            .logout-button {
+                display: none;
+            }
+
+            .page {
+                padding:
+                    22px 16px 45px;
+            }
+
+            .welcome {
+                align-items: stretch;
+
+                flex-direction: column;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .engagement {
+                grid-template-columns: 1fr;
+            }
+
+            .side-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .panel-header {
+                align-items: stretch;
+
+                flex-direction: column;
+            }
+
+            .search {
+                width: 100%;
+            }
+
+            .complaint-top {
+                flex-direction: column;
+            }
+
+            .badges {
+                justify-content: flex-start;
+            }
+
+        }
+
+        @media (max-width: 470px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .brand-text {
+                display: none;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .verify-actions {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+<!-- =====================================================
+     TOPBAR
+===================================================== -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-mark">
+            U
+        </div>
+
+        <div class="brand-text">
+
+            <strong>
+                Urban Smart City
+            </strong>
+
+            <span>
+                CITIZEN CIVIC CENTER
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="nav-right">
+
+        <button
+            class="notification-button"
+            onclick="toggleNotificationFocus()"
+            title="Notifications"
+        >
+
+            🔔
+
+            <span
+                id="notificationCount"
+                class="notification-count"
+            >
+                0
+            </span>
+
+        </button>
+
+
+        <div class="user-chip">
+
+            <div
+                class="user-avatar"
+                id="userAvatar"
+            >
+                C
+            </div>
+
+            <div class="user-info">
+
+                <strong id="userName">
+                    Citizen
+                </strong>
+
+                <span id="userEmail">
+                    Citizen account
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="logout-button"
+            onclick="window.location.href='/logout'"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN PAGE
+===================================================== -->
+
+<main class="page">
+
+
+    <section class="welcome">
+
+        <div>
+
+            <h1>
+                Welcome,
+                <span id="welcomeName">
+                    Citizen
+                </span>
+            </h1>
+
+            <p>
+                Track your civic reports, stay informed and help improve your city.
+            </p>
+
+        </div>
+
+
+        <button
+            class="primary-button"
+            onclick="window.location.href='/report'"
+        >
+            + Report a Civic Problem
+        </button>
+
+    </section>
+
+
+    <!-- =================================================
+         STATISTICS
+    ================================================= -->
+
+    <section class="stats">
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                TOTAL REPORTS
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalReports"
+            >
+                —
+            </div>
+
+            <div class="stat-note">
+                Reports submitted by you
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                ACTIVE
+            </div>
+
+            <div
+                class="stat-value"
+                id="activeReports"
+            >
+                —
+            </div>
+
+            <div class="stat-note">
+                Currently being handled
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                RESOLVED
+            </div>
+
+            <div
+                class="stat-value"
+                id="resolvedReports"
+            >
+                —
+            </div>
+
+            <div class="stat-note">
+                Successfully completed
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                REPORTED TODAY
+            </div>
+
+            <div
+                class="stat-value"
+                id="todayReports"
+            >
+                —
+            </div>
+
+            <div class="stat-note">
+                Your reports today
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         ENGAGEMENT
+    ================================================= -->
+
+    <section class="engagement">
+
+
+        <div class="engagement-card">
+
+            <div class="engagement-title">
+
+                <div>
+
+                    <h2>
+                        Civic Contribution
+                    </h2>
+
+                    <div class="points-label">
+                        Your participation points
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <span
+                        class="points-number"
+                        id="civicPoints"
+                    >
+                        0
+                    </span>
+
+                    <span class="points-label">
+                        pts
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    id="rewardProgress"
+                ></div>
+
+            </div>
+
+
+            <div
+                class="progress-text"
+                id="rewardProgressText"
+            >
+                Start contributing to earn civic rewards.
+            </div>
+
+        </div>
+
+
+        <div class="engagement-card">
+
+            <div class="engagement-title">
+
+                <div>
+
+                    <h2>
+                        Civic Rewards
+                    </h2>
+
+                    <div class="points-label">
+                        Milestones you can unlock
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="reward-list"
+                id="rewardList"
+            >
+
+                <div class="loading">
+                    Loading rewards...
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =================================================
+         MAIN CONTENT
+    ================================================= -->
+
+    <section class="content-grid">
+
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h2>
+                        My Civic Reports
+                    </h2>
+
+                    <p>
+                        Track every report from submission to resolution.
+                    </p>
+
+                </div>
+
+
+                <input
+                    class="search"
+                    id="complaintSearch"
+                    type="text"
+                    placeholder="Search reports..."
+                    oninput="filterComplaints()"
+                >
+
+            </div>
+
+
+            <div
+                class="complaints"
+                id="complaintsContainer"
+            >
+
+                <div class="loading">
+                    Loading your reports...
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SIDE PANEL
+        ================================================= -->
+
+        <aside class="side-panel">
+
+
+            <div
+                class="side-card"
+                id="notificationPanel"
+            >
+
+                <h3>
+                    Notifications
+                </h3>
+
+
+                <div
+                    id="notificationList"
+                >
+
+                    <div class="loading">
+                        Loading notifications...
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="mark-all"
+                    onclick="markAllNotificationsRead()"
+                >
+                    Mark all as read
+                </button>
+
+            </div>
+
+
+            <div class="side-card">
+
+                <h3>
+                    Today's City Status
+                </h3>
+
+
+                <div class="city-status-item">
+
+                    <span>
+                        Your active reports
+                    </span>
+
+                    <strong id="sideActive">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="city-status-item">
+
+                    <span>
+                        Your resolved reports
+                    </span>
+
+                    <strong id="sideResolved">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="city-status-item">
+
+                    <span>
+                        Reports today
+                    </span>
+
+                    <strong id="sideToday">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </aside>
+
+    </section>
+
+</main>
+
+
+<!-- =====================================================
+     COMPLAINT DETAILS MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="complaintModal"
+>
+
+    <div class="modal-box">
+
+
+        <div class="modal-header">
+
+            <h2>
+                Complaint Details
+            </h2>
+
+            <button
+                class="close"
+                onclick="closeModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div id="complaintDetails">
+
+            <div class="loading">
+                Loading complaint...
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   GLOBAL DATA
+===================================================== */
+
+let allComplaints = [];
+
+let currentComplaint = null;
+
+
+/* =====================================================
+   USER DETAILS
+===================================================== */
+
+const userNameElement =
+    document.getElementById("userName");
+
+const userEmailElement =
+    document.getElementById("userEmail");
+
+const welcomeNameElement =
+    document.getElementById("welcomeName");
+const userName = "{{ user_name }}";
+const userEmail = "{{ user_email }}";
+
+
+
+userNameElement.textContent =
+    userName || "Citizen";
+
+userEmailElement.textContent =
+    userEmail || "Citizen account";
+
+welcomeNameElement.textContent =
+    (userName || "Citizen").split(" ")[0];
+
+document.getElementById(
+    "userAvatar"
+).textContent =
+    (userName || "C").charAt(0).toUpperCase();
+
+
+/* =====================================================
+   LOAD EVERYTHING
+===================================================== */
+
+async function loadDashboard() {
+
+    await Promise.all([
+        loadCitizenData(),
+        loadCivicPoints(),
+        loadRewards(),
+        loadNotifications()
+    ]);
+
+}
+
+
+/* =====================================================
+   CITIZEN DASHBOARD DATA
+===================================================== */
+
+async function loadCitizenData() {
+
+    const container =
+        document.getElementById(
+            "complaintsContainer"
+        );
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/citizen-dashboard"
+            );
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load dashboard."
+            );
+
+        }
+
+
+        const stats =
+            data.statistics || {};
+
+
+        document.getElementById(
+            "totalReports"
+        ).textContent =
+            stats.total || 0;
+
+
+        document.getElementById(
+            "activeReports"
+        ).textContent =
+            stats.active || 0;
+
+
+        document.getElementById(
+            "resolvedReports"
+        ).textContent =
+            stats.resolved || 0;
+
+
+        document.getElementById(
+            "todayReports"
+        ).textContent =
+            stats.today || 0;
+
+
+        document.getElementById(
+            "sideActive"
+        ).textContent =
+            stats.active || 0;
+
+
+        document.getElementById(
+            "sideResolved"
+        ).textContent =
+            stats.resolved || 0;
+
+
+        document.getElementById(
+            "sideToday"
+        ).textContent =
+            stats.today || 0;
+
+
+        allComplaints =
+            data.complaints || [];
+
+
+        renderComplaints(
+            allComplaints
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+            <div class="error">
+                Unable to load your reports.
+                <br><br>
+                Please refresh the page and try again.
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER COMPLAINTS
+===================================================== */
+
+function renderComplaints(
+    complaints
+) {
+
+    const container =
+        document.getElementById(
+            "complaintsContainer"
+        );
+
+
+    if (!complaints.length) {
+
+        container.innerHTML = `
+            <div class="empty">
+
+                <div class="empty-icon">
+                    🏙️
+                </div>
+
+                <strong>
+                    No civic reports yet
+                </strong>
+
+                <p style="margin-top:7px;font-size:11px;">
+                    Your civic contributions will appear here.
+                </p>
+
+                <button
+                    class="primary-button"
+                    style="margin-top:15px;"
+                    onclick="window.location.href='/report'"
+                >
+                    Report Your First Problem
+                </button>
+
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        complaints.map(
+            complaint => {
+
+                return createComplaintCard(
+                    complaint
+                );
+
+            }
+        ).join("");
+
+}
+
+
+/* =====================================================
+   COMPLAINT CARD
+===================================================== */
+
+function createComplaintCard(
+    complaint
+) {
+
+    const status =
+        complaint.status ||
+        "Reported";
+
+
+    const statusIndex =
+        getStatusIndex(status);
+
+
+    const timelineStatuses = [
+        "Reported",
+        "Assigned",
+        "In Process",
+        "Resolution Submitted",
+        "Resolved"
+    ];
+
+
+    let timeline = "";
+
+    timelineStatuses.forEach(
+        (item, index) => {
+
+            timeline += `
+                <div class="step">
+
+                    <div
+                        class="dot ${
+                            index <= statusIndex
+                                ? "active"
+                                : ""
+                        }"
+                    ></div>
+
+                    ${
+                        index <
+                        timelineStatuses.length - 1
+                            ? `
+                                <div
+                                    class="line ${
+                                        index < statusIndex
+                                            ? "active"
+                                            : ""
+                                    }"
+                                ></div>
+                              `
+                            : ""
+                    }
+
+                </div>
+            `;
+
+        }
+    );
+
+
+    return `
+        <article
+            class="complaint"
+            data-search="
+                ${escapeHtml(
+                    complaint.complaint_number || ""
+                )}
+                ${escapeHtml(
+                    complaint.problem_type || ""
+                )}
+                ${escapeHtml(
+                    complaint.status || ""
+                )}
+                ${escapeHtml(
+                    complaint.address || ""
+                )}
+            "
+        >
+
+            <div class="complaint-top">
+
+                <div>
+
+                    <div class="complaint-number">
+                        ${escapeHtml(
+                            complaint.complaint_number ||
+                            "Complaint"
+                        )}
+                    </div>
+
+                    <div class="complaint-type">
+                        ${escapeHtml(
+                            complaint.problem_type ||
+                            "Civic Problem"
+                        )}
+                    </div>
+
+                    <div class="complaint-address">
+                        📍
+                        ${escapeHtml(
+                            complaint.address ||
+                            "Location recorded"
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="badges">
+
+                    <span class="badge status">
+                        ${escapeHtml(status)}
+                    </span>
+
+                    ${
+                        complaint.severity
+                            ? `
+                                <span class="badge severity">
+                                    ${escapeHtml(
+                                        complaint.severity
+                                    )}
+                                </span>
+                              `
+                            : ""
+                    }
+
+                    ${
+                        complaint.priority
+                            ? `
+                                <span class="badge priority">
+                                    ${escapeHtml(
+                                        complaint.priority
+                                    )}
+                                </span>
+                              `
+                            : ""
+                    }
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline">
+                ${timeline}
+            </div>
+
+
+            <div class="timeline-labels">
+
+                <span>Reported</span>
+
+                <span>Assigned</span>
+
+                <span>Processing</span>
+
+                <span>Verification</span>
+
+                <span>Resolved</span>
+
+            </div>
+
+
+            <div class="complaint-meta">
+
+                <span class="date">
+                    ${escapeHtml(
+                        complaint.created_at ||
+                        ""
+                    )}
+                </span>
+
+                <button
+                    class="view-button"
+                    onclick="openComplaint(
+                        ${Number(complaint.id)}
+                    )"
+                >
+                    View Details →
+                </button>
+
+            </div>
+
+        </article>
+    `;
+
+}
+
+
+/* =====================================================
+   STATUS INDEX
+===================================================== */
+
+function getStatusIndex(
+    status
+) {
+
+    const statuses = [
+        "Reported",
+        "Assigned",
+        "In Process",
+        "Resolution Submitted",
+        "Resolved"
+    ];
+
+    const index =
+        statuses.indexOf(status);
+
+    return index >= 0
+        ? index
+        : 0;
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function filterComplaints() {
+
+    const query =
+        document.getElementById(
+            "complaintSearch"
+        ).value
+        .toLowerCase()
+        .trim();
+
+
+    if (!query) {
+
+        renderComplaints(
+            allComplaints
+        );
+
+        return;
+
+    }
+
+
+    const filtered =
+        allComplaints.filter(
+            complaint => {
+
+                const text = `
+                    ${complaint.complaint_number || ""}
+                    ${complaint.problem_type || ""}
+                    ${complaint.status || ""}
+                    ${complaint.address || ""}
+                `.toLowerCase();
+
+                return text.includes(
+                    query
+                );
+
+            }
+        );
+
+
+    if (!filtered.length) {
+
+        document.getElementById(
+            "complaintsContainer"
+        ).innerHTML = `
+            <div class="empty">
+
+                <div class="empty-icon">
+                    🔎
+                </div>
+
+                <strong>
+                    No matching reports
+                </strong>
+
+                <p style="margin-top:7px;font-size:11px;">
+                    Try another complaint number or keyword.
+                </p>
+
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    renderComplaints(
+        filtered
+    );
+
+}
+
+
+/* =====================================================
+   CIVIC POINTS
+===================================================== */
+
+async function loadCivicPoints() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/civic-points"
+            );
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+            return;
+        }
+
+
+        document.getElementById(
+            "civicPoints"
+        ).textContent =
+            data.points || 0;
+
+
+        updateRewardProgress(
+            data.points || 0
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Civic points error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   REWARDS
+===================================================== */
+
+async function loadRewards() {
+
+    const container =
+        document.getElementById(
+            "rewardList"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/rewards"
+            );
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load rewards."
+            );
+
+        }
+
+
+        const rewards =
+            data.rewards || [];
+
+
+        if (!rewards.length) {
+
+            container.innerHTML = `
+                <div class="empty">
+                    No rewards configured yet.
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            rewards.map(
+                reward => `
+                    <div class="reward">
+
+                        <div class="reward-icon">
+                            ${reward.icon || "🏅"}
+                        </div>
+
+                        <div class="reward-name">
+                            ${escapeHtml(
+                                reward.name
+                            )}
+                        </div>
+
+                        <div class="reward-points">
+                            ${reward.points_required}
+                            points
+                        </div>
+
+                        ${
+                            reward.earned
+                                ? `
+                                    <div class="reward-earned">
+                                        ✓ EARNED
+                                    </div>
+                                  `
+                                : reward.available
+                                    ? `
+                                        <div class="reward-earned">
+                                            READY TO EARN
+                                        </div>
+                                      `
+                                    : ""
+                        }
+
+                    </div>
+                `
+            ).join("");
+
+
+        updateRewardProgress(
+            data.current_points || 0,
+            rewards
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+            <div class="error">
+                Rewards unavailable.
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   REWARD PROGRESS
+===================================================== */
+
+function updateRewardProgress(
+    points,
+    rewards = []
+) {
+
+    if (!rewards.length) {
+
+        rewards = [
+            {
+                points_required: 50
+            },
+            {
+                points_required: 100
+            },
+            {
+                points_required: 250
+            }
+        ];
+
+    }
+
+
+    const sorted =
+        [...rewards].sort(
+            (a, b) =>
+                a.points_required -
+                b.points_required
+        );
+
+
+    let next =
+        sorted.find(
+            reward =>
+                points <
+                reward.points_required
+        );
+
+
+    if (!next) {
+
+        document.getElementById(
+            "rewardProgress"
+        ).style.width = "100%";
+
+
+        document.getElementById(
+            "rewardProgressText"
+        ).textContent =
+            "All currently available civic rewards unlocked.";
+
+        return;
+
+    }
+
+
+    const previousIndex =
+        sorted.indexOf(next) - 1;
+
+
+    const previous =
+        previousIndex >= 0
+            ? sorted[previousIndex]
+            : { points_required: 0 };
+
+
+    const range =
+        next.points_required -
+        previous.points_required;
+
+
+    const earned =
+        points -
+        previous.points_required;
+
+
+    const percentage =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                (earned / range) * 100
+            )
+        );
+
+
+    document.getElementById(
+        "rewardProgress"
+    ).style.width =
+        percentage + "%";
+
+
+    document.getElementById(
+        "rewardProgressText"
+    ).textContent =
+        `${points} / ${next.points_required} points — ${next.points_required - points} more to unlock the next reward.`;
+
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+async function loadNotifications() {
+
+    const list =
+        document.getElementById(
+            "notificationList"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/notifications"
+            );
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load notifications."
+            );
+
+        }
+
+
+        const notifications =
+            data.notifications || [];
+
+
+        renderNotifications(
+            notifications
+        );
+
+
+        loadUnreadCount();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        list.innerHTML = `
+            <div class="error">
+                Notifications unavailable.
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER NOTIFICATIONS
+===================================================== */
+
+function renderNotifications(
+    notifications
+) {
+
+    const list =
+        document.getElementById(
+            "notificationList"
+        );
+
+
+    if (!notifications.length) {
+
+        list.innerHTML = `
+            <div class="empty">
+                <div class="empty-icon">
+                    🔔
+                </div>
+
+                <strong>
+                    You're all caught up
+                </strong>
+
+                <p style="margin-top:6px;font-size:10px;">
+                    New civic updates will appear here.
+                </p>
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        notifications.slice(0, 6).map(
+            notification => `
+                <div
+                    class="
+                        notification-item
+                        ${
+                            notification.is_read
+                                ? ""
+                                : "unread"
+                        }
+                    "
+                    onclick="
+                        openNotification(
+                            ${Number(notification.id)}
+                        )
+                    "
+                >
+
+                    <strong>
+                        ${escapeHtml(
+                            notification.title
+                        )}
+                    </strong>
+
+                    <p>
+                        ${escapeHtml(
+                            notification.message
+                        )}
+                    </p>
+
+                    <time>
+                        ${escapeHtml(
+                            notification.created_at
+                        )}
+                    </time>
+
+                </div>
+            `
+        ).join("");
+
+}
+
+
+/* =====================================================
+   UNREAD COUNT
+===================================================== */
+
+async function loadUnreadCount() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/notifications/unread-count"
+            );
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+            return;
+        }
+
+
+        const badge =
+            document.getElementById(
+                "notificationCount"
+            );
+
+
+        const count =
+            data.unread_count || 0;
+
+
+        if (count > 0) {
+
+            badge.textContent =
+                count > 99
+                    ? "99+"
+                    : count;
+
+            badge.style.display =
+                "flex";
+
+        }
+
+        else {
+
+            badge.style.display =
+                "none";
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =====================================================
+   MARK NOTIFICATION READ
+===================================================== */
+
+async function openNotification(
+    notificationId
+) {
+
+    try {
+
+        await fetch(
+            `/api/notifications/${notificationId}/read`,
+            {
+                method: "POST"
+            }
+        );
+
+        await loadNotifications();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =====================================================
+   MARK ALL READ
+===================================================== */
+
+async function markAllNotificationsRead() {
+
+    try {
+
+        await fetch(
+            "/api/notifications/read-all",
+            {
+                method: "POST"
+            }
+        );
+
+        await loadNotifications();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =====================================================
+   NOTIFICATION FOCUS
+===================================================== */
+
+function toggleNotificationFocus() {
+
+    const panel =
+        document.getElementById(
+            "notificationPanel"
+        );
+
+
+    panel.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+
+    panel.style.boxShadow =
+        "0 0 0 3px rgba(23,107,91,.12)";
+
+
+    setTimeout(
+        () => {
+            panel.style.boxShadow = "";
+        },
+        1200
+    );
+
+}
+
+
+/* =====================================================
+   COMPLAINT DETAILS
+===================================================== */
+
+async function openComplaint(
+    complaintId
+) {
+
+    const modal =
+        document.getElementById(
+            "complaintModal"
+        );
+
+
+    const details =
+        document.getElementById(
+            "complaintDetails"
+        );
+
+
+    modal.classList.add(
+        "show"
+    );
+
+
+    details.innerHTML = `
+        <div class="loading">
+            Loading complaint details...
+        </div>
+    `;
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/complaints/${complaintId}/citizen`
+            );
+
+
+        let data =
+            await response.json();
+
+
+        /*
+            If a citizen-specific endpoint
+            does not exist yet, use the
+            dashboard data already loaded.
+        */
+
+        if (!response.ok || !data.success) {
+
+            const local =
+                allComplaints.find(
+                    item =>
+                        Number(item.id) ===
+                        Number(complaintId)
+                );
+
+
+            if (!local) {
+
+                throw new Error(
+                    "Complaint details unavailable."
+                );
+
+            }
+
+
+            data = {
+                success: true,
+                complaint: local,
+                history: []
+            };
+
+        }
+
+
+        currentComplaint =
+            data.complaint ||
+            data;
+
+
+        renderComplaintDetails(
+            currentComplaint,
+            data.history || []
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        details.innerHTML = `
+            <div class="error">
+                Unable to load complaint details.
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER DETAILS
+===================================================== */
+
+function renderComplaintDetails(
+    complaint,
+    history
+) {
+
+    const details =
+        document.getElementById(
+            "complaintDetails"
+        );
+
+
+    const status =
+        complaint.status ||
+        "Reported";
+
+
+    let verification =
+        "";
+
+
+    if (
+        status ===
+        "Resolution Submitted"
+    ) {
+
+        verification = `
+            <div class="verification-box">
+
+                <h3>
+                    Resolution Verification Required
+                </h3>
+
+                <p>
+                    The municipality has submitted a resolution.
+                    Please confirm whether the problem has actually
+                    been resolved.
+                </p>
+
+                <div class="verify-actions">
+
+                    <button
+                        class="
+                            verify-button
+                            verify-resolved
+                        "
+                        onclick="
+                            verifyComplaint(
+                                ${Number(complaint.id)},
+                                'resolved'
+                            )
+                        "
+                    >
+                        ✓ Problem Resolved
+                    </button>
+
+                    <button
+                        class="
+                            verify-button
+                            verify-still
+                        "
+                        onclick="
+                            verifyComplaint(
+                                ${Number(complaint.id)},
+                                'still_exists'
+                            )
+                        "
+                    >
+                        Problem Still Exists
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+
+    }
+
+
+    details.innerHTML = `
+
+        <div class="detail-grid">
+
+            <div class="detail">
+
+                <label>
+                    COMPLAINT NUMBER
+                </label>
+
+                <strong>
+                    ${escapeHtml(
+                        complaint.complaint_number ||
+                        "—"
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail">
+
+                <label>
+                    STATUS
+                </label>
+
+                <strong>
+                    ${escapeHtml(
+                        status
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail">
+
+                <label>
+                    PROBLEM TYPE
+                </label>
+
+                <strong>
+                    ${escapeHtml(
+                        complaint.problem_type ||
+                        "—"
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail">
+
+                <label>
+                    SEVERITY
+                </label>
+
+                <strong>
+                    ${escapeHtml(
+                        complaint.severity ||
+                        "—"
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail">
+
+                <label>
+                    PRIORITY
+                </label>
+
+                <strong>
+                    ${escapeHtml(
+                        complaint.priority ||
+                        "—"
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail">
+
+                <label>
+                    URGENCY
+                </label>
+
+                <strong>
+                    ${escapeHtml(
+                        complaint.urgency ||
+                        "—"
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail">
+
+                <label>
+                    DEPARTMENT
+                </label>
+
+                <strong>
+                    ${escapeHtml(
+                        complaint.department ||
+                        "Not Assigned"
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail">
+
+                <label>
+                    REPORTED
+                </label>
+
+                <strong>
+                    ${escapeHtml(
+                        complaint.created_at ||
+                        "—"
+                    )}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="description">
+
+            <strong>
+                Description
+            </strong>
+
+            <div style="margin-top:7px;">
+                ${escapeHtml(
+                    complaint.description ||
+                    "No description available."
+                )}
+            </div>
+
+        </div>
+
+
+        ${verification}
+
+
+        ${
+            history.length
+                ? `
+                    <div class="history">
+
+                        <h3>
+                            Status History
+                        </h3>
+
+                        ${history.map(
+                            item => `
+                                <div class="history-item">
+
+                                    <div class="history-dot"></div>
+
+                                    <div>
+
+                                        <strong>
+                                            ${escapeHtml(
+                                                item.new_status ||
+                                                "Update"
+                                            )}
+                                        </strong>
+
+                                        <span>
+                                            ${escapeHtml(
+                                                item.remarks ||
+                                                ""
+                                            )}
+                                        </span>
+
+                                        <span>
+                                            ${escapeHtml(
+                                                item.created_at ||
+                                                ""
+                                            )}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+                            `
+                        ).join("")}
+
+                    </div>
+                  `
+                : ""
+        }
+
+    `;
+
+}
+
+
+/* =====================================================
+   VERIFY COMPLAINT
+===================================================== */
+
+async function verifyComplaint(
+    complaintId,
+    decision
+) {
+
+    const confirmed =
+        window.confirm(
+            decision === "resolved"
+                ? "Confirm that this civic problem has been resolved?"
+                : "Confirm that the problem still exists?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/complaints/${complaintId}/verify`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        decision: decision
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.message ||
+                "Verification failed."
+            );
+
+        }
+
+
+        alert(
+            data.message ||
+            "Complaint verification submitted."
+        );
+
+
+        closeModal();
+
+
+        await loadDashboard();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            error.message ||
+            "Unable to submit verification."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
+
+function closeModal() {
+
+    document.getElementById(
+        "complaintModal"
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =====================================================
+   CLOSE WHEN CLICKING OUTSIDE
+===================================================== */
+
+document.getElementById(
+    "complaintModal"
+).addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target ===
+            this
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   HTML ESCAPE
+===================================================== */
+
+function escapeHtml(
+    value
+) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   AUTO REFRESH
+===================================================== */
+
+setInterval(
+    async function() {
+
+        await loadUnreadCount();
+
+    },
+    30000
+);
+
+
+/* =====================================================
+   INITIAL LOAD
+===================================================== */
+
+loadDashboard();
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}Urban Smart City{% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    {% block extra_css %}{% endblock %}
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         MAIN HEADER
+    ====================================================== -->
+
+    <header class="main-header">
+
+        <div class="container header-content">
+
+
+            <!-- Brand -->
+
+            <a
+                href="{{ url_for('home') }}"
+                class="brand"
+            >
+
+                <div class="brand-icon">
+                    U
+                </div>
+
+                <div class="brand-text">
+
+                    <span class="brand-name">
+                        Urban Smart City
+                    </span>
+
+                    <span class="brand-subtitle">
+                        Civic Intelligence Platform
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <!-- Navigation -->
+
+           <nav class="main-nav">
+    <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+
+    <a href="{{ url_for('home') }}#about" class="nav-link">About</a>
+
+    <a href="{{ url_for('home') }}#how-it-works" class="nav-link">
+        How It Works
+    </a>
+
+    <a href="{{ url_for('login') }}" class="nav-button">Login</a>
+</nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN PAGE CONTENT
+    ====================================================== -->
+
+    <main>
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="main-footer">
+
+        <div class="container footer-content">
+
+
+            <div>
+
+                <strong>
+                    Urban Smart City
+                </strong>
+
+                <p>
+                    AI-powered civic problem intelligence
+                    and decision support.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <p>
+                    © 2026 Urban Smart City
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script
+        src="{{ url_for('static', filename='js/main.js') }}"
+    ></script>
+
+
+</body>
+
+</html>

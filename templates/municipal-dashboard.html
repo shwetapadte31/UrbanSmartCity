@@ -1,0 +1,4168 @@
+{% extends "base.html" %}
+
+{% block title %}
+Municipal Command Center | Urban Smart City
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.municipal-page {
+    padding: 28px;
+    max-width: 1550px;
+    margin: auto;
+}
+
+.command-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.command-title h1 {
+    margin: 0;
+    font-size: 30px;
+    color: #183b2b;
+}
+
+.command-title p {
+    margin: 6px 0 0;
+    color: #68756d;
+}
+
+.command-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.command-btn {
+    border: none;
+    padding: 11px 17px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.refresh-btn {
+    background: #e8f1eb;
+    color: #24543b;
+}
+
+.intelligence-btn {
+    background: #183b2b;
+    color: white;
+}
+
+.logout-btn {
+    background: #f7e9e7;
+    color: #9b3931;
+}
+
+.command-btn:hover {
+    opacity: .9;
+}
+
+
+/* =====================================================
+   STATISTICS
+===================================================== */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    background: white;
+    border: 1px solid #e3e9e5;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(30,55,40,.05);
+}
+
+.stat-label {
+    color: #68756d;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.stat-value {
+    font-size: 30px;
+    font-weight: 700;
+    color: #183b2b;
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.dashboard-section {
+    background: white;
+    border: 1px solid #e3e9e5;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 15px rgba(30,55,40,.05);
+}
+
+.section-header {
+    padding: 18px 20px;
+    border-bottom: 1px solid #e8ece9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.section-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #183b2b;
+}
+
+.section-header p {
+    margin: 4px 0 0;
+    color: #718078;
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   INTELLIGENCE OVERVIEW
+===================================================== */
+
+.intelligence-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    padding: 20px;
+}
+
+.intelligence-card {
+    border: 1px solid #e4ebe6;
+    border-radius: 13px;
+    padding: 18px;
+    background: #fbfdfc;
+}
+
+.intelligence-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: #e8f1eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.intelligence-card h3 {
+    margin: 0 0 6px;
+    font-size: 15px;
+    color: #244a35;
+}
+
+.intelligence-value {
+    font-size: 25px;
+    font-weight: 700;
+    color: #183b2b;
+}
+
+.intelligence-description {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #718078;
+}
+
+
+/* =====================================================
+   TWO COLUMN INTELLIGENCE
+===================================================== */
+
+.intelligence-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.intelligence-columns .dashboard-section {
+    margin-bottom: 0;
+}
+
+
+/* =====================================================
+   LISTS
+===================================================== */
+
+.intelligence-list {
+    padding: 8px 20px 20px;
+}
+
+.intelligence-item {
+    padding: 14px 0;
+    border-bottom: 1px solid #edf1ee;
+}
+
+.intelligence-item:last-child {
+    border-bottom: none;
+}
+
+.item-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    align-items: center;
+}
+
+.item-title {
+    font-weight: 700;
+    color: #294536;
+    font-size: 14px;
+}
+
+.item-text {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #718078;
+    line-height: 1.5;
+}
+
+.item-value {
+    font-weight: 700;
+    color: #183b2b;
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   RISK
+===================================================== */
+
+.risk-high {
+    color: #a3372e;
+    background: #fde8e5;
+}
+
+.risk-medium {
+    color: #916500;
+    background: #fff2d8;
+}
+
+.risk-low {
+    color: #39704d;
+    background: #e8f2eb;
+}
+
+.risk-badge {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   RECOMMENDATIONS
+===================================================== */
+
+.recommendation {
+    border: 1px solid #e4ebe6;
+    border-radius: 11px;
+    padding: 14px;
+    margin-bottom: 10px;
+    background: #fbfdfc;
+}
+
+.recommendation strong {
+    display: block;
+    color: #244a35;
+    margin-bottom: 5px;
+}
+
+.recommendation span {
+    font-size: 12px;
+    color: #68756d;
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   MAP
+===================================================== */
+
+.map-section {
+    overflow: hidden;
+}
+
+.map-controls {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.map-filter {
+    border: 1px solid #d5ddd8;
+    background: #fff;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 13px;
+}
+
+#municipalMap {
+    height: 500px;
+    width: 100%;
+}
+
+
+/* =====================================================
+   COMPLAINTS
+===================================================== */
+
+.table-controls {
+    display: flex;
+    gap: 10px;
+    padding: 15px 20px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #e8ece9;
+}
+
+.table-controls input,
+.table-controls select {
+    padding: 10px 12px;
+    border: 1px solid #d5ddd8;
+    border-radius: 8px;
+    background: white;
+}
+
+.table-controls input {
+    min-width: 240px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1000px;
+}
+
+th {
+    background: #f5f8f6;
+    color: #536158;
+    font-size: 13px;
+    text-align: left;
+    padding: 13px 15px;
+    white-space: nowrap;
+}
+
+td {
+    padding: 14px 15px;
+    border-top: 1px solid #edf0ee;
+    font-size: 14px;
+    color: #334039;
+}
+
+tr:hover td {
+    background: #fafcfb;
+}
+
+
+/* =====================================================
+   BADGES
+===================================================== */
+
+.badge {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-reported {
+    background: #eef2ff;
+    color: #4355a5;
+}
+
+.status-assigned {
+    background: #eee9ff;
+    color: #6246a8;
+}
+
+.status-process {
+    background: #fff5dc;
+    color: #9a6b00;
+}
+
+.status-resolution {
+    background: #e8f0ff;
+    color: #41659b;
+}
+
+.status-resolved {
+    background: #e4f5e9;
+    color: #267344;
+}
+
+.priority-critical,
+.priority-high {
+    background: #fde8e5;
+    color: #a3372e;
+}
+
+.priority-medium {
+    background: #fff2d8;
+    color: #916500;
+}
+
+.priority-low {
+    background: #e8f2eb;
+    color: #39704d;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.view-btn {
+    border: 1px solid #cbd8cf;
+    background: white;
+    color: #24543b;
+    padding: 7px 11px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.view-btn:hover {
+    background: #eef5f0;
+}
+
+
+/* =====================================================
+   STATES
+===================================================== */
+
+.loading-state,
+.empty-state,
+.error-state {
+    padding: 40px;
+    text-align: center;
+    color: #68756d;
+}
+
+.error-state {
+    color: #a3372e;
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(18,35,25,.45);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 9999;
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+.modal {
+    background: white;
+    width: min(900px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 17px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.18);
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #e8ece9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: #183b2b;
+    font-size: 21px;
+}
+
+.modal-close {
+    border: none;
+    background: #f1f4f2;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.detail-card {
+    border: 1px solid #e5ebe7;
+    border-radius: 11px;
+    padding: 14px;
+}
+
+.detail-label {
+    font-size: 11px;
+    color: #718078;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+}
+
+.detail-value {
+    color: #294536;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.detail-full {
+    grid-column: 1 / -1;
+}
+
+/* =====================================================
+   COMPLAINT IMAGE
+===================================================== */
+
+.complaint-image-section {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid #e8ece9;
+}
+
+.complaint-image-title {
+    font-size: 11px;
+    color: #718078;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+}
+
+.complaint-image {
+    display: block;
+    width: 100%;
+    max-width: 520px;
+    max-height: 360px;
+    object-fit: contain;
+    border-radius: 12px;
+    border: 1px solid #dfe7e2;
+    background: #f8faf9;
+    padding: 5px;
+}
+
+.complaint-image:hover {
+    opacity: .96;
+}
+/* =====================================================
+   STATUS MANAGEMENT
+===================================================== */
+
+.status-management {
+    margin-top: 20px;
+    border-top: 1px solid #e8ece9;
+    padding-top: 20px;
+}
+
+.status-management h3 {
+    margin: 0 0 12px;
+    color: #244a35;
+    font-size: 16px;
+}
+
+.status-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.status-actions button {
+    border: 1px solid #cad8cf;
+    background: white;
+    color: #24543b;
+    padding: 9px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.status-actions button:hover {
+    background: #eef5f0;
+}
+
+.status-actions button.active {
+    background: #183b2b;
+    color: white;
+}
+
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+.history {
+    margin-top: 22px;
+}
+
+.history h3 {
+    color: #244a35;
+    font-size: 16px;
+}
+
+.history-item {
+    position: relative;
+    padding: 12px 0 12px 18px;
+    border-left: 2px solid #dce7df;
+}
+
+.history-item::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 16px;
+    width: 10px;
+    height: 10px;
+    background: #4c8060;
+    border-radius: 50%;
+}
+
+.history-status {
+    font-weight: 700;
+    color: #294536;
+}
+
+.history-meta {
+    font-size: 11px;
+    color: #718078;
+    margin-top: 3px;
+}
+
+.history-remarks {
+    font-size: 12px;
+    color: #5f6d65;
+    margin-top: 5px;
+}
+
+
+/* =====================================================
+   TREND BARS
+===================================================== */
+
+.trend-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 45px;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.trend-label {
+    font-size: 12px;
+    color: #68756d;
+}
+
+.trend-track {
+    height: 9px;
+    border-radius: 10px;
+    background: #edf2ee;
+    overflow: hidden;
+}
+
+.trend-bar {
+    height: 100%;
+    border-radius: 10px;
+    background: #4c8060;
+}
+
+.trend-count {
+    font-size: 12px;
+    font-weight: 700;
+    color: #294536;
+    text-align: right;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1200px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .intelligence-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 800px) {
+
+    .intelligence-columns {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-full {
+        grid-column: auto;
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .municipal-page {
+        padding: 16px;
+    }
+
+    .stats-grid,
+    .intelligence-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .command-title h1 {
+        font-size: 24px;
+    }
+
+    #municipalMap {
+        height: 400px;
+    }
+
+    .table-controls input {
+        width: 100%;
+        min-width: 0;
+    }
+
+}
+
+</style>
+
+
+<div class="municipal-page">
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<div class="command-header">
+
+    <div class="command-title">
+
+        <h1>
+            Municipal Command Center
+        </h1>
+
+        <p>
+            City-wide civic monitoring, intelligence and decision support
+        </p>
+
+    </div>
+
+
+    <div class="command-actions">
+
+        <button
+            class="command-btn intelligence-btn"
+            onclick="loadIntelligence()"
+        >
+            🧠 Refresh Intelligence
+        </button>
+
+        <button
+            class="command-btn refresh-btn"
+            onclick="loadMunicipalDashboard()"
+        >
+            ↻ Refresh
+        </button>
+
+        <button
+            class="command-btn logout-btn"
+            onclick="window.location.href='/logout'"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CITY STATISTICS
+===================================================== -->
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <div class="stat-label">
+            Total Problems
+        </div>
+        <div class="stat-value" id="totalProblems">
+            —
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+        <div class="stat-label">
+            Active Problems
+        </div>
+        <div class="stat-value" id="activeProblems">
+            —
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+        <div class="stat-label">
+            Critical Problems
+        </div>
+        <div class="stat-value" id="criticalProblems">
+            —
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+        <div class="stat-label">
+            Reported Today
+        </div>
+        <div class="stat-value" id="todayProblems">
+            —
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+        <div class="stat-label">
+            Reported
+        </div>
+        <div class="stat-value" id="reportedProblems">
+            —
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+        <div class="stat-label">
+            In Process
+        </div>
+        <div class="stat-value" id="processProblems">
+            —
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+        <div class="stat-label">
+            Resolved
+        </div>
+        <div class="stat-value" id="resolvedProblems">
+            —
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+        <div class="stat-label">
+            Resolution Rate
+        </div>
+        <div class="stat-value" id="resolutionRate">
+            —
+        </div>
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     INTELLIGENCE OVERVIEW
+===================================================== -->
+
+<section class="dashboard-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                City Intelligence Overview
+            </h2>
+
+            <p>
+                AI-assisted insights generated from civic complaint data
+            </p>
+
+        </div>
+
+        <span id="intelligenceUpdated">
+            Waiting for intelligence...
+        </span>
+
+    </div>
+
+
+    <div class="intelligence-grid">
+
+
+        <div class="intelligence-card">
+
+            <div class="intelligence-icon">
+                🔎
+            </div>
+
+            <h3>
+                Potential Duplicates
+            </h3>
+
+            <div
+                class="intelligence-value"
+                id="duplicateCount"
+            >
+                —
+            </div>
+
+            <div class="intelligence-description">
+                Similar complaints detected
+            </div>
+
+        </div>
+
+
+        <div class="intelligence-card">
+
+            <div class="intelligence-icon">
+                🔁
+            </div>
+
+            <h3>
+                Recurring Problems
+            </h3>
+
+            <div
+                class="intelligence-value"
+                id="recurringCount"
+            >
+                —
+            </div>
+
+            <div class="intelligence-description">
+                Repeated civic issues
+            </div>
+
+        </div>
+
+
+        <div class="intelligence-card">
+
+            <div class="intelligence-icon">
+                ⚠️
+            </div>
+
+            <h3>
+                High Risk Areas
+            </h3>
+
+            <div
+                class="intelligence-value"
+                id="riskCount"
+            >
+                —
+            </div>
+
+            <div class="intelligence-description">
+                Areas requiring attention
+            </div>
+
+        </div>
+
+
+        <div class="intelligence-card">
+
+            <div class="intelligence-icon">
+                💡
+            </div>
+
+            <h3>
+                Recommendations
+            </h3>
+
+            <div
+                class="intelligence-value"
+                id="recommendationCount"
+            >
+                —
+            </div>
+
+            <div class="intelligence-description">
+                Suggested municipal actions
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     INTELLIGENCE COLUMNS
+===================================================== -->
+
+<div class="intelligence-columns">
+
+
+<!-- RECURRING -->
+
+<section class="dashboard-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                Recurring Problems
+            </h2>
+
+            <p>
+                Problems repeatedly reported in similar areas
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="intelligence-list"
+        id="recurringList"
+    >
+
+        <div class="loading-state">
+            Loading recurring intelligence...
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- RISK -->
+
+<section class="dashboard-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                Risk Intelligence
+            </h2>
+
+            <p>
+                Areas showing elevated civic problem activity
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="intelligence-list"
+        id="riskList"
+    >
+
+        <div class="loading-state">
+            Loading risk intelligence...
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+
+
+<!-- =====================================================
+     TRENDS + FORECAST
+===================================================== -->
+
+<div class="intelligence-columns">
+
+
+<section class="dashboard-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                Complaint Trends
+            </h2>
+
+            <p>
+                Historical complaint activity
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="intelligence-list"
+        id="trendList"
+    >
+
+        <div class="loading-state">
+            Loading trend data...
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="dashboard-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                Complaint Forecast
+            </h2>
+
+            <p>
+                Simple forward-looking complaint estimate
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="intelligence-list"
+        id="forecastList"
+    >
+
+        <div class="loading-state">
+            Loading forecast...
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+
+
+<!-- =====================================================
+     LOCALITY + DEPARTMENT
+===================================================== -->
+
+<div class="intelligence-columns">
+
+
+<section class="dashboard-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                Locality Intelligence
+            </h2>
+
+            <p>
+                Urban improvement and problem concentration
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="intelligence-list"
+        id="localityList"
+    >
+
+        <div class="loading-state">
+            Loading locality scores...
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="dashboard-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                Department Performance
+            </h2>
+
+            <p>
+                Complaint distribution across municipal departments
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="intelligence-list"
+        id="departmentIntelligence"
+    >
+
+        <div class="loading-state">
+            Loading department intelligence...
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+
+
+<!-- =====================================================
+     RECOMMENDED ACTIONS
+===================================================== -->
+
+<section class="dashboard-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                Recommended Municipal Actions
+            </h2>
+
+            <p>
+                System-generated actions based on current civic problem patterns
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        style="padding:20px;"
+        id="recommendationList"
+    >
+
+        <div class="loading-state">
+            Loading recommendations...
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CITY PROBLEM MAP
+===================================================== -->
+
+<section class="dashboard-section map-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                City Problem Map
+            </h2>
+
+            <p>
+                Geographic view of reported civic problems
+            </p>
+
+        </div>
+
+
+        <div class="map-controls">
+
+            <select
+                id="mapStatusFilter"
+                class="map-filter"
+                onchange="updateMap()"
+            >
+
+                <option value="all">
+                    All Problems
+                </option>
+
+                <option value="active">
+                    Active Only
+                </option>
+
+                <option value="critical">
+                    Critical Only
+                </option>
+
+                <option value="resolved">
+                    Resolved Only
+                </option>
+
+            </select>
+
+
+            <select
+                id="mapPriorityFilter"
+                class="map-filter"
+                onchange="updateMap()"
+            >
+
+                <option value="all">
+                    All Priorities
+                </option>
+
+                <option value="Critical">
+                    Critical
+                </option>
+
+                <option value="High">
+                    High
+                </option>
+
+                <option value="Medium">
+                    Medium
+                </option>
+
+                <option value="Low">
+                    Low
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div id="municipalMap"></div>
+
+</section>
+
+
+<!-- =====================================================
+     COMPLAINT TABLE
+===================================================== -->
+
+<section class="dashboard-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                All Civic Problems
+            </h2>
+
+            <p>
+                Search, filter and inspect individual complaints
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="table-controls">
+
+        <input
+            type="text"
+            id="complaintSearch"
+            placeholder="Search complaint, type or location..."
+            oninput="filterComplaints()"
+        >
+
+
+        <select
+            id="statusFilter"
+            onchange="filterComplaints()"
+        >
+
+            <option value="all">
+                All Status
+            </option>
+
+            <option value="Reported">
+                Reported
+            </option>
+
+            <option value="Assigned">
+                Assigned
+            </option>
+
+            <option value="In Process">
+                In Process
+            </option>
+
+            <option value="Resolution Submitted">
+                Resolution Submitted
+            </option>
+
+            <option value="Resolved">
+                Resolved
+            </option>
+
+        </select>
+
+
+        <select
+            id="severityFilter"
+            onchange="filterComplaints()"
+        >
+
+            <option value="all">
+                All Severity
+            </option>
+
+            <option value="Critical">
+                Critical
+            </option>
+
+            <option value="High">
+                High
+            </option>
+
+            <option value="Medium">
+                Medium
+            </option>
+
+            <option value="Low">
+                Low
+            </option>
+
+        </select>
+
+
+        <select
+            id="departmentFilter"
+            onchange="filterComplaints()"
+        >
+
+            <option value="all">
+                All Departments
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div id="complaintTableContainer">
+
+        <div class="loading-state">
+            Loading city complaints...
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+
+
+<!-- =====================================================
+     COMPLAINT MODAL
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="complaintModal"
+    onclick="closeModalOutside(event)"
+>
+
+    <div
+        class="modal"
+        onclick="event.stopPropagation()"
+    >
+
+        <div class="modal-header">
+
+            <h2>
+                Complaint Intelligence
+            </h2>
+
+            <button
+                class="modal-close"
+                onclick="closeComplaintModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            class="modal-body"
+            id="complaintDetails"
+        >
+
+            <div class="loading-state">
+                Loading complaint details...
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     LEAFLET
+===================================================== -->
+
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+></script>
+
+
+<script>
+
+/* =====================================================
+   GLOBAL DATA
+===================================================== */
+
+let municipalMap = null;
+
+let allComplaints = [];
+
+let mapMarkers = [];
+
+let currentComplaint = null;
+
+
+/* =====================================================
+   SAFE HELPERS
+===================================================== */
+
+function safeArray(data) {
+
+    if (Array.isArray(data)) {
+        return data;
+    }
+
+    if (Array.isArray(data.results)) {
+        return data.results;
+    }
+
+    if (Array.isArray(data.items)) {
+        return data.items;
+    }
+
+    if (Array.isArray(data.data)) {
+        return data.data;
+    }
+
+    return [];
+
+}
+
+
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================================
+   MAP
+===================================================== */
+
+function initializeMap() {
+
+    if (municipalMap) {
+        return;
+    }
+
+    municipalMap = L.map(
+        "municipalMap"
+    ).setView(
+        [18.5204, 73.8567],
+        12
+    );
+
+
+    L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            attribution:
+                "&copy; OpenStreetMap contributors"
+        }
+    ).addTo(
+        municipalMap
+    );
+
+}
+
+
+/* =====================================================
+   LOAD MUNICIPAL DASHBOARD
+===================================================== */
+
+async function loadMunicipalDashboard() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/municipal-dashboard"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load dashboard."
+            );
+
+        }
+
+
+        allComplaints =
+            data.complaints || [];
+
+
+        updateStatistics(
+            data.statistics || {}
+        );
+
+
+        populateDepartmentFilter(
+            data.departments || []
+        );
+
+
+        renderComplaintTable(
+            allComplaints
+        );
+
+
+        initializeMap();
+
+        updateMap();
+
+
+        loadIntelligence();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Municipal dashboard error:",
+            error
+        );
+
+
+        document.getElementById(
+            "complaintTableContainer"
+        ).innerHTML = `
+
+            <div class="error-state">
+
+                Unable to load municipal dashboard.
+
+                <br><br>
+
+                ${escapeHtml(
+                    error.message
+                )}
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   STATISTICS
+===================================================== */
+
+function updateStatistics(
+    statistics
+) {
+
+    document.getElementById(
+        "totalProblems"
+    ).textContent =
+        statistics.total || 0;
+
+
+    document.getElementById(
+        "activeProblems"
+    ).textContent =
+        statistics.active || 0;
+
+
+    document.getElementById(
+        "criticalProblems"
+    ).textContent =
+        statistics.critical || 0;
+
+
+    document.getElementById(
+        "todayProblems"
+    ).textContent =
+        statistics.today || 0;
+
+
+    document.getElementById(
+        "reportedProblems"
+    ).textContent =
+        statistics.reported || 0;
+
+
+    document.getElementById(
+        "processProblems"
+    ).textContent =
+        statistics.in_process || 0;
+
+
+    document.getElementById(
+        "resolvedProblems"
+    ).textContent =
+        statistics.resolved || 0;
+
+
+    const total =
+        Number(statistics.total || 0);
+
+
+    const resolved =
+        Number(statistics.resolved || 0);
+
+
+    const rate =
+        total > 0
+            ? Math.round(
+                (resolved / total) * 100
+            )
+            : 0;
+
+
+    document.getElementById(
+        "resolutionRate"
+    ).textContent =
+        rate + "%";
+
+}
+
+
+/* =====================================================
+   DEPARTMENT FILTER
+===================================================== */
+
+function populateDepartmentFilter(
+    departments
+) {
+
+    const select =
+        document.getElementById(
+            "departmentFilter"
+        );
+
+
+    select.innerHTML =
+        `
+        <option value="all">
+            All Departments
+        </option>
+        `;
+
+
+    departments.forEach(
+        function(department) {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                department.name;
+
+
+            option.textContent =
+                department.name;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   FILTER COMPLAINTS
+===================================================== */
+
+function filterComplaints() {
+
+    const search =
+        document.getElementById(
+            "complaintSearch"
+        ).value
+        .toLowerCase()
+        .trim();
+
+
+    const status =
+        document.getElementById(
+            "statusFilter"
+        ).value;
+
+
+    const severity =
+        document.getElementById(
+            "severityFilter"
+        ).value;
+
+
+    const department =
+        document.getElementById(
+            "departmentFilter"
+        ).value;
+
+
+    const filtered =
+        allComplaints.filter(
+            function(complaint) {
+
+                const text = `
+
+                    ${complaint.complaint_number || ""}
+
+                    ${complaint.problem_type || ""}
+
+                    ${complaint.status || ""}
+
+                    ${complaint.address || ""}
+
+                    ${complaint.department || ""}
+
+                `.toLowerCase();
+
+
+                const matchesSearch =
+                    !search ||
+                    text.includes(search);
+
+
+                const matchesStatus =
+                    status === "all" ||
+                    complaint.status === status;
+
+
+                const matchesSeverity =
+                    severity === "all" ||
+                    complaint.severity === severity;
+
+
+                const matchesDepartment =
+                    department === "all" ||
+                    complaint.department === department;
+
+
+                return (
+                    matchesSearch &&
+                    matchesStatus &&
+                    matchesSeverity &&
+                    matchesDepartment
+                );
+
+            }
+        );
+
+
+    renderComplaintTable(
+        filtered
+    );
+
+}
+
+
+/* =====================================================
+   RENDER TABLE
+===================================================== */
+
+function renderComplaintTable(
+    complaints
+) {
+
+    const container =
+        document.getElementById(
+            "complaintTableContainer"
+        );
+
+
+    if (!complaints.length) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                No civic problems match
+                the selected filters.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    let html = `
+
+        <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Complaint</th>
+
+                    <th>Problem</th>
+
+                    <th>Severity</th>
+
+                    <th>Priority</th>
+
+                    <th>Department</th>
+
+                    <th>Status</th>
+
+                    <th>Location</th>
+
+                    <th>Reported</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+    `;
+
+
+    complaints.forEach(
+        function(complaint) {
+
+            html += `
+
+                <tr>
+
+                    <td>
+
+                        <strong>
+                            ${escapeHtml(
+                                complaint.complaint_number
+                            )}
+                        </strong>
+
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            complaint.problem_type
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            complaint.severity || "—"
+                        )}
+                    </td>
+
+
+                    <td>
+
+                        <span
+                            class="badge
+                            ${getPriorityClass(
+                                complaint.priority
+                            )}"
+                        >
+
+                            ${escapeHtml(
+                                complaint.priority || "—"
+                            )}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            complaint.department ||
+                            "Not Assigned"
+                        )}
+                    </td>
+
+
+                    <td>
+
+                        <span
+                            class="badge
+                            ${getStatusClass(
+                                complaint.status
+                            )}"
+                        >
+
+                            ${escapeHtml(
+                                complaint.status
+                            )}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            complaint.address ||
+                            "Location unavailable"
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            complaint.created_at
+                        )}
+                    </td>
+
+
+                    <td>
+
+                        <button
+                            class="view-btn"
+                            onclick="viewComplaint(
+                                ${Number(complaint.id)}
+                            )"
+                        >
+
+                            View
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+
+            </tbody>
+
+        </table>
+
+        </div>
+
+    `;
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+/* =====================================================
+   MAP
+===================================================== */
+
+function updateMap() {
+
+    if (!municipalMap) {
+        return;
+    }
+
+
+    mapMarkers.forEach(
+        function(marker) {
+
+            municipalMap.removeLayer(
+                marker
+            );
+
+        }
+    );
+
+
+    mapMarkers = [];
+
+
+    const statusFilter =
+        document.getElementById(
+            "mapStatusFilter"
+        ).value;
+
+
+    const priorityFilter =
+        document.getElementById(
+            "mapPriorityFilter"
+        ).value;
+
+
+    allComplaints.forEach(
+        function(complaint) {
+
+            const latitude =
+                Number(
+                    complaint.latitude
+                );
+
+
+            const longitude =
+                Number(
+                    complaint.longitude
+                );
+
+
+            if (
+                !Number.isFinite(latitude) ||
+                !Number.isFinite(longitude)
+            ) {
+                return;
+            }
+
+
+            const active =
+                complaint.status !==
+                "Resolved";
+
+
+            if (
+                statusFilter === "active" &&
+                !active
+            ) {
+                return;
+            }
+
+
+            if (
+                statusFilter === "critical" &&
+                complaint.severity !==
+                "Critical"
+            ) {
+                return;
+            }
+
+
+            if (
+                statusFilter === "resolved" &&
+                complaint.status !==
+                "Resolved"
+            ) {
+                return;
+            }
+
+
+            if (
+                priorityFilter !== "all" &&
+                complaint.priority !==
+                priorityFilter
+            ) {
+                return;
+            }
+
+
+            const marker =
+                L.marker(
+                    [
+                        latitude,
+                        longitude
+                    ]
+                ).addTo(
+                    municipalMap
+                );
+
+
+            marker.bindPopup(`
+
+                <strong>
+                    ${escapeHtml(
+                        complaint.complaint_number
+                    )}
+                </strong>
+
+                <br>
+
+                ${escapeHtml(
+                    complaint.problem_type
+                )}
+
+                <br>
+
+                Severity:
+                ${escapeHtml(
+                    complaint.severity || "—"
+                )}
+
+                <br>
+
+                Priority:
+                ${escapeHtml(
+                    complaint.priority || "—"
+                )}
+
+                <br><br>
+
+                <button
+                    onclick="viewComplaint(
+                        ${Number(complaint.id)}
+                    )"
+                >
+                    View Details
+                </button>
+
+            `);
+
+
+            mapMarkers.push(
+                marker
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   STATUS CLASS
+===================================================== */
+
+function getStatusClass(
+    status
+) {
+
+    if (status === "Resolved") {
+        return "status-resolved";
+    }
+
+    if (status === "Resolution Submitted") {
+        return "status-resolution";
+    }
+
+    if (status === "In Process") {
+        return "status-process";
+    }
+
+    if (status === "Assigned") {
+        return "status-assigned";
+    }
+
+    return "status-reported";
+
+}
+
+
+/* =====================================================
+   PRIORITY CLASS
+===================================================== */
+
+function getPriorityClass(
+    priority
+) {
+
+    if (
+        priority === "Critical" ||
+        priority === "High"
+    ) {
+        return "priority-high";
+    }
+
+    if (
+        priority === "Medium"
+    ) {
+        return "priority-medium";
+    }
+
+    return "priority-low";
+
+}
+
+
+/* =====================================================
+   INTELLIGENCE LOADER
+===================================================== */
+
+async function loadIntelligence() {
+
+    document.getElementById(
+        "intelligenceUpdated"
+    ).textContent =
+        "Updating intelligence...";
+
+
+    await Promise.allSettled([
+
+        loadDuplicates(),
+
+        loadRecurring(),
+
+        loadTrends(),
+
+        loadForecast(),
+
+        loadRisk(),
+
+        loadLocalities(),
+
+        loadDepartments(),
+
+        loadRecommendations()
+
+    ]);
+
+
+    document.getElementById(
+        "intelligenceUpdated"
+    ).textContent =
+        "Intelligence updated";
+
+}
+
+
+/* =====================================================
+   DUPLICATES
+===================================================== */
+
+async function loadDuplicates() {
+
+    const countElement =
+        document.getElementById(
+            "duplicateCount"
+        );
+
+
+    try {
+
+        let total = 0;
+
+
+        for (
+            const complaint
+            of allComplaints.slice(0, 15)
+        ) {
+
+            try {
+
+                const response =
+                    await fetch(
+                        `/api/intelligence/duplicates/${complaint.id}`
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!data.success) {
+                    continue;
+                }
+
+
+                const items =
+                    safeArray(
+                        data.duplicates ||
+                        data.results ||
+                        data.matches ||
+                        data
+                    );
+
+
+                total += items.length;
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Duplicate check error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        countElement.textContent =
+            total;
+
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        countElement.textContent =
+            "—";
+
+    }
+
+}
+
+
+/* =====================================================
+   RECURRING
+===================================================== */
+
+async function loadRecurring() {
+
+    const container =
+        document.getElementById(
+            "recurringList"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/intelligence/recurring"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        const items =
+            safeArray(
+                data.recurring ||
+                data.results ||
+                data
+            );
+
+
+        document.getElementById(
+            "recurringCount"
+        ).textContent =
+            items.length;
+
+
+        if (!items.length) {
+
+            container.innerHTML = `
+
+                <div class="empty-state">
+                    No recurring patterns detected.
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            items.slice(0, 8).map(
+                function(item) {
+
+                    const title =
+                        item.problem_type ||
+                        item.type ||
+                        item.category ||
+                        "Recurring civic problem";
+
+
+                    const location =
+                        item.address ||
+                        item.locality ||
+                        item.location ||
+                        "Location unavailable";
+
+
+                    const count =
+                        item.count ||
+                        item.complaint_count ||
+                        item.total ||
+                        "";
+
+
+                    return `
+
+                        <div class="intelligence-item">
+
+                            <div class="item-top">
+
+                                <div class="item-title">
+                                    ${escapeHtml(title)}
+                                </div>
+
+                                <div class="item-value">
+                                    ${escapeHtml(
+                                        String(count)
+                                    )}
+                                </div>
+
+                            </div>
+
+                            <div class="item-text">
+                                ${escapeHtml(location)}
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("");
+
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+
+            <div class="error-state">
+                Recurring intelligence unavailable.
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   TRENDS
+===================================================== */
+
+async function loadTrends() {
+
+    const container =
+        document.getElementById(
+            "trendList"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/intelligence/trends"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        const items =
+            safeArray(
+                data.trends ||
+                data.results ||
+                data
+            );
+
+
+        if (!items.length) {
+
+            container.innerHTML = `
+
+                <div class="empty-state">
+                    No trend data available yet.
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        const values =
+            items.map(
+                item =>
+                    Number(
+                        item.count ||
+                        item.total ||
+                        item.value ||
+                        0
+                    )
+            );
+
+
+        const maximum =
+            Math.max(
+                ...values,
+                1
+            );
+
+
+        container.innerHTML =
+            items.slice(-10).map(
+                function(item, index) {
+
+                    const label =
+                        item.date ||
+                        item.period ||
+                        item.month ||
+                        item.label ||
+                        `Period ${index + 1}`;
+
+
+                    const value =
+                        Number(
+                            item.count ||
+                            item.total ||
+                            item.value ||
+                            0
+                        );
+
+
+                    const width =
+                        Math.round(
+                            (value / maximum) * 100
+                        );
+
+
+                    return `
+
+                        <div class="trend-row">
+
+                            <div class="trend-label">
+                                ${escapeHtml(
+                                    String(label)
+                                )}
+                            </div>
+
+                            <div class="trend-track">
+
+                                <div
+                                    class="trend-bar"
+                                    style="width:${width}%"
+                                ></div>
+
+                            </div>
+
+                            <div class="trend-count">
+                                ${value}
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("");
+
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+
+            <div class="error-state">
+                Trend intelligence unavailable.
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   FORECAST
+===================================================== */
+
+async function loadForecast() {
+
+    const container =
+        document.getElementById(
+            "forecastList"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/intelligence/forecast"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        const items =
+            safeArray(
+                data.forecast ||
+                data.results ||
+                data
+            );
+
+
+        if (!items.length) {
+
+            container.innerHTML = `
+
+                <div class="empty-state">
+                    Forecast data will appear as
+                    historical data grows.
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            items.slice(0, 8).map(
+                function(item) {
+
+                    const period =
+                        item.period ||
+                        item.date ||
+                        item.label ||
+                        "Upcoming period";
+
+
+                    const value =
+                        item.predicted ||
+                        item.prediction ||
+                        item.forecast ||
+                        item.value ||
+                        0;
+
+
+                    return `
+
+                        <div class="intelligence-item">
+
+                            <div class="item-top">
+
+                                <div class="item-title">
+                                    ${escapeHtml(
+                                        String(period)
+                                    )}
+                                </div>
+
+                                <div class="item-value">
+                                    ${escapeHtml(
+                                        String(value)
+                                    )}
+                                </div>
+
+                            </div>
+
+                            <div class="item-text">
+                                Predicted complaint activity
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("");
+
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+
+            <div class="error-state">
+                Forecast unavailable.
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   RISK
+===================================================== */
+
+async function loadRisk() {
+
+    const container =
+        document.getElementById(
+            "riskList"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/intelligence/risk"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        const items =
+            safeArray(
+                data.risk ||
+                data.results ||
+                data
+            );
+
+
+        const highRisk =
+            items.filter(
+                item => {
+
+                    const level =
+                        String(
+                            item.risk_level ||
+                            item.risk ||
+                            item.level ||
+                            ""
+                        ).toLowerCase();
+
+                    return (
+                        level.includes("high") ||
+                        level.includes("critical")
+                    );
+
+                }
+            );
+
+
+        document.getElementById(
+            "riskCount"
+        ).textContent =
+            highRisk.length;
+
+
+        if (!items.length) {
+
+            container.innerHTML = `
+
+                <div class="empty-state">
+                    No risk data available yet.
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            items.slice(0, 8).map(
+                function(item) {
+
+                    const locality =
+                        item.locality ||
+                        item.address ||
+                        item.location ||
+                        "Area";
+
+
+                    const level =
+                        item.risk_level ||
+                        item.risk ||
+                        item.level ||
+                        "Unknown";
+
+
+                    const score =
+                        item.risk_score ||
+                        item.score ||
+                        "";
+
+
+                    const levelText =
+                        String(level);
+
+
+                    const className =
+                        levelText
+                            .toLowerCase()
+                            .includes("high") ||
+                        levelText
+                            .toLowerCase()
+                            .includes("critical")
+                            ? "risk-high"
+                            :
+                        levelText
+                            .toLowerCase()
+                            .includes("medium")
+                            ? "risk-medium"
+                            : "risk-low";
+
+
+                    return `
+
+                        <div class="intelligence-item">
+
+                            <div class="item-top">
+
+                                <div class="item-title">
+                                    ${escapeHtml(
+                                        String(locality)
+                                    )}
+                                </div>
+
+                                <span
+                                    class="risk-badge ${className}"
+                                >
+                                    ${escapeHtml(
+                                        levelText
+                                    )}
+                                </span>
+
+                            </div>
+
+                            <div class="item-text">
+
+                                Risk score:
+                                ${escapeHtml(
+                                    String(score)
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("");
+
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+
+            <div class="error-state">
+                Risk intelligence unavailable.
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   LOCALITIES
+===================================================== */
+
+async function loadLocalities() {
+
+    const container =
+        document.getElementById(
+            "localityList"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/intelligence/localities"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        const items =
+            safeArray(
+                data.localities ||
+                data.results ||
+                data
+            );
+
+
+        if (!items.length) {
+
+            container.innerHTML = `
+
+                <div class="empty-state">
+                    Locality scores will appear
+                    as civic data grows.
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            items.slice(0, 8).map(
+                function(item) {
+
+                    const locality =
+                        item.locality ||
+                        item.name ||
+                        item.address ||
+                        "Locality";
+
+
+                    const score =
+                        item.score ||
+                        item.improvement_score ||
+                        item.locality_score ||
+                        0;
+
+
+                    return `
+
+                        <div class="intelligence-item">
+
+                            <div class="item-top">
+
+                                <div class="item-title">
+                                    ${escapeHtml(
+                                        String(locality)
+                                    )}
+                                </div>
+
+                                <div class="item-value">
+                                    ${escapeHtml(
+                                        String(score)
+                                    )}
+                                </div>
+
+                            </div>
+
+                            <div class="item-text">
+                                Urban improvement score
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("");
+
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+
+            <div class="error-state">
+                Locality intelligence unavailable.
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   DEPARTMENTS
+===================================================== */
+
+async function loadDepartments() {
+
+    const container =
+        document.getElementById(
+            "departmentIntelligence"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/intelligence/departments"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        const items =
+            safeArray(
+                data.departments ||
+                data.results ||
+                data
+            );
+
+
+        if (!items.length) {
+
+            container.innerHTML = `
+
+                <div class="empty-state">
+                    Department intelligence unavailable.
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            items.slice(0, 8).map(
+                function(item) {
+
+                    const name =
+                        item.department ||
+                        item.name ||
+                        "Department";
+
+
+                    const count =
+                        item.count ||
+                        item.complaints ||
+                        item.total ||
+                        0;
+
+
+                    const resolved =
+                        item.resolved ||
+                        item.resolved_count ||
+                        0;
+
+
+                    return `
+
+                        <div class="intelligence-item">
+
+                            <div class="item-top">
+
+                                <div class="item-title">
+                                    ${escapeHtml(
+                                        String(name)
+                                    )}
+                                </div>
+
+                                <div class="item-value">
+                                    ${escapeHtml(
+                                        String(count)
+                                    )}
+                                </div>
+
+                            </div>
+
+                            <div class="item-text">
+
+                                Total complaints:
+                                ${escapeHtml(
+                                    String(count)
+                                )}
+
+                                &nbsp; • &nbsp;
+
+                                Resolved:
+                                ${escapeHtml(
+                                    String(resolved)
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("");
+
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+
+            <div class="error-state">
+                Department intelligence unavailable.
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   RECOMMENDATIONS
+===================================================== */
+
+async function loadRecommendations() {
+
+    const container =
+        document.getElementById(
+            "recommendationList"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/intelligence/recommendations"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        const items =
+            safeArray(
+                data.recommendations ||
+                data.results ||
+                data
+            );
+
+
+        document.getElementById(
+            "recommendationCount"
+        ).textContent =
+            items.length;
+
+
+        if (!items.length) {
+
+            container.innerHTML = `
+
+                <div class="empty-state">
+                    No immediate recommendations generated.
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            items.slice(0, 10).map(
+                function(item) {
+
+                    const title =
+                        item.title ||
+                        item.problem_type ||
+                        item.category ||
+                        "Municipal action";
+
+
+                    const action =
+                        item.recommendation ||
+                        item.action ||
+                        item.recommended_action ||
+                        item.message ||
+                        "Review the current civic problem pattern.";
+
+
+                    return `
+
+                        <div class="recommendation">
+
+                            <strong>
+                                ${escapeHtml(
+                                    String(title)
+                                )}
+                            </strong>
+
+                            <span>
+                                ${escapeHtml(
+                                    String(action)
+                                )}
+                            </span>
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("");
+
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+
+            <div class="error-state">
+                Recommendations unavailable.
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   VIEW COMPLAINT
+===================================================== */
+
+async function viewComplaint(
+    complaintId
+) {
+
+    const modal =
+        document.getElementById(
+            "complaintModal"
+        );
+
+
+    const details =
+        document.getElementById(
+            "complaintDetails"
+        );
+
+
+    modal.classList.add(
+        "show"
+    );
+
+
+    details.innerHTML = `
+
+        <div class="loading-state">
+            Loading complaint intelligence...
+        </div>
+
+    `;
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/complaints/${complaintId}`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load complaint."
+            );
+
+        }
+
+
+        currentComplaint =
+            data.complaint;
+
+
+        await renderComplaintDetails(
+            currentComplaint
+        );
+
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        details.innerHTML = `
+
+            <div class="error-state">
+                ${escapeHtml(
+                    error.message
+                )}
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   COMPLAINT DETAILS
+===================================================== */
+
+async function renderComplaintDetails(
+    complaint
+) {
+
+    const details =
+        document.getElementById(
+            "complaintDetails"
+        );
+
+
+    let history = [];
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/complaints/${complaint.id}/history`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (data.success) {
+
+            history =
+                data.history || [];
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "History error:",
+            error
+        );
+
+    }
+
+
+    details.innerHTML = `
+
+        <div class="detail-grid">
+
+
+            <div class="detail-card">
+
+                <div class="detail-label">
+                    Complaint Number
+                </div>
+
+                <div class="detail-value">
+                    ${escapeHtml(
+                        complaint.complaint_number
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="detail-card">
+
+                <div class="detail-label">
+                    Problem Type
+                </div>
+
+                <div class="detail-value">
+                    ${escapeHtml(
+                        complaint.problem_type
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="detail-card">
+
+                <div class="detail-label">
+                    Severity
+                </div>
+
+                <div class="detail-value">
+                    ${escapeHtml(
+                        complaint.severity || "—"
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="detail-card">
+
+                <div class="detail-label">
+                    Priority
+                </div>
+
+                <div class="detail-value">
+
+                    <span
+                        class="badge
+                        ${getPriorityClass(
+                            complaint.priority
+                        )}"
+                    >
+
+                        ${escapeHtml(
+                            complaint.priority || "—"
+                        )}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="detail-card">
+
+                <div class="detail-label">
+                    Department
+                </div>
+
+                <div class="detail-value">
+                    ${escapeHtml(
+                        complaint.department ||
+                        "Not Assigned"
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="detail-card">
+
+                <div class="detail-label">
+                    Status
+                </div>
+
+                <div class="detail-value">
+
+                    <span
+                        class="badge
+                        ${getStatusClass(
+                            complaint.status
+                        )}"
+                    >
+
+                        ${escapeHtml(
+                            complaint.status
+                        )}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="detail-card detail-full">
+
+    <div class="detail-label">
+        Description
+    </div>
+
+    <div class="detail-value">
+        ${escapeHtml(
+            complaint.description ||
+            "No description"
+        )}
+    </div>
+
+</div>
+
+
+${
+    complaint.image_path
+        ? `
+            <div class="detail-card detail-full">
+
+                <div class="complaint-image-section">
+
+                    <div class="complaint-image-title">
+                        Uploaded Complaint Image
+                    </div>
+
+                    <img
+                        src="/static/${encodeURI(
+                            complaint.image_path
+                        )}"
+                        alt="Uploaded complaint image"
+                        class="complaint-image"
+                        onerror="
+                            this.style.display='none';
+                            this.nextElementSibling.style.display='block';
+                        "
+                    >
+
+                    <div
+                        style="
+                            display:none;
+                            color:#8a5a00;
+                            font-size:13px;
+                            padding:10px;
+                            background:#fff7df;
+                            border-radius:8px;
+                        "
+                    >
+                        Complaint image could not be loaded.
+                    </div>
+
+                </div>
+
+            </div>
+        `
+        : ""
+}
+
+
+            <div class="detail-card detail-full">
+
+                <div class="detail-label">
+                    Location
+                </div>
+
+                <div class="detail-value">
+                    ${escapeHtml(
+                        complaint.address ||
+                        "Location unavailable"
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="detail-card">
+
+                <div class="detail-label">
+                    Latitude
+                </div>
+
+                <div class="detail-value">
+                    ${escapeHtml(
+                        complaint.latitude ??
+                        "—"
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="detail-card">
+
+                <div class="detail-label">
+                    Longitude
+                </div>
+
+                <div class="detail-value">
+                    ${escapeHtml(
+                        complaint.longitude ??
+                        "—"
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="detail-card detail-full">
+
+                <div class="detail-label">
+                    Reported On
+                </div>
+
+                <div class="detail-value">
+                    ${escapeHtml(
+                        complaint.created_at
+                    )}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="status-management">
+
+            <h3>
+                Resolution Management
+            </h3>
+
+            <div class="status-actions">
+
+                ${createStatusButton(
+                    "Reported",
+                    complaint.status
+                )}
+
+                ${createStatusButton(
+                    "Assigned",
+                    complaint.status
+                )}
+
+                ${createStatusButton(
+                    "In Process",
+                    complaint.status
+                )}
+
+                ${createStatusButton(
+                    "Resolution Submitted",
+                    complaint.status
+                )}
+
+                ${createStatusButton(
+                    "Resolved",
+                    complaint.status
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="history">
+
+            <h3>
+                Complaint History
+            </h3>
+
+            ${
+                renderHistory(
+                    history
+                )
+            }
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   STATUS BUTTON
+===================================================== */
+
+function createStatusButton(
+    status,
+    currentStatus
+) {
+
+    const active =
+        status === currentStatus
+            ? "active"
+            : "";
+
+
+    return `
+
+        <button
+            class="${active}"
+            onclick="changeComplaintStatus(
+                '${status}'
+            )"
+        >
+
+            ${escapeHtml(
+                status
+            )}
+
+        </button>
+
+    `;
+
+}
+
+
+/* =====================================================
+   CHANGE STATUS
+===================================================== */
+
+async function changeComplaintStatus(
+    newStatus
+) {
+
+    if (!currentComplaint) {
+        return;
+    }
+
+
+    if (
+        currentComplaint.status ===
+        newStatus
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/complaints/${currentComplaint.id}/status`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        status:
+                            newStatus
+                    })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Unable to update status."
+            );
+
+        }
+
+
+        currentComplaint.status =
+            newStatus;
+
+
+        const complaint =
+            allComplaints.find(
+                item =>
+                    Number(item.id) ===
+                    Number(
+                        currentComplaint.id
+                    )
+            );
+
+
+        if (complaint) {
+
+            complaint.status =
+                newStatus;
+
+        }
+
+
+        await renderComplaintDetails(
+            currentComplaint
+        );
+
+
+        renderComplaintTable(
+            allComplaints
+        );
+
+
+        updateMap();
+
+
+    }
+
+    catch (error) {
+
+        alert(
+            error.message
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+function renderHistory(
+    history
+) {
+
+    if (!history.length) {
+
+        return `
+
+            <div class="empty-state">
+                No history available.
+            </div>
+
+        `;
+
+    }
+
+
+    return history.map(
+        function(item) {
+
+            return `
+
+                <div class="history-item">
+
+                    <div class="history-status">
+
+                        ${escapeHtml(
+                            item.new_status ||
+                            item.status ||
+                            ""
+                        )}
+
+                    </div>
+
+
+                    <div class="history-meta">
+
+                        ${escapeHtml(
+                            item.created_at ||
+                            ""
+                        )}
+
+                    </div>
+
+
+                    <div class="history-remarks">
+
+                        ${escapeHtml(
+                            item.remarks ||
+                            ""
+                        )}
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    ).join("");
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
+
+function closeComplaintModal() {
+
+    document.getElementById(
+        "complaintModal"
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+function closeModalOutside(
+    event
+) {
+
+    if (
+        event.target.id ===
+        "complaintModal"
+    ) {
+
+        closeComplaintModal();
+
+    }
+
+}
+
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeComplaintModal();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadMunicipalDashboard();
+
+    }
+);
+
+</script>
+
+{% endblock %}

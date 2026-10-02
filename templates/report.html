@@ -1,0 +1,929 @@
+{% extends "base.html" %}
+
+{% block title %}Report a Civic Issue | Urban Smart City{% endblock %}
+
+{% block content %}
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+{% endblock %}
+<section class="report-section">
+
+    <div class="container">
+
+        <!-- Page Header -->
+        <div class="report-header">
+
+            <div>
+                <span class="section-label">
+                    CITIZEN CIVIC CENTER
+                </span>
+
+                <h1>Report a Civic Issue</h1>
+
+                <p>
+                    Help your city identify and understand civic problems.
+                    Provide the details below so the system can analyze
+                    and route your report.
+                </p>
+            </div>
+
+            <a href="/" class="back-link">
+                ← Back to Home
+            </a>
+
+        </div>
+
+
+        <!-- Report Form -->
+        <form id="reportForm" class="report-form">
+
+            <!-- Basic Information -->
+            <div class="form-card">
+
+                <div class="form-card-header">
+
+                    <div>
+                        <span class="card-step">01</span>
+                        <h2>Problem Details</h2>
+                    </div>
+
+                    <span class="required-note">
+                        * Required
+                    </span>
+
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="problemType">
+                            Problem Type <span>*</span>
+                        </label>
+
+                        <select id="problemType" name="problemType" required>
+
+                            <option value="">
+                                Select the type of civic problem
+                            </option>
+
+                            <option value="pothole">
+                                Pothole
+                            </option>
+
+                            <option value="garbage">
+                                Garbage / Waste
+                            </option>
+
+                            <option value="water-leakage">
+                                Water Leakage
+                            </option>
+
+                            <option value="drainage">
+                                Drainage Problem
+                            </option>
+
+                            <option value="waterlogging">
+                                Waterlogging
+                            </option>
+
+                            <option value="streetlight">
+                                Streetlight
+                            </option>
+
+                            <option value="road-damage">
+                                Road Damage
+                            </option>
+
+                            <option value="traffic">
+                                Traffic Problem
+                            </option>
+
+                            <option value="infrastructure">
+                                Infrastructure Problem
+                            </option>
+
+                            <option value="other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="urgency">
+                            Urgency <span>*</span>
+                        </label>
+
+                        <select id="urgency" name="urgency" required>
+
+                            <option value="">
+                                Select urgency
+                            </option>
+
+                            <option value="low">
+                                Low
+                            </option>
+
+                            <option value="medium">
+                                Medium
+                            </option>
+
+                            <option value="high">
+                                High
+                            </option>
+
+                            <option value="critical">
+                                Critical
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="description">
+                        Describe the Problem <span>*</span>
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="6"
+                        placeholder="Describe what is happening, where it is happening, and any other useful information..."
+                        required
+                    ></textarea>
+
+                    <div class="field-help">
+                        More detailed information helps the system analyze
+                        the problem more accurately.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Location -->
+            <div class="form-card">
+
+                <div class="form-card-header">
+
+                    <div>
+                        <span class="card-step">02</span>
+                        <h2>Problem Location</h2>
+                    </div>
+
+                    <span class="required-note">
+                        * Required
+                    </span>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="location">
+                        Location / Address <span>*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        name="location"
+                        placeholder="Enter the street, area or landmark"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="map-container">
+
+    <div class="map-toolbar">
+
+        <div>
+            <strong>Select Problem Location</strong>
+            <span>Click on the map to mark the location.</span>
+        </div>
+
+        <button
+            type="button"
+            class="location-button"
+            id="useLocationButton"
+        >
+            Use My Location
+        </button>
+
+    </div>
+
+    <div id="reportMap"></div>
+
+    <div class="selected-location">
+        <span>Selected Coordinates</span>
+
+        <strong id="selectedCoordinates">
+            No location selected
+        </strong>
+    </div>
+
+</div>
+                </div>
+
+                <input
+                    type="hidden"
+                    id="latitude"
+                    name="latitude"
+                >
+
+                <input
+                    type="hidden"
+                    id="longitude"
+                    name="longitude"
+                >
+
+            </div>
+
+
+            <!-- Evidence -->
+            <div class="form-card">
+
+                <div class="form-card-header">
+
+                    <div>
+                        <span class="card-step">03</span>
+                        <h2>Supporting Information</h2>
+                    </div>
+
+                    <span class="optional-note">
+                        Optional
+                    </span>
+
+                </div>
+
+
+                <div class="upload-area">
+
+                    <input
+                        type="file"
+                        id="problemImage"
+                        name="problemImage"
+                        accept="image/*"
+                        hidden
+                    >
+
+                    <label
+                        for="problemImage"
+                        class="upload-label"
+                    >
+
+                        <div class="upload-icon">
+                            +
+                        </div>
+
+                        <strong>
+                            Add a photo of the problem
+                        </strong>
+
+                        <span>
+                            JPG, PNG or WEBP • Maximum 5 MB
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <div
+                    id="imagePreview"
+                    class="image-preview"
+                ></div>
+
+            </div>
+
+
+            <!-- AI Preview -->
+            <div class="ai-preview-card">
+
+                <div class="ai-preview-icon">
+                    AI
+                </div>
+
+                <div>
+
+                    <span class="ai-label">
+                        AI ANALYSIS
+                    </span>
+
+                    <h3>
+                        What happens after you submit?
+                    </h3>
+
+                    <p>
+                        The system will analyze your report to identify
+                        the problem category, severity, priority and
+                        responsible municipal department.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Submit -->
+            <div class="report-submit-area">
+
+                <div class="submit-note">
+                    <strong>Before submitting</strong>
+
+                    <span>
+                        Make sure the problem details and location
+                        are accurate.
+                    </span>
+                </div>
+
+                <button
+                    type="submit"
+                    class="submit-report-button"
+                >
+                    Submit Civic Report →
+                </button>
+
+            </div>
+
+
+            <div
+                id="reportMessage"
+                class="report-message"
+            ></div>
+
+        </form>
+
+    </div>
+
+</section
+</section>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+    // Create the map
+    const map = L.map("reportMap").setView(
+        [18.5204, 73.8567],
+        13
+    );
+
+
+    // OpenStreetMap layer
+    L.tileLayer(
+        "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            maxZoom: 19,
+            attribution: "&copy; OpenStreetMap contributors"
+        }
+    ).addTo(map);
+
+
+    let marker = null;
+
+
+    // Select location by clicking map
+    map.on("click", function(event) {
+
+        const latitude = event.latlng.lat;
+        const longitude = event.latlng.lng;
+
+
+        // Remove previous marker
+        if (marker !== null) {
+            map.removeLayer(marker);
+        }
+
+
+        // Add new marker
+        marker = L.marker([
+            latitude,
+            longitude
+        ]).addTo(map);
+
+
+        marker.bindPopup(
+            "Selected problem location"
+        ).openPopup();
+
+
+        // Store coordinates
+        document.getElementById("latitude").value =
+            latitude;
+
+        document.getElementById("longitude").value =
+            longitude;
+
+
+        // Display coordinates
+        document.getElementById(
+            "selectedCoordinates"
+        ).textContent =
+            latitude.toFixed(6) +
+            ", " +
+            longitude.toFixed(6);
+
+    });
+
+
+    // Use current location
+    document.getElementById(
+        "useLocationButton"
+    ).addEventListener("click", function() {
+
+        if (!navigator.geolocation) {
+
+            alert(
+                "Location services are not supported by this browser."
+            );
+
+            return;
+        }
+
+
+        navigator.geolocation.getCurrentPosition(
+
+            function(position) {
+
+                const latitude =
+                    position.coords.latitude;
+
+                const longitude =
+                    position.coords.longitude;
+
+
+                map.setView(
+                    [latitude, longitude],
+                    17
+                );
+
+
+                if (marker !== null) {
+                    map.removeLayer(marker);
+                }
+
+
+                marker = L.marker([
+                    latitude,
+                    longitude
+                ]).addTo(map);
+
+
+                marker.bindPopup(
+                    "Your current location"
+                ).openPopup();
+
+
+                document.getElementById(
+                    "latitude"
+                ).value = latitude;
+
+
+                document.getElementById(
+                    "longitude"
+                ).value = longitude;
+
+
+                document.getElementById(
+                    "selectedCoordinates"
+                ).textContent =
+                    latitude.toFixed(6) +
+                    ", " +
+                    longitude.toFixed(6);
+
+            },
+
+
+            function() {
+
+                alert(
+                    "Unable to access your location. Please select the location manually on the map."
+                );
+
+            }
+
+        );
+
+    });
+// =====================================================
+// SUBMIT CIVIC REPORT
+// =====================================================
+
+document.getElementById("reportForm").addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+        const form = document.getElementById("reportForm");
+
+        const submitButton =
+            document.querySelector(".submit-report-button");
+
+        const reportMessage =
+            document.getElementById("reportMessage");
+
+        const problemType =
+            document.getElementById("problemType").value;
+
+        const urgency =
+            document.getElementById("urgency").value;
+
+        const description =
+            document.getElementById("description").value.trim();
+
+        const location =
+            document.getElementById("location").value.trim();
+
+        const latitude =
+            document.getElementById("latitude").value;
+
+        const longitude =
+            document.getElementById("longitude").value;
+
+        const imageInput =
+            document.getElementById("problemImage");
+
+
+        // -------------------------------------------------
+        // Validation
+        // -------------------------------------------------
+
+        if (!problemType) {
+
+            showReportMessage(
+                "Please select the problem type.",
+                false
+            );
+
+            return;
+        }
+
+
+        if (!urgency) {
+
+            showReportMessage(
+                "Please select the urgency.",
+                false
+            );
+
+            return;
+        }
+
+
+        if (description.length < 10) {
+
+            showReportMessage(
+                "Please provide at least 10 characters describing the problem.",
+                false
+            );
+
+            document.getElementById("description").focus();
+
+            return;
+        }
+
+
+        if (!location) {
+
+            showReportMessage(
+                "Please enter the problem location.",
+                false
+            );
+
+            document.getElementById("location").focus();
+
+            return;
+        }
+
+
+        if (!latitude || !longitude) {
+
+            showReportMessage(
+                "Please select the problem location on the map.",
+                false
+            );
+
+            return;
+        }
+
+
+        // -------------------------------------------------
+        // Image Validation
+        // -------------------------------------------------
+
+        if (imageInput.files.length > 0) {
+
+            const imageFile = imageInput.files[0];
+
+            const allowedTypes = [
+                "image/jpeg",
+                "image/png",
+                "image/webp"
+            ];
+
+            if (!allowedTypes.includes(imageFile.type)) {
+
+                showReportMessage(
+                    "Please upload a JPG, PNG or WEBP image.",
+                    false
+                );
+
+                return;
+            }
+
+
+            if (imageFile.size > 5 * 1024 * 1024) {
+
+                showReportMessage(
+                    "Image size must be less than 5 MB.",
+                    false
+                );
+
+                return;
+            }
+        }
+
+
+        // -------------------------------------------------
+        // Disable Submit Button
+        // -------------------------------------------------
+
+        submitButton.disabled = true;
+
+        const originalButtonText =
+            submitButton.textContent;
+
+        submitButton.textContent =
+            "Submitting Report...";
+
+
+        try {
+
+            // -------------------------------------------------
+            // Create FormData
+            // -------------------------------------------------
+
+            const formData = new FormData();
+
+
+            formData.append(
+                "problem_type",
+                problemType
+            );
+
+
+            formData.append(
+                "urgency",
+                urgency
+            );
+
+
+            formData.append(
+                "description",
+                description
+            );
+
+
+            formData.append(
+                "location",
+                location
+            );
+
+
+            formData.append(
+                "latitude",
+                latitude
+            );
+
+
+            formData.append(
+                "longitude",
+                longitude
+            );
+
+
+            // Add image if selected
+
+            if (imageInput.files.length > 0) {
+
+                formData.append(
+                    "problemImage",
+                    imageInput.files[0]
+                );
+            }
+
+
+            // -------------------------------------------------
+            // Send Complaint to Flask
+            // -------------------------------------------------
+
+            const response = await fetch(
+                "/api/complaints",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+
+            const data = await response.json();
+
+
+            console.log(
+                "Complaint response:",
+                data
+            );
+
+
+            // -------------------------------------------------
+            // Error Response
+            // -------------------------------------------------
+
+            if (!response.ok || !data.success) {
+
+                showReportMessage(
+                    data.message ||
+                    "Unable to submit the report.",
+                    false
+                );
+
+                submitButton.disabled = false;
+
+                submitButton.textContent =
+                    originalButtonText;
+
+                return;
+            }
+
+
+            // -------------------------------------------------
+            // Success
+            // -------------------------------------------------
+
+            showReportMessage(
+                "Report submitted successfully. Complaint Number: " +
+                data.complaint_number,
+                true
+            );
+
+
+            submitButton.textContent =
+                "Report Submitted ✓";
+
+
+            // -------------------------------------------------
+            // Reset Form
+            // -------------------------------------------------
+
+            form.reset();
+
+
+            // -------------------------------------------------
+            // Clear Coordinates
+            // -------------------------------------------------
+
+            document.getElementById(
+                "latitude"
+            ).value = "";
+
+
+            document.getElementById(
+                "longitude"
+            ).value = "";
+
+
+            document.getElementById(
+                "selectedCoordinates"
+            ).textContent =
+                "No location selected";
+
+
+            // -------------------------------------------------
+            // Remove Map Marker
+            // -------------------------------------------------
+
+            if (
+                typeof marker !== "undefined" &&
+                marker !== null
+            ) {
+
+                map.removeLayer(marker);
+
+                marker = null;
+            }
+
+
+            // -------------------------------------------------
+            // Clear Image Preview
+            // -------------------------------------------------
+
+            const imagePreview =
+                document.getElementById("imagePreview");
+
+            if (imagePreview) {
+
+                imagePreview.innerHTML = "";
+            }
+
+
+            // -------------------------------------------------
+            // Restore Button
+            // -------------------------------------------------
+
+            setTimeout(function () {
+
+                submitButton.disabled = false;
+
+                submitButton.textContent =
+                    originalButtonText;
+
+            }, 2500);
+
+
+        } catch (error) {
+
+            console.error(
+                "Complaint submission error:",
+                error
+            );
+
+
+            showReportMessage(
+                "Unable to connect to the server. Please make sure Flask is running.",
+                false
+            );
+
+
+            submitButton.disabled = false;
+
+            submitButton.textContent =
+                originalButtonText;
+        }
+    }
+);
+
+
+// =====================================================
+// REPORT MESSAGE
+// =====================================================
+
+function showReportMessage(message, success) {
+
+    const reportMessage =
+        document.getElementById("reportMessage");
+
+
+    if (!reportMessage) {
+
+        return;
+    }
+
+
+    reportMessage.textContent =
+        message;
+
+
+    reportMessage.style.display =
+        "block";
+
+
+    reportMessage.className =
+        "report-message";
+
+
+    if (success) {
+
+        reportMessage.classList.add(
+            "message-success"
+        );
+
+    } else {
+
+        reportMessage.classList.add(
+            "message-error"
+        );
+    }
+}
+</script>
+
+{% endblock %}
